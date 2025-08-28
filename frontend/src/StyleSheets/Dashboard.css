@@ -1,5 +1,5 @@
 .DashboardDiv {
-    background-color: #f4f3f3;
+    background-color: #faf7f7;
     width: 100%;
     padding: 2rem 1rem;
     display: flex;
@@ -10,15 +10,16 @@
 
 .DashboardContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Default: 4 per row */
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    /* Default: 4 per row */
+    gap: 7rem;
     width: 100%;
     max-width: 1200px;
 }
 
 /* Card */
 .DashboardContent {
-    background-color: #cdc9c9;
+    background-color: #e9e7e7;
     border-radius: 10px;
     padding: 2rem 1rem;
     display: flex;
@@ -35,7 +36,8 @@
 }
 
 /* Text */
-.Heading, .Para {
+.Heading,
+.Para {
     margin: 0;
 }
 
@@ -55,6 +57,7 @@
 @media (max-width: 1199px) {
     .DashboardContainer {
         grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
     }
 }
 
@@ -62,5 +65,7 @@
 @media (max-width: 480px) {
     .DashboardContainer {
         grid-template-columns: 1fr;
+        gap: 1rem;
+
     }
 }
