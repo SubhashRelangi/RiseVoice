@@ -36,7 +36,7 @@
 
 .description {
     margin-top: 1rem;
-    font-size: clamp(1rem, 2.5vw, 1.8rem);
+    font-size: clamp(0.8rem, 2.5vw, 1.7rem);
     color: gray;
     max-width: 600px;
 }
