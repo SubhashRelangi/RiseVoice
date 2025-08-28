@@ -1,5 +1,5 @@
 import React from 'react'
-import Navigation from '../Components/HomePageComponents/Navigation'
+import Navigation from '../Components/Navigation'
 import HeroSection from '../Components/HomePageComponents/HeroSection'
 import Dashboard from '../Components/HomePageComponents/Dashboard'
 
