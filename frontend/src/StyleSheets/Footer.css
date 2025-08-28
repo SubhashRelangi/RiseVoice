@@ -1,0 +1,85 @@
+.footer {
+  background: #111;
+  color: #eee;
+  padding: 3rem 1rem 1rem;
+  margin-top: 3rem;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;   /* 👈 Center content inside */
+  margin: 0 auto;      /* 👈 Centers it horizontally */
+}
+
+/* Brand */
+.footer-brand h2 {
+  font-size: 1.5rem;
+  color: #f4b400;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #bbb;
+}
+
+/* Links */
+.footer-links h3,
+.footer-services h3,
+.footer-contact h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.footer-links ul,
+.footer-services ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li,
+.footer-services li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a,
+.footer-services a {
+  text-decoration: none;
+  color: #bbb;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover,
+.footer-services a:hover {
+  color: #f4b400;
+}
+
+/* Contact */
+.footer-contact p {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0.3rem 0;
+}
+
+.social-icons a {
+  margin-right: 10px;
+  font-size: 1.3rem;
+  color: #f4b400;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #fff;
+}
+
+/* Bottom strip */
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  font-size: 0.9rem;
+  color: #aaa;
+}
