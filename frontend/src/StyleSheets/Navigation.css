@@ -1,0 +1,32 @@
+.navigation{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.brand{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.navLinks{
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navLinkEle{
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.navLinkEle:hover{
+    color: #d97b00;
+}
