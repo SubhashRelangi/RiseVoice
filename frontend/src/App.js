@@ -6,6 +6,7 @@ import TrackPage from './pages/TrackPage';
 import RaiseComplaintPage from './pages/RaiseComplaintPage';
 import Navigation from './Components/Navigation';
 import Footer from './Components/Footer';
+import FloatingButton from './Components/FloatingButton';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/track" element={<TrackPage />} />
         <Route path="/raise-complaint" element={<RaiseComplaintPage />} />
       </Routes>
+      <FloatingButton />
       <Footer />
     </div>
   )

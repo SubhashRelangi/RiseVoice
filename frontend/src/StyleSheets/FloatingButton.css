@@ -1,0 +1,53 @@
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;   /* default desktop size */
+  height: 80px;
+  background-color: #f97316; /* Orange */
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1000;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.floating-btn .icon {
+  color: white;
+  font-size: 34px; /* desktop size */
+}
+
+/* 📱 Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  .floating-btn {
+    width: 60px;
+    height: 60px;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .floating-btn .icon {
+    font-size: 26px;
+  }
+}
+
+/* 🖥️ Large screens (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .floating-btn {
+    width: 90px;
+    height: 90px;
+  }
+
+  .floating-btn .icon {
+    font-size: 38px;
+  }
+}
