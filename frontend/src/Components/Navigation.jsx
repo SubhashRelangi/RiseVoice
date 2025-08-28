@@ -19,16 +19,16 @@ const Navigation = () => {
 
       {/* Nav Links */}
       <div className={`navLinks ${menuOpen ? "active" : ""}`}>
-        <a href="#" className="navLinkEle">
+        <a href="/" className="navLinkEle">
           Home
         </a>
-        <a href="#" className="navLinkEle">
+        <a href="/" className="navLinkEle">
           Services
         </a>
-        <a href="#" className="navLinkEle">
+        <a href="/track" className="navLinkEle">
           Track
         </a>
-        <a href="#" className="navLinkEle">
+        <a href="/login" className="navLinkEle">
           Login
         </a>
       </div>

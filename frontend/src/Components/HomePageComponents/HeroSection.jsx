@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { MessageSquare } from "lucide-react";
 import "../../StyleSheets/HomeStyles/HeroSection.css";
 
@@ -22,10 +23,10 @@ const HeroSection = () => {
             </div>
 
             <div className="heroButtonContainer">
-                <button className="heroButton">
+                <Link to="/raise-complaint" className="heroButton">
                     <MessageSquare className="icon" />
                     Raise Complaint
-                </button>
+                </Link>
             </div>
         </section>
     );

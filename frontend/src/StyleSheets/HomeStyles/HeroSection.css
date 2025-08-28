@@ -67,6 +67,7 @@
     gap: 12px;
     font-weight: 600;
     transition: background 0.3s ease;
+    text-decoration: none;
 }
 
 .heroButton:hover {
