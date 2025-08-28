@@ -1,0 +1,34 @@
+.DashboardDiv{
+    background-color: #f4f3f3;
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.DashboardContent{
+    height: 170px;
+    width: 15%;
+    border-radius: 10px;
+    background-color: #cdc9c9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Heading, .Para{
+    margin: 0;
+}
+
+.Heading{
+    font-size: 40px;
+}
+
+.Para{
+    text-align: center;
+    color: #454343;
+    font-weight: 500;
+    font-size: 18px;
+}
