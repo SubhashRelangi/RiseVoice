@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* ✅ auto responsive width */
   gap: 5rem; /* ✅ better spacing */
-  max-width: 1600px; /* ✅ increased container width */
+  max-width: 1800px; /* ✅ increased container width */
   margin: 0 auto;
 }
 

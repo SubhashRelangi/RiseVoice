@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTools, FaWater, FaLeaf, FaLandmark } from "react-icons/fa"; // icons
 
-import "../../StyleSheets/Departments.css";
+import "../../StyleSheets/HomeStyles/Departments.css";
 
 const Departments = () => {
   const departments = [
