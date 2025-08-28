@@ -1,20 +1,39 @@
-import React from 'react'
-import '../StyleSheets/Navigation.css'
+import React, { useState } from "react";
+import "../StyleSheets/Navigation.css";
 
 const Navigation = () => {
-  return (
-    <div className='navigation'>
-        <div className='brand'>
-            <h1 className='Title'>VoiceUp</h1>
-        </div>
-        <div className='navLinks'>
-            <a href='#' className='navLinkEle'>Home</a>
-            <a href='#' className='navLinkEle'>Services</a>
-            <a href='#' className='navLinkEle'>Track</a>
-            <a href='#' className='navLinkEle'>Login</a>
-        </div>
-    </div>
-  )
-}
+  const [menuOpen, setMenuOpen] = useState(false);
 
-export default Navigation
+  return (
+    <div className="navigation">
+      <div className="brand">
+        <h1 className="Title">VoiceUp</h1>
+      </div>
+
+      {/* Hamburger Menu */}
+      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      {/* Nav Links */}
+      <div className={`navLinks ${menuOpen ? "active" : ""}`}>
+        <a href="#" className="navLinkEle">
+          Home
+        </a>
+        <a href="#" className="navLinkEle">
+          Services
+        </a>
+        <a href="#" className="navLinkEle">
+          Track
+        </a>
+        <a href="#" className="navLinkEle">
+          Login
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Navigation;
