@@ -1,6 +1,6 @@
 import React from "react";
 import { MessageSquare } from "lucide-react";
-import "../StyleSheets/HeroSection.css";
+import "../../StyleSheets/HeroSection.css";
 
 const HeroSection = () => {
     return (

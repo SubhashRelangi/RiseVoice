@@ -1,7 +1,7 @@
 import React from 'react'
-import Navigation from '../Components/Navigation'
-import HeroSection from '../Components/HeroSection'
-import Dashboard from '../Components/Dashboard'
+import Navigation from '../Components/HomePageComponents/Navigation'
+import HeroSection from '../Components/HomePageComponents/HeroSection'
+import Dashboard from '../Components/HomePageComponents/Dashboard'
 
 const HomePage = () => {
   return (
