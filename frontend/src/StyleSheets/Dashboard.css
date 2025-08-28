@@ -7,9 +7,16 @@
     align-items: center;
 }
 
+.DashboardContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+}
+
 .DashboardContent{
     height: 170px;
-    width: 15%;
+    width: 350px;
     border-radius: 10px;
     background-color: #cdc9c9;
     display: flex;
