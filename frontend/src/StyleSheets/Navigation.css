@@ -1,5 +1,5 @@
 .navigation {
-    height: 80px;
+    height: 100px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@
 
 /* Brand */
 .brand {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
 
