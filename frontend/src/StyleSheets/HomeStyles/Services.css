@@ -69,3 +69,11 @@
   font-weight: 600;
   color: #222;
 }
+
+/* ✅ Force 2 services per row on mobile */
+@media (max-width: 600px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem; /* smaller spacing for mobile */
+  }
+}
