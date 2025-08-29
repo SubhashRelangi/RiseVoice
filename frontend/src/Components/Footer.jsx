@@ -1,19 +1,19 @@
 import React from "react";
-import "../StyleSheets/Footer.css";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-container">
+    <footer className={styles.footer}>
+      <div className={styles.footerContainer}>
 
         {/* Brand Section */}
-        <div className="footer-brand">
+        <div className={styles.footerBrand}>
           <h2>GovConnect</h2>
           <p>Connecting citizens with essential services quickly and easily.</p>
         </div>
 
         {/* Quick Links */}
-        <div className="footer-links">
+        <div className={styles.footerLinks}>
           <h3>Quick Links</h3>
           <ul>
             <li><a href="/">Home</a></li>
@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
 
         {/* Services Shortcuts */}
-        <div className="footer-services">
+        <div className={styles.footerServices}>
           <h3>Departments</h3>
           <ul>
             <li><a href="/">Electricity</a></li>
@@ -37,11 +37,11 @@ const Footer = () => {
         </div>
 
         {/* Contact */}
-        <div className="footer-contact">
+        <div className={styles.footerContact}>
           <h3>Contact</h3>
           <p>Email: support@govconnect.com</p>
           <p>Phone: +91 98765 43210</p>
-          <div className="social-icons">
+          <div className={styles.socialIcons}>
             <a href="#">🌐</a>
             <a href="#">🐦</a>
             <a href="#">📘</a>
@@ -51,7 +51,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="footer-bottom">
+      <div className={styles.footerBottom}>
         <p>© {new Date().getFullYear()} GovConnect. All rights reserved.</p>
       </div>
     </footer>
