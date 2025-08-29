@@ -15,7 +15,7 @@ This repository contains both the React-based frontend and a Node.js/Express.js 
     *   **Camera-based photo uploads** for visual evidence.
     *   Descriptive captions.
     *   Accurate location details with **auto-detection and manual adjustment capabilities**.
-*   **Complaint Tracking:** A page for citizens to monitor the real-time status of their submitted complaints.
+*   **Complaint Tracking:** A page for citizens to monitor the real-time status of their submitted complaints. **Complaints are dynamically fetched from the backend and can be filtered by ID, description, location, status, category, and date range.** The tracking page features an **enhanced and responsive UI**.
 *   **Responsive User Interface:** A modern and intuitive design that adapts seamlessly across various devices (desktop, tablet, mobile).
     *   **Navigation Bar:** Provides easy access to Home, Services, Track, and Login pages, with **improved mobile responsiveness**.
     *   **Hero Section:** Engaging introduction with a clear call to action ("Raise Your Voice. Get Your Problem Resolved.").
@@ -98,14 +98,13 @@ Once both the frontend and backend servers are running:
 *(Add screenshots here to showcase the application's key features and responsive design.)*
 
 *   **Homepage (Desktop):** [Placeholder for image]
-*   **Homepage (Mobile):** [Placeholder for image]
+*   **Homepage (Mobile):m](https://example.com/mobile-homepage.png)
 *   **Complaint Submission Form:** [Placeholder for image]
 *   **Complaint Tracking Page:** [Placeholder for image]
 
 ## 7. Future Improvements
 
 *   **Real-time Notifications:** Implement push notifications for complaint status updates.
-*   **Advanced Search & Filtering:** Enhance search capabilities for complaints.
 *   **Admin/Department Dashboard:** Build a dedicated interface for government departments.
 *   **User Feedback System:** Allow users to provide feedback on resolved complaints.
 *   **Analytics & Reporting:** Generate reports on complaint trends and resolution times.
