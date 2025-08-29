@@ -56,6 +56,8 @@
   .navigation{
     height: 70px; /* slightly shorter height */
     padding: 0 1rem; /* less padding */
+    z-index: 100; /* Ensure navigation is on top */
+    position: relative; /* Already there, but good to confirm */
   }
 
   .brand {
@@ -64,7 +66,7 @@
 
   .navLinks {
     position: absolute;
-    top: 80px;
+    top: 100%; /* Changed from 80px to 100% */
     right: 0;
     background: var(--background-color);
     flex-direction: column;
@@ -73,6 +75,8 @@
     border-left: 1px solid #eee;
     border-bottom: 1px solid #eee;
     display: none; /* hidden by default */
+    z-index: 99; /* Slightly lower than navigation, but higher than page content */
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.1); /* Add a subtle shadow */
   }
 
   .navLinksActive {
