@@ -1,30 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { MessageSquare } from "lucide-react";
-import "../../StyleSheets/HomeStyles/HeroSection.css";
+import styles from "./HeroSection.module.css"; // CSS Module import
 
 const HeroSection = () => {
     return (
-        <section className="heroSection">
-            <div className="HeroTextDiv">
-                <div className="captionDiv">
-                    <h1 className="H1">Raise Your</h1>
-                    <h1 className="H1">
-                        Voice. <span className="highlight">Get Your</span>
+        <section className={styles.heroSection}>
+            <div className={styles.heroTextDiv}>
+                <div className={styles.captionDiv}>
+                    <h1 className={styles.H1}>Raise Your</h1>
+                    <h1 className={styles.H1}>
+                        Voice. <span className={styles.highlight}>Get Your</span>
                     </h1>
-                    <h1 className="h1 H1">Problem</h1>
-                    <h1 className="h1 H1">Resolved</h1>
+                    <h1 className={`${styles.H1} ${styles.h1}`}>Problem</h1>
+                    <h1 className={styles.H1}>Resolved</h1>
                 </div>
 
-                <p className="description">
-                    Report issues in your area with photo & location. <br></br> Stay anonymous. Track
+                <p className={styles.description}>
+                    Report issues in your area with photo & location. <br /> Stay anonymous. Track
                     progress.
                 </p>
             </div>
 
-            <div className="heroButtonContainer">
-                <Link to="/raise-complaint" className="heroButton">
-                    <MessageSquare className="icon" />
+            <div className={styles.heroButtonContainer}>
+                <Link to="/raise-complaint" className={styles.heroButton}>
+                    <MessageSquare className={styles.icon} />
                     Raise Complaint
                 </Link>
             </div>
