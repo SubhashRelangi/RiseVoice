@@ -86,15 +86,12 @@
 /* 📱 Mobile */
 @media (max-width: 768px) {
     .heroSection {
-        flex-direction: column;
-        /* stack vertically */
-        justify-content: center;
-        /* center vertically */
-        align-items: center;
-        /* center horizontally */
-        text-align: center;
-        /* controlled space between text & button */
-    }
+    height: 50vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 
     .HeroTextDiv {
         align-items: center;
@@ -116,8 +113,8 @@
     }
 
     .heroButton {
-        max-width: 200px;
-        min-height: 50px;
+        max-width: 180px;
+        min-height: 30px;
         padding: 0.6rem 1rem;
         font-size: 1rem;
         /* clamp may be too small, fix for mobile */

@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import TrackPage from './pages/TrackPage';
 import RaiseComplaintPage from './pages/RaiseComplaintPage';
-import Navigation from './Components/Navigation';
+import Navigation from './Components/Header';
 import Footer from './Components/Footer';
 import FloatingButton from './Components/FloatingButton';
 

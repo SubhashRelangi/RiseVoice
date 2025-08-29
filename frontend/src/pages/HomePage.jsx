@@ -1,8 +1,8 @@
 import React from 'react'
-import HeroSection from '../Components/HomePageComponents/HeroSection'
-import Dashboard from '../Components/HomePageComponents/Dashboard'
-import Departments from '../Components/HomePageComponents/Departments'
-import Services from '../Components/HomePageComponents/Services'
+import HeroSection from '../Components/HomeComponents/HeroSection'
+import Dashboard from '../Components/HomeComponents/Dashboard'
+import Departments from '../Components/HomeComponents/Departments'
+import Services from '../Components/HomeComponents/Services'
 
 const HomePage = () => {
   return (

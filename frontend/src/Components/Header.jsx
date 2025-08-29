@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import styles from "./Navigation.module.css";
+import React from 'react'
+import { useState } from "react";
+import styles from "./Header.module.css";
 
-const Navigation = () => {
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -39,4 +40,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default Header;

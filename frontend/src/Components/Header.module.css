@@ -52,8 +52,14 @@
 
 /* 📱 Mobile styles */
 @media (max-width: 768px) {
+
+  .navigation{
+    height: 70px; /* slightly shorter height */
+    padding: 0 1rem; /* less padding */
+  }
+
   .brand {
-    font-size: 18px; /* smaller brand text */
+    font-size: 15px; /* smaller brand text */
   }
 
   .navLinks {
