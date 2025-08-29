@@ -4,20 +4,20 @@
   background: #f9f9f9;
 }
 
-.services-title {
+.servicesTitle {
   font-size: 3rem;
   font-weight: bold;
   color: #111;
   margin-bottom: 0.5rem;
 }
 
-.services-subtitle {
+.servicesSubtitle {
   color: #666;
   font-size: 1.4rem;
   margin-bottom: 3rem;
 }
 
-.services-grid {
+.servicesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 3rem;
@@ -25,13 +25,13 @@
   margin: 0 auto;
 }
 
-.service-card {
+.serviceCard {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.service-card .icon {
+.serviceCard .icon {
   width: 120px;
   height: 120px;
   display: flex;
@@ -64,16 +64,16 @@
   color: #673ab7;
 }
 
-.service-card h3 {
+.serviceCard h3 {
   font-size: 1rem;
   font-weight: 600;
   color: #222;
 }
 
-/* ✅ Force 2 services per row on mobile */
+/* Responsive: 2 services per row on mobile */
 @media (max-width: 600px) {
-  .services-grid {
+  .servicesGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem; /* smaller spacing for mobile */
+    gap: 1.5rem;
   }
 }
