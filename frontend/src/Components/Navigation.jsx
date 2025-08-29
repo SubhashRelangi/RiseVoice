@@ -1,34 +1,37 @@
 import React, { useState } from "react";
-import "../StyleSheets/Navigation.css";
+import styles from "./Navigation.module.css";
 
 const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="navigation">
-      <div className="brand">
-        <h1 className="Title">VoiceUp</h1>
+    <div className={styles.navigation}>
+      <div className={styles.brand}>
+        <h1 className={styles.title}>VoiceUp</h1>
       </div>
 
       {/* Hamburger Menu */}
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+      <div
+        className={styles.hamburger}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
         <span></span>
         <span></span>
         <span></span>
       </div>
 
       {/* Nav Links */}
-      <div className={`navLinks ${menuOpen ? "active" : ""}`}>
-        <a href="/" className="navLinkEle">
+      <div className={`${styles.navLinks} ${menuOpen ? styles.navLinksActive : ""}`}>
+        <a href="/" className={styles.navLinkEle}>
           Home
         </a>
-        <a href="/" className="navLinkEle">
+        <a href="/" className={styles.navLinkEle}>
           Services
         </a>
-        <a href="/track" className="navLinkEle">
+        <a href="/track" className={styles.navLinkEle}>
           Track
         </a>
-        <a href="/login" className="navLinkEle">
+        <a href="/login" className={styles.navLinkEle}>
           Login
         </a>
       </div>
