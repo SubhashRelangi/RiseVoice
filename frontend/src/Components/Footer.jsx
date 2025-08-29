@@ -42,10 +42,10 @@ const Footer = () => {
           <p>Email: support@govconnect.com</p>
           <p>Phone: +91 98765 43210</p>
           <div className={styles.socialIcons}>
-            <a href="#">🌐</a>
-            <a href="#">🐦</a>
-            <a href="#">📘</a>
-            <a href="#">📸</a>
+            <a href="/">🌐</a>
+            <a href="/">🐦</a>
+            <a href="/">📘</a>
+            <a href="/">📸</a>
           </div>
         </div>
       </div>
