@@ -1,7 +1,7 @@
 import React from "react";
-import { FaTools, FaWater, FaLeaf, FaLandmark } from "react-icons/fa"; // icons
+import { FaTools, FaWater, FaLeaf, FaLandmark } from "react-icons/fa";
 
-import "../../StyleSheets/HomeStyles/Departments.css";
+import styles from "./Departments.module.css"; 
 
 const Departments = () => {
   const departments = [
@@ -28,16 +28,16 @@ const Departments = () => {
   ];
 
   return (
-    <section className="departments">
-      <h2 className="departments-title">Departments</h2>
-      <p className="departments-subtitle">
+    <section className={styles.departments}>
+      <h2 className={styles.departmentsTitle}>Departments</h2>
+      <p className={styles.departmentsSubtitle}>
         Choose the relevant department for your complaint
       </p>
 
-      <div className="departments-grid">
+      <div className={styles.departmentsGrid}>
         {departments.map((dept, index) => (
-          <div className="department-card" key={index}>
-            <div className="icon">{dept.icon}</div>
+          <div className={styles.departmentCard} key={index}>
+            <div className={styles.icon}>{dept.icon}</div>
             <h3>{dept.title}</h3>
             <p>{dept.desc}</p>
           </div>
