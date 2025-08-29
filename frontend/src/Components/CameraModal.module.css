@@ -1,0 +1,76 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.videoContainer video {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.captureButton {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.previewContainer img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.buttonGroup {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttonGroup button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.buttonGroup button:last-child {
+  background-color: #28a745;
+  color: white;
+  border-color: #28a745;
+}

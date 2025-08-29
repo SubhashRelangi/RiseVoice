@@ -7,7 +7,9 @@ import cloudinary from '../config/cloudinary.js';
 export const createProblem = async (req, res) => {
   try {
     const { title, description, category, address, lat, lng } = req.body; // Get text fields from req.body
-    const imageFile = req.file; // Get the image file from req.file
+    const imageFile = req.files && req.files.length > 0 ? req.files[0] : undefined; // Get the image file from req.files
+
+    console.log('Received imageFile:', imageFile); // LOG 1
 
     let imageUrl = {};
     if (imageFile) {
@@ -16,11 +18,14 @@ export const createProblem = async (req, res) => {
       const result = await cloudinary.uploader.upload(dataUri, {
         folder: 'voiceup',
       });
+      console.log('Cloudinary upload result:', result); // LOG 2
       imageUrl = {
         url: result.secure_url,
         public_id: result.public_id,
       };
     }
+
+    console.log('Final imageUrl before saving:', imageUrl); // LOG 3
 
     const newProblem = new Problem({
       title,
