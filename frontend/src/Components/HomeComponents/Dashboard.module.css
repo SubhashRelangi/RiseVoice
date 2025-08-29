@@ -1,5 +1,5 @@
 .DashboardDiv {
-    background-color: #f9f9f9;
+    background-color: var(--background-color);
     width: 100%;
     padding: 2rem 1rem;
     display: flex;
@@ -19,7 +19,7 @@
 
 /* Card */
 .DashboardContent {
-    background-color: #f7f2f2;
+    background-color: var(--background-color2);
     border-radius: 10px;
     padding: 2rem 1rem;
     display: flex;
@@ -47,7 +47,7 @@
 }
 
 .Para {
-    color: #454343;
+    color: var(--secondary-color);
     font-weight: 500;
     font-size: clamp(0.9rem, 2vw, 1.2rem);
     margin-top: 0.5rem;
