@@ -1,6 +1,7 @@
+/* Services Section */
 .services {
   text-align: center;
-  padding: 4rem 1rem;
+  padding: 1rem 1rem;
   background: var(--background-color);
 }
 
@@ -45,24 +46,12 @@
 }
 
 /* Icon colors */
-.icon.electricity {
-  color: var(--icon-color1);
-}
-.icon.transport {
-  color: var(--icon-color2);
-}
-.icon.healthcare {
-  color: var(--icon-color3);
-}
-.icon.water {
-  color: var(--icon-color4);
-}
-.icon.sanitation {
-  color: var(--icon-color5);
-}
-.icon.police {
-  color: var(--icon-color6);
-}
+.icon.electricity { color: var(--icon-color1); }
+.icon.transport { color: var(--icon-color2); }
+.icon.healthcare { color: var(--icon-color3); }
+.icon.water { color: var(--icon-color4); }
+.icon.sanitation { color: var(--icon-color5); }
+.icon.police { color: var(--icon-color6); }
 
 .serviceCard h3 {
   font-size: 1rem;
@@ -70,10 +59,55 @@
   color: #222;
 }
 
-/* Responsive: 2 services per row on mobile */
+/* ---------------- Responsive ---------------- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .servicesGrid {
+    gap: 2rem;
+  }
+
+  .serviceCard .icon {
+    width: 100px;
+    height: 100px;
+    font-size: 1.8rem;
+  }
+
+  .serviceCard h3 {
+    font-size: 0.95rem;
+  }
+
+  .servicesTitle {
+    font-size: 2.5rem;
+  }
+
+  .servicesSubtitle {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobile (≤600px) */
 @media (max-width: 600px) {
   .servicesGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr); /* 2 services per row */
+    gap: 1rem;
+  }
+
+  .serviceCard .icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.5rem;
+  }
+
+  .serviceCard h3 {
+    font-size: 0.9rem;
+  }
+
+  .servicesTitle {
+    font-size: 2rem;
+  }
+
+  .servicesSubtitle {
+    font-size: 1rem;
   }
 }

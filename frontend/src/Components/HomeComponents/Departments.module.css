@@ -1,9 +1,13 @@
+/* Departments.module.css */
+
+/* Root Section */
 .departments {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 1rem 1rem;
   background: var(--background-color);
 }
 
+/* Section Title */
 .departmentsTitle {
   font-size: 3rem;
   font-weight: bold;
@@ -11,6 +15,7 @@
   margin-bottom: 0.5rem;
 }
 
+/* Section Subtitle */
 .departmentsSubtitle {
   color: var(--secondary-color);
   font-size: 1.4rem;
@@ -20,18 +25,23 @@
 /* Grid Layout */
 .departmentsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-  gap: 5rem; 
-  max-width: 1800px; 
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:1rem;
+  max-width: 1800px;
   margin: 0 auto;
 }
 
+/* Individual Card */
 .departmentCard {
   background: var(--background-color);
   border-radius: 12px;
-  padding: 2.5rem 1.5rem; 
+  padding: 1rem 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers icon and text */
+  text-align: center;
 }
 
 .departmentCard:hover {
@@ -39,10 +49,21 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
+/* Card Icon */
 .departmentCard .icon {
-  margin-bottom: 1rem;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 2rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.5rem;
 }
 
+/* Card Text */
 .departmentCard h3 {
   font-size: 1.3rem;
   font-weight: 600;
@@ -55,17 +76,60 @@
   line-height: 1.5;
 }
 
-/* Responsive */
+/* Icon Colors */
+.icon.electricity { color: #f4b400; }
+.icon.transport { color: #4285f4; }
+.icon.healthcare { color: #ea4335; }
+.icon.water { color: #1e88e5; }
+.icon.sanitation { color: #34a853; }
+.icon.police { color: #673ab7; }
+
+/* ---------------- Responsive Styles ---------------- */
+
+/* Tablets (1024px and below) */
 @media (max-width: 1024px) {
   .departmentsGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
   }
+
+  .departmentCard {
+    padding: 1rem 1rem;
+  }
+
+  .departmentCard .icon {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+
+  .departmentCard h3 { font-size: 1.1rem; }
+  .departmentCard p { font-size: 0.95rem; }
+
+  .departmentsTitle { font-size: 2.5rem; }
+  .departmentsSubtitle { font-size: 1.2rem; }
 }
 
+/* Mobile (600px and below) */
 @media (max-width: 600px) {
   .departmentsGrid {
     grid-template-columns: 1fr;
-    gap: 1rem; 
+    gap: 1rem;
   }
+
+  .departmentCard {
+    padding: 0.6rem 0.6rem; /* smaller card */
+  }
+
+  .departmentCard .icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .departmentCard h3 { font-size: 1rem; }
+  .departmentCard p { font-size: 0.9rem; }
+
+  .departmentsTitle { font-size: 2rem; }
+  .departmentsSubtitle { font-size: 1rem; }
 }
