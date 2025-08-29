@@ -1,18 +1,18 @@
 .departments {
   text-align: center;
   padding: 3rem 1rem;
-  background: #fff;
+  background: var(--background-color);
 }
 
 .departmentsTitle {
   font-size: 3rem;
   font-weight: bold;
-  color: #111;
+  color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
 .departmentsSubtitle {
-  color: #555;
+  color: var(--secondary-color);
   font-size: 1.4rem;
   margin-bottom: 2rem;
 }
@@ -27,7 +27,7 @@
 }
 
 .departmentCard {
-  background: #fff;
+  background: var(--background-color);
   border-radius: 12px;
   padding: 2.5rem 1.5rem; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -51,7 +51,7 @@
 
 .departmentCard p {
   font-size: 1rem;
-  color: #555;
+  color: var(--secondary-color);
   line-height: 1.5;
 }
 

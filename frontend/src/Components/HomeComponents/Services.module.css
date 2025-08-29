@@ -1,18 +1,18 @@
 .services {
   text-align: center;
   padding: 4rem 1rem;
-  background: #f9f9f9;
+  background: var(--background-color);
 }
 
 .servicesTitle {
   font-size: 3rem;
   font-weight: bold;
-  color: #111;
+  color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
 .servicesSubtitle {
-  color: #666;
+  color: var(--secondary-color);
   font-size: 1.4rem;
   margin-bottom: 3rem;
 }
@@ -39,29 +39,29 @@
   justify-content: center;
   border-radius: 50%;
   font-size: 2rem;
-  background: #fff;
+  background: var(--background-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
 }
 
 /* Icon colors */
 .icon.electricity {
-  color: #f4b400;
+  color: var(--icon-color1);
 }
 .icon.transport {
-  color: #4285f4;
+  color: var(--icon-color2);
 }
 .icon.healthcare {
-  color: #ea4335;
+  color: var(--icon-color3);
 }
 .icon.water {
-  color: #1e88e5;
+  color: var(--icon-color4);
 }
 .icon.sanitation {
-  color: #34a853;
+  color: var(--icon-color5);
 }
 .icon.police {
-  color: #673ab7;
+  color: var(--icon-color6);
 }
 
 .serviceCard h3 {

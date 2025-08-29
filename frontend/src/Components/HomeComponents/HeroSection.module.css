@@ -27,18 +27,18 @@
     line-height: 1.1;
     font-size: clamp(2rem, 6vw, 5rem);
     font-weight: bold;
-    color: black;
+    color: var(--primary-color);
 }
 
 .highlight,
 .h1 {
-    color: red;
+    color: var(--accent-color);
 }
 
 .description {
     margin-top: 1rem;
     font-size: clamp(0.8rem, 2.5vw, 1.7rem);
-    color: gray;
+    color: var(--secondary-color);
     max-width: 600px;
 }
 
@@ -54,9 +54,9 @@
 .heroButton {
     width: 100%;
     max-width: 280px;
-    min-height: 60px;
-    background-color: red;
-    color: white;
+    min-height: 40px;
+    background-color: var(--accent-color);
+    color: var(--background-color);
     border: none;
     border-radius: 8px;
     padding: 0.8rem 1.5rem;
@@ -72,7 +72,7 @@
 }
 
 .heroButton:hover {
-    background-color: darkred;
+    background-color: var(--accent-color);
 }
 
 /* 📱 Tablet */

@@ -4,7 +4,7 @@
   right: 20px;
   width: 80px;   /* default desktop size */
   height: 80px;
-  background-color: #f97316; /* Orange */
+  background-color: var(--button-color); /* Orange */
   border: none;
   border-radius: 50%;
   display: flex;
