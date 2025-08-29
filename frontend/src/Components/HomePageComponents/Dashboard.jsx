@@ -1,25 +1,25 @@
 import React from 'react'
-import '../../StyleSheets/HomeStyles/Dashboard.css'
+import styles from './Dashboard.module.css'
 
 const Dashboard = () => {
     return (
-        <div className='DashboardDiv'>
-            <div className='DashboardContainer'>
-                <div className='DashboardContent'>
-                    <h1 className='Heading'>5000+</h1>
-                    <p className='Para'>Problems</p>
+        <div className={styles.DashboardDiv}>
+            <div className={styles.DashboardContainer}>
+                <div className={styles.DashboardContent}>
+                    <h1 className={styles.Heading}>5000+</h1>
+                    <p className={styles.Para}>Problems</p>
                 </div>
-                <div className='DashboardContent'>
-                    <h1 className='Heading'>2500+</h1>
-                    <p className='Para'>Sloved</p>
+                <div className={styles.DashboardContent}>
+                    <h1 className={styles.Heading}>2500+</h1>
+                    <p className={styles.Para}>Sloved</p>
                 </div>
-                <div className='DashboardContent'>
-                    <h1 className='Heading'>600+</h1>
-                    <p className='Para'>In-Progess</p>
+                <div className={styles.DashboardContent}>
+                    <h1 className={styles.Heading}>600+</h1>
+                    <p className={styles.Para}>In-Progress</p>
                 </div>
-                <div className='DashboardContent'>
-                    <h1 className='Heading'>1500+</h1>
-                    <p className='Para'>Today Raised</p>
+                <div className={styles.DashboardContent}>
+                    <h1 className={styles.Heading}>1500+</h1>
+                    <p className={styles.Para}>Today Raised</p>
                 </div>
             </div>
         </div>
