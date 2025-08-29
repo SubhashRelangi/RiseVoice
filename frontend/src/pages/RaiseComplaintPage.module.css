@@ -1,0 +1,107 @@
+
+.complaintContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, var(--background-color2), var(--background-color));
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.complaintForm {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 2rem 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  max-width: 520px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.complaintForm:hover {
+  transform: scale(1.01);
+}
+
+.complaintForm h2 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.complaintForm input,
+.complaintForm textarea,
+.complaintForm select {
+  width: 100%;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  border-radius: 0.8rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--secondary-color);
+  transition: all 0.3s ease;
+}
+
+.complaintForm input:focus,
+.complaintForm textarea:focus,
+.complaintForm select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(255, 55, 0, 0.2);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.locationRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.locationBtn {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.locationBtn:hover {
+  background: #e60000;
+  transform: translateY(-2px);
+}
+
+.submitBtn {
+  background: var(--button-color);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submitBtn:hover {
+  background: #ea580c;
+  transform: translateY(-2px);
+}

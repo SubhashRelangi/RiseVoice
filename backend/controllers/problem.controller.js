@@ -6,11 +6,14 @@ import cloudinary from '../config/cloudinary.js';
 // @access  Public
 export const createProblem = async (req, res) => {
   try {
-    const { title, description, category, location, image } = req.body;
+    const { title, description, category, address, lat, lng } = req.body; // Get text fields from req.body
+    const imageFile = req.file; // Get the image file from req.file
 
     let imageUrl = {};
-    if (image) {
-      const result = await cloudinary.uploader.upload(image.url, {
+    if (imageFile) {
+      // Convert buffer to data URI
+      const dataUri = `data:${imageFile.mimetype};base64,${imageFile.buffer.toString('base64')}`;
+      const result = await cloudinary.uploader.upload(dataUri, {
         folder: 'voiceup',
       });
       imageUrl = {
@@ -23,7 +26,10 @@ export const createProblem = async (req, res) => {
       title,
       description,
       category,
-      location,
+      location: {
+        address,
+        coordinates: { lat, lng },
+      },
       image: imageUrl,
     });
 

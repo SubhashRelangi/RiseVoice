@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import problemRoutes from './routes/problems.route.js';
+import multer from 'multer';
 
 dotenv.config();
 
@@ -12,6 +13,10 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Multer for handling multipart/form-data
+const upload = multer();
+app.use(upload.any()); // Use upload.any() to parse all fields, including files and text
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URL)
