@@ -20,52 +20,47 @@ const RaiseComplaint = () => {
 
   const handleAutoLocation = () => {
     if (!navigator.geolocation) {
-        alert("Geolocation is not supported by your browser.");
-        return;
-    };
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
 
     const options = {
       enableHighAccuracy: true,
       timeout: 10000, // 10 seconds
-      maximumAge: 0 // Don't use cached positions
+      maximumAge: 0, // Don't use cached positions
     };
 
     navigator.geolocation.getCurrentPosition(
-      async (pos) => {
+      (pos) => {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
         const accuracy = pos.coords.accuracy; // Accuracy in meters
 
-        if (accuracy > 20) { // If accuracy is worse than 20 meters
-            alert(`Location accuracy is ${accuracy.toFixed(2)} meters. This might not be exact. Consider manually adjusting the address or coordinates.`);
-        }
-
-        try {
-          // Using a free reverse geocoding service
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`
+        if (accuracy > 20) {
+          // If accuracy is worse than 20 meters
+          alert(
+            `Location accuracy is ${accuracy.toFixed(
+              2
+            )} meters. This might not be exact. Consider manually adjusting the coordinates.`
           );
-          const data = await res.json();
-
-          setFormData((prev) => ({
-            ...prev,
-            lat,
-            lng,
-            address: data.display_name || "Address not found",
-          }));
-        } catch (err) {
-          console.error("Failed to fetch address", err);
-          // Still set lat/lng even if address fetch fails
-          setFormData((prev) => ({ ...prev, lat, lng, address: "Could not fetch address" }));
         }
+
+        setFormData((prev) => ({
+          ...prev,
+          lat,
+          lng,
+        }));
       },
       (err) => {
         console.error("Geolocation error:", err);
-        let errorMessage = "Location access was denied. Please enter your address manually.";
+        let errorMessage =
+          "Location access was denied. Please enter your address manually.";
         if (err.code === err.TIMEOUT) {
-            errorMessage = "Could not get your location within the allowed time. Please try again or enter manually.";
+          errorMessage =
+            "Could not get your location within the allowed time. Please try again or enter manually.";
         } else if (err.code === err.POSITION_UNAVAILABLE) {
-            errorMessage = "Location information is unavailable. Please try again or enter manually.";
+          errorMessage =
+            "Location information is unavailable. Please try again or enter manually.";
         }
         alert(errorMessage);
       },
