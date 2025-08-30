@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import styles from "./RaiseComplaintPage.module.css";
 import CameraModal from "../Components/CameraModal"; // Import the modal
@@ -17,6 +17,7 @@ const RaiseComplaint = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [previewSrc, setPreviewSrc] = useState(null);
   const [isCameraOpen, setIsCameraOpen] = useState(false); // State to control modal
+  const fileInputRef = useRef(null);
 
   const handleAutoLocation = () => {
     if (!navigator.geolocation) {
@@ -68,11 +69,23 @@ const RaiseComplaint = () => {
     );
   };
 
-  const handleCapture = (imageBlob) => {
-    const imageFile = new File([imageBlob], "capture.jpg", { type: "image/jpeg" });
-    setFormData((prev) => ({ ...prev, image: imageFile }));
-    setPreviewSrc(URL.createObjectURL(imageBlob));
-    // Removed handleAutoLocation() from here. It will be triggered by a separate button.
+  const handleCapture = (blob) => {
+    let file;
+    if (blob.type.startsWith('video/')) {
+      file = new File([blob], 'capture.webm', { type: blob.type });
+    } else {
+      file = new File([blob], 'capture.jpg', { type: 'image/jpeg' });
+    }
+    setFormData((prev) => ({ ...prev, image: file }));
+    setPreviewSrc(URL.createObjectURL(blob));
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, image: file }));
+      setPreviewSrc(URL.createObjectURL(file));
+    }
   };
 
   const handleChange = (e) => {
@@ -84,7 +97,7 @@ const RaiseComplaint = () => {
     e.preventDefault();
 
     if (!formData.image) {
-        alert("Please take a picture for the complaint.");
+        alert("Please take a picture or select a file for the complaint.");
         return;
     }
 
@@ -114,10 +127,24 @@ const RaiseComplaint = () => {
           <button type="button" onClick={() => setIsCameraOpen(true)} className={styles.takePictureBtn}>
             📸 Take Picture
           </button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            accept="image/*,video/*"
+            onChange={handleFileSelect}
+          />
+          <button type="button" onClick={() => fileInputRef.current.click()} className={styles.takePictureBtn}>
+            🖼️ Choose from Gallery
+          </button>
           {previewSrc && (
             <div className={styles.previewContainer}>
               <h4>Preview:</h4>
-              <img src={previewSrc} alt="Complaint preview" className={styles.previewImage} />
+              {formData.image && formData.image.type.startsWith('video') ? (
+                <video src={previewSrc} className={styles.previewImage} controls />
+              ) : (
+                <img src={previewSrc} alt="Complaint preview" className={styles.previewImage} />
+              )}
             </div>
           )}
         </div>

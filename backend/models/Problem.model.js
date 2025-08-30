@@ -21,9 +21,10 @@ const problemSchema = new mongoose.Schema({
       lng: Number,
     },
   },
-  image: {
+    image: {
     url: String,
     public_id: String,
+    resource_type: String,
   },
   status: {
     type: String,

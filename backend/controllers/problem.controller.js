@@ -1,47 +1,68 @@
 import Problem from '../models/Problem.model.js';
 import cloudinary from '../config/cloudinary.js';
+import { Readable } from 'stream';
 
 // @desc    Create a new problem
 // @route   POST /api/problems
 // @access  Public
-export const createProblem = async (req, res) => {
+export const createProblem = (req, res) => {
   try {
-    const { title, description, category, address, lat, lng } = req.body; // Get text fields from req.body
-    const imageFile = req.files && req.files.length > 0 ? req.files[0] : undefined; // Get the image file from req.files
+    const { title, description, category, address, lat, lng } = req.body;
+    const imageFile = req.files && req.files.length > 0 ? req.files[0] : undefined;
 
-    console.log('Received imageFile:', imageFile); // LOG 1
-
-    let imageUrl = {};
-    if (imageFile) {
-      // Convert buffer to data URI
-      const dataUri = `data:${imageFile.mimetype};base64,${imageFile.buffer.toString('base64')}`;
-      const result = await cloudinary.uploader.upload(dataUri, {
-        folder: 'voiceup',
-      });
-      console.log('Cloudinary upload result:', result); // LOG 2
-      imageUrl = {
-        url: result.secure_url,
-        public_id: result.public_id,
-      };
+    if (!imageFile) {
+      return res.status(400).json({ message: 'No file uploaded.' });
     }
 
-    console.log('Final imageUrl before saving:', imageUrl); // LOG 3
+    const resource_type = imageFile.mimetype.startsWith('video') ? 'video' : 'image';
 
-    const newProblem = new Problem({
-      title,
-      description,
-      category,
-      location: {
-        address,
-        coordinates: { lat, lng },
-      },
-      image: imageUrl,
+    const options = {
+      folder: 'voiceup',
+      resource_type: resource_type,
+    };
+
+    if (resource_type === 'video') {
+      options.format = 'mp4';
+      options.video_codec = 'h264';
+      options.audio_codec = 'aac';
+      options.quality = 'auto:good';
+    }
+
+    const uploadStream = cloudinary.uploader.upload_stream(options, (error, result) => {
+      if (error) {
+        console.error('Cloudinary upload error:', error);
+        return res.status(500).json({ message: 'Server Error', error });
+      }
+
+      const imageUrl = {
+        url: result.secure_url,
+        public_id: result.public_id,
+        resource_type: resource_type,
+      };
+
+      const newProblem = new Problem({
+        title,
+        description,
+        category,
+        location: {
+          address,
+          coordinates: { lat, lng },
+        },
+        image: imageUrl,
+      });
+
+      newProblem.save()
+        .then(savedProblem => res.status(201).json(savedProblem))
+        .catch(saveError => {
+            console.error('DB save error:', saveError);
+            res.status(500).json({ message: 'Server Error', error: saveError });
+        });
     });
 
-    const savedProblem = await newProblem.save();
-    res.status(201).json(savedProblem);
+    Readable.from(imageFile.buffer).pipe(uploadStream);
+
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error(error);
     res.status(500).json({ message: 'Server Error', error });
   }
 };
