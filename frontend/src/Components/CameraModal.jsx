@@ -1,17 +1,21 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styles from './CameraModal.module.css';
+import { FiX } from 'react-icons/fi'; // Import the close icon
 
 const CameraModal = ({ isOpen, onClose, onCapture }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [stream, setStream] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const recordedChunksRef = useRef([]);
 
   useEffect(() => {
     const startStream = async () => {
       if (isOpen && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         try {
-          const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+          const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: true });
           setStream(mediaStream);
           if (videoRef.current) {
             videoRef.current.srcObject = mediaStream;
@@ -37,6 +41,7 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
   if (!isOpen) return null;
 
   const handleCapture = () => {
+    console.log("Capture Image button clicked");
     const video = videoRef.current;
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
@@ -49,11 +54,49 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
     setCapturedImage(imageUrl);
   };
 
+  const handleStartRecording = () => {
+    console.log("Start Recording button clicked");
+    if (stream) {
+      recordedChunksRef.current = [];
+      const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
+      mediaRecorderRef.current = mediaRecorder;
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          recordedChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
+        onCapture(blob);
+        onClose();
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } else {
+      console.log("Stream not available to start recording.");
+    }
+  };
+
+  const handleStopRecording = () => {
+    console.log("Stop Recording button clicked");
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    } else {
+      console.log("MediaRecorder not available to stop recording.");
+    }
+  };
+
   const handleRetake = () => {
+    console.log("Retake button clicked");
     setCapturedImage(null);
   };
 
   const handleConfirm = () => {
+    console.log("OK button clicked");
     canvasRef.current.toBlob((blob) => {
       onCapture(blob);
       onClose();
@@ -62,6 +105,10 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
   };
 
   const handleClose = () => {
+    console.log("Close button clicked");
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
       onClose();
       setCapturedImage(null);
   }
@@ -69,7 +116,7 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={handleClose}>&times;</button>
+        <button className={styles.closeButton} onClick={handleClose}><FiX /></button>
         {capturedImage ? (
           <div className={styles.previewContainer}>
             <img src={capturedImage} alt="Captured preview" />
@@ -80,8 +127,15 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
           </div>
         ) : (
           <div className={styles.videoContainer}>
-            <video ref={videoRef} autoPlay playsInline />
-            <button className={styles.captureButton} onClick={handleCapture}>Capture</button>
+            <video ref={videoRef} autoPlay playsInline muted />
+            <div className={styles.buttonGroup}>
+              <button className={styles.captureButton} onClick={handleCapture}>Capture Image</button>
+              {!isRecording ? (
+                <button className={styles.captureButton} onClick={handleStartRecording}>Start Recording</button>
+              ) : (
+                <button className={styles.captureButton} onClick={handleStopRecording}>Stop Recording</button>
+              )}
+            </div>
           </div>
         )}
         <canvas ref={canvasRef} style={{ display: 'none' }} />

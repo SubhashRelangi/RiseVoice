@@ -37,14 +37,7 @@ const RaiseComplaint = () => {
         const lng = pos.coords.longitude;
         const accuracy = pos.coords.accuracy; // Accuracy in meters
 
-        if (accuracy > 20) {
-          // If accuracy is worse than 20 meters
-          alert(
-            `Location accuracy is ${accuracy.toFixed(
-              2
-            )} meters. This might not be exact. Consider manually adjusting the coordinates.`
-          );
-        }
+        
 
         setFormData((prev) => ({
           ...prev,
@@ -125,7 +118,7 @@ const RaiseComplaint = () => {
 
         <div className={styles.captureSection}>
           <button type="button" onClick={() => setIsCameraOpen(true)} className={styles.takePictureBtn}>
-            📸 Take Picture
+            📸 Take Picture or Video
           </button>
           <input
             type="file"
