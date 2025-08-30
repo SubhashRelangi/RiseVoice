@@ -1,0 +1,114 @@
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+form {
+    background: #fff;
+    padding: 2.5rem 2rem 2rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    gap: 1rem;
+}
+.profileuser {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 16px rgba(106, 17, 203, 0.15);
+    border: 3px solid #2575fc;
+}
+.userid {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin: 0.3rem 0;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f7f8fa;
+    transition: border 0.2s;
+}
+.userid:focus {
+    border: 1.5px solid #2575fc;
+    outline: none;
+    background: #fff;
+}
+.captcha-box {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: #e3e9fc;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-family: 'Fira Mono', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    user-select: none;
+    color: #2d3a4b;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+.captcha-box button {
+    background: #2575fc;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-left: 0.7rem;
+    transition: background 0.2s;
+}
+.captcha-box button:hover {
+    background: #6a11cb;
+}
+.captcha-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f7f8fa;
+    margin-bottom: 0.5rem;
+    transition: border 0.2s;
+}
+.captcha-input:focus {
+    border: 1.5px solid #2575fc;
+    outline: none;
+    background: #fff;
+}
+.login-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    box-shadow: 0 2px 8px rgba(106, 17, 203, 0.08);
+    transition: background 0.2s, transform 0.1s;
+}
+.login-btn:hover {
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+/* Responsive */
+@media (max-width: 500px) {
+    form {
+        width: 95vw;
+        padding: 1.2rem;
+    }
+    .login-container {
+        padding: 1rem 0;
+    }
+}
