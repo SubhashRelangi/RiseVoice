@@ -1,0 +1,16 @@
+{
+  "name": "voiceup-fullstack",
+  "version": "1.0.0",
+  "description": "Fullstack application for VoiceUp",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
+    "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
