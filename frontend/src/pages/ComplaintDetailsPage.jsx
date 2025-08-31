@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from "./ComplaintDetailsPage.module.css";
+import ProgressBar from "../Components/ProgressBar";
 
 const ComplaintDetailsPage = () => {
   const { id } = useParams();
@@ -94,7 +95,7 @@ const ComplaintDetailsPage = () => {
         <p><strong>Description:</strong> {complaint.description}</p>
         <p><strong>Category:</strong> {complaint.category}</p>
         <p><strong>Location:</strong> {complaint.location ? complaint.location.address : 'N/A'}</p>
-        <p><strong>Status:</strong> {complaint.status}</p>
+        <ProgressBar status={complaint.status} />
         <p><strong>Likes:</strong> {complaint.likes}</p>
         <p><strong>Created At:</strong> {new Date(complaint.createdAt).toLocaleDateString()}</p>
         <p><strong>Last Updated:</strong> {new Date(complaint.updatedAt).toLocaleDateString()}</p>
@@ -108,7 +109,7 @@ const ComplaintDetailsPage = () => {
         {complaint.comments && complaint.comments.length > 0 ? (
           complaint.comments.map((comment) => (
             <div key={comment._id} className={styles.commentItem}>
-              <p><strong>{comment.username}:</strong> {comment.text}</p>
+              <p>{comment.text}</p>
               <span className={styles.commentDate}>{new Date(comment.createdAt).toLocaleDateString()}</span>
             </div>
           ))
