@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import styles from "./ComplaintDetailsPage.module.css"; // Will create this CSS module
+import styles from "./ComplaintDetailsPage.module.css";
 
 const ComplaintDetailsPage = () => {
   const { id } = useParams();
   const [complaint, setComplaint] = useState(null);
-  const [comments, setComments] = useState([]);
   const [newCommentText, setNewCommentText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const fetchComplaintDetails = async () => {
       try {
         const complaintResponse = await axios.get(`http://localhost:5000/api/problems/${id}`);
         setComplaint(complaintResponse.data);
-        fetchCommentsForComplaint(complaintResponse.data.problemId); // Changed to problemId
+
+        const likedProblems = JSON.parse(localStorage.getItem("likedProblems") || "[]");
+        if (likedProblems.includes(id)) {
+          setIsLiked(true);
+        }
+
       } catch (err) {
         console.error("Error fetching complaint details:", err);
         setError("Failed to load complaint details.");
@@ -28,41 +33,33 @@ const ComplaintDetailsPage = () => {
     fetchComplaintDetails();
   }, [id]);
 
-  const fetchCommentsForComplaint = async (problemId) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/comments/${problemId}`);
-      setComments(response.data);
-    } catch (err) {
-      console.error("Error fetching comments:", err);
-      setComments([]);
-    }
-  };
-
   const handleAddComment = async () => {
     if (!newCommentText.trim() || !complaint) return;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/comments", {
-        problemId: complaint.problemId, // Changed to problemId
+      const response = await axios.post(`http://localhost:5000/api/problems/${id}/comments`, {
         text: newCommentText,
       });
-      setComments((prevComments) => [response.data, ...prevComments]);
+      setComplaint(response.data);
       setNewCommentText("");
     } catch (err) {
       console.error("Error adding comment:", err);
     }
   };
 
-  const handleLikeComment = async (commentId) => {
+  const handleLikeProblem = async () => {
+    if (isLiked) return;
+
     try {
-      const response = await axios.post(`http://localhost:5000/api/comments/${commentId}/like`);
-      setComments((prevComments) =>
-        prevComments.map((comment) =>
-          comment._id === commentId ? response.data : comment
-        )
-      );
+      const response = await axios.post(`http://localhost:5000/api/problems/${id}/like`);
+      setComplaint(response.data);
+      setIsLiked(true);
+
+      const likedProblems = JSON.parse(localStorage.getItem("likedProblems") || "[]");
+      localStorage.setItem("likedProblems", JSON.stringify([...likedProblems, id]));
+
     } catch (err) {
-      console.error("Error liking comment:", err);
+      console.error("Error liking problem:", err);
     }
   };
 
@@ -98,21 +95,21 @@ const ComplaintDetailsPage = () => {
         <p><strong>Category:</strong> {complaint.category}</p>
         <p><strong>Location:</strong> {complaint.location ? complaint.location.address : 'N/A'}</p>
         <p><strong>Status:</strong> {complaint.status}</p>
-        <p><strong>Assigned To:</strong> {complaint.assignedTo || 'Not Assigned'}</p>
+        <p><strong>Likes:</strong> {complaint.likes}</p>
         <p><strong>Created At:</strong> {new Date(complaint.createdAt).toLocaleDateString()}</p>
         <p><strong>Last Updated:</strong> {new Date(complaint.updatedAt).toLocaleDateString()}</p>
+        <button onClick={handleLikeProblem} className={styles.likeButton} disabled={isLiked}>
+          {isLiked ? "Liked" : "Like"}
+        </button>
       </div>
 
       <h3 className={styles.commentsTitle}>Comments</h3>
       <div className={styles.commentsList}>
-        {comments.length > 0 ? (
-          comments.map((comment) => (
+        {complaint.comments && complaint.comments.length > 0 ? (
+          complaint.comments.map((comment) => (
             <div key={comment._id} className={styles.commentItem}>
-              <p>{comment.text}</p>
-              <div className={styles.commentActions}>
-                <span>🔥 {comment.likes}</span>
-                <button onClick={() => handleLikeComment(comment._id)}>Like</button>
-              </div>
+              <p><strong>{comment.username}:</strong> {comment.text}</p>
+              <span className={styles.commentDate}>{new Date(comment.createdAt).toLocaleDateString()}</span>
             </div>
           ))
         ) : (
