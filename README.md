@@ -10,14 +10,17 @@ VoiceUp is a **full-stack Complaint Management System** meticulously crafted to 
 
 VoiceUp is packed with intuitive features designed to make your voice heard and problems resolved:
 
-*   **Secure Department Authentication:** Seamless and secure login flows to reslove your Raised problem.
 *   **Effortless Complaint Submission:**
-    *   **Visual Evidence:** Capture and upload photos directly from your camera to provide undeniable proof.
+    *   **Visual Evidence:** Capture and upload photos or videos directly from your camera to provide undeniable proof.
     *   **Detailed Descriptions:** Clearly articulate your concerns with comprehensive captions.
     *   **Smart Location Tagging:** Auto-detects your location with options for manual adjustment, ensuring precise reporting.
 *   **Real-time Complaint Tracking:**
     *   Monitor the live status of your submitted complaints with an enhanced, responsive UI.
-    *   Powerful filtering capabilities: Easily search by ID, description, location, status, category, and date range.
+    *   Powerful filtering capabilities: Easily search by ID, description, location, status, category, and date.
+*   **Community Engagement:**
+    *   **Commenting:** Engage in discussions on existing problems to provide additional information or context.
+    *   **Liking:** Show your support for a complaint and help to highlight its importance.
+    *   **Like Once:** To ensure fair feedback, users can only like a problem once from the same browser.
 *   **Adaptive & Intuitive User Interface:**
     *   **Responsive Design:** A modern, clean interface that looks stunning and performs flawlessly on any device (desktop, tablet, mobile).
     *   **Streamlined Navigation:** Quick access to Home, Services, Track, and Login pages, optimized for mobile.
@@ -95,6 +98,12 @@ We're continuously working to improve VoiceUp. Here are some planned features:
 *   **User Feedback System:** Allow citizens to provide feedback on resolved issues.
 *   **Advanced Analytics:** Generate insights into complaint trends and resolution efficiency.
 *   **Robust User Authentication:** Further enhance security and user management.
+
+---
+
+## ⚠️ Known Issues
+
+*   **"Resloved" Typo:** There is a known typo in the database where the "Resolved" status is sometimes misspelled as "Resloved". The frontend has a workaround to handle this, but the underlying data should be corrected.
 
 ---
 
