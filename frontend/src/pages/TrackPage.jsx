@@ -202,7 +202,10 @@ const TrackPage = () => {
                   className={styles.clickableText}
                   onClick={() => handleViewDetails(c.problemId)}
                 >
-                  Comments: N/A
+                  Comments: {c.comments.length}
+                </span>
+                <span className={styles.clickableText}>
+                  Likes: {c.likes}
                 </span>
                 <button
                   className={styles.detailsBtn}

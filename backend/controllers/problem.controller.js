@@ -49,6 +49,8 @@ export const createProblem = (req, res) => {
           coordinates: { lat, lng },
         },
         image: imageUrl,
+        comments: [],
+        likes: 0,
       });
 
       newProblem.save()
@@ -88,6 +90,15 @@ export const getProblemById = async (req, res) => {
     if (!problem) {
       return res.status(404).json({ message: 'Problem not found' });
     }
+
+    // Ensure likes and comments are not undefined
+    if (problem.likes === undefined) {
+      problem.likes = 0;
+    }
+    if (!problem.comments) {
+      problem.comments = [];
+    }
+
     res.status(200).json(problem);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error });
@@ -104,6 +115,61 @@ export const deleteProblem = async (req, res) => {
       return res.status(404).json({ message: 'Problem not found' });
     }
     res.status(200).json({ message: 'Problem deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};
+
+// @desc    Add a comment to a problem
+// @route   POST /api/problems/:id/comments
+// @access  Public
+export const addComment = async (req, res) => {
+  try {
+    const { text, username } = req.body;
+    const problem = await Problem.findOne({ problemId: req.params.id });
+
+    if (!problem) {
+      return res.status(404).json({ message: 'Problem not found' });
+    }
+
+    const newComment = {
+      text,
+      username,
+    };
+
+    if (!problem.comments) {
+      problem.comments = [];
+    }
+
+    problem.comments.push(newComment);
+    await problem.save();
+
+    res.status(201).json(problem);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};
+
+// @desc    Like a problem
+// @route   POST /api/problems/:id/like
+// @access  Public
+export const likeProblem = async (req, res) => {
+  try {
+    const problem = await Problem.findOne({ problemId: req.params.id });
+
+    if (!problem) {
+      return res.status(404).json({ message: 'Problem not found' });
+    }
+
+    if (problem.likes === undefined) {
+      problem.likes = 1;
+    } else {
+      problem.likes += 1;
+    }
+
+    await problem.save();
+
+    res.status(200).json(problem);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error });
   }

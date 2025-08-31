@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import problemRoutes from './routes/problems.route.js';
-import commentRoutes from './routes/comments.route.js';
 import multer from 'multer';
 
 dotenv.config();
@@ -26,7 +25,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
 // Routes
 app.use('/api/problems', problemRoutes);
-app.use('/api/comments', commentRoutes);
 
 // Test Route
 app.get("/", (req, res) => {

@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
+const commentSchema = new mongoose.Schema({
+  text: { type: String, required: true },
+  username: { type: String, required: true, default: "Anonymous" }, // Added username with a default
+  createdAt: { type: Date, default: Date.now },
+});
+
 const problemSchema = new mongoose.Schema({
   problemId: {
     type: String,
@@ -21,7 +27,7 @@ const problemSchema = new mongoose.Schema({
       lng: Number,
     },
   },
-    image: {
+  image: {
     url: String,
     public_id: String,
     resource_type: String,
@@ -31,7 +37,11 @@ const problemSchema = new mongoose.Schema({
     enum: ["Pending", "In Progress", "Resolved", "Rejected"],
     default: "Pending",
   },
-  assignedTo: { type: String, default: "Not Assigned" },
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  comments: [commentSchema],
 }, { timestamps: true });
 
 export default mongoose.model("Problem", problemSchema);
