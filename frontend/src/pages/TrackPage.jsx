@@ -168,7 +168,13 @@ const TrackPage = () => {
                 <div className={styles.cardHeader}>
                   <h4>{c.problemId}</h4>
                   <span
-                    className={`${styles.status} ${styles[c.status.toLowerCase().replace(/ /g, "")]}`}
+                    className={`${styles.status} ${styles[
+                      c.status
+                        .toLowerCase()
+                        .replace(/ /g, "")
+                        .replace(/-/g, "")
+                        .replace("resloved", "resolved")
+                    ]}`}
                   >
                     {c.status}
                   </span>
