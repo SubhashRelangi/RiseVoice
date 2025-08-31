@@ -125,7 +125,8 @@ export const deleteProblem = async (req, res) => {
 // @access  Public
 export const addComment = async (req, res) => {
   try {
-    const { text, username } = req.body;
+    console.log('Received comment data:', req.body); // Log the request body
+    const { text } = req.body;
     const problem = await Problem.findOne({ problemId: req.params.id });
 
     if (!problem) {
@@ -134,7 +135,6 @@ export const addComment = async (req, res) => {
 
     const newComment = {
       text,
-      username,
     };
 
     if (!problem.comments) {
@@ -146,6 +146,7 @@ export const addComment = async (req, res) => {
 
     res.status(201).json(problem);
   } catch (error) {
+    console.error('Error adding comment:', error); // Log the full error object
     res.status(500).json({ message: 'Server Error', error });
   }
 };

@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 
 const commentSchema = new mongoose.Schema({
   text: { type: String, required: true },
-  username: { type: String, required: true, default: "Anonymous" }, // Added username with a default
   createdAt: { type: Date, default: Date.now },
 });
 
