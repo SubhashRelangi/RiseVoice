@@ -18,6 +18,9 @@ const RaiseComplaint = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [previewSrc, setPreviewSrc] = useState(null);
   const [isCameraOpen, setIsCameraOpen] = useState(false); // State to control modal
+  const [isCameraLoading, setIsCameraLoading] = useState(false); // New loading state for camera
+  const [isGalleryLoading, setIsGalleryLoading] = useState(false); // New loading state for gallery
+  const [isLocationLoading, setIsLocationLoading] = useState(false); // New loading state for location
   const fileInputRef = useRef(null);
 
   const handleAutoLocation = () => {
@@ -38,8 +41,6 @@ const RaiseComplaint = () => {
         const lng = pos.coords.longitude;
         const accuracy = pos.coords.accuracy; // Accuracy in meters
 
-        
-
         setFormData((prev) => ({
           ...prev,
           lat,
@@ -53,9 +54,6 @@ const RaiseComplaint = () => {
         if (err.code === err.TIMEOUT) {
           errorMessage =
             "Could not get your location within the allowed time. Please try again or enter manually.";
-        } else if (err.code === err.POSITION_UNAVAILABLE) {
-          errorMessage =
-            "Location information is unavailable. Please try again or enter manually.";
         }
         alert(errorMessage);
       },
@@ -118,8 +116,19 @@ const RaiseComplaint = () => {
         <h2>Raise a Complaint</h2>
 
         <div className={styles.captureSection}>
-          <button type="button" onClick={() => setIsCameraOpen(true)} className={styles.takePictureBtn}>
-            <FaCamera /> Take Picture or Video
+          <button
+            type="button"
+            onClick={() => {
+              setIsCameraLoading(true);
+              setTimeout(() => {
+                setIsCameraOpen(true);
+                setIsCameraLoading(false);
+              }, 2000);
+            }}
+            className={isCameraLoading ? `${styles.takePictureBtn} ${styles.loading}` : styles.takePictureBtn}
+            disabled={isCameraLoading}
+          >
+            {isCameraLoading ? "Loading..." : <><FaCamera /> Take Picture or Video</>}
           </button>
           <input
             type="file"
@@ -128,8 +137,19 @@ const RaiseComplaint = () => {
             accept="image/*,video/*"
             onChange={handleFileSelect}
           />
-          <button type="button" onClick={() => fileInputRef.current.click()} className={styles.takePictureBtn}>
-            <FaImage /> Choose from Gallery
+          <button
+            type="button"
+            onClick={() => {
+              setIsGalleryLoading(true);
+              setTimeout(() => {
+                fileInputRef.current.click();
+                setIsGalleryLoading(false);
+              }, 2000);
+            }}
+            className={isGalleryLoading ? `${styles.takePictureBtn} ${styles.loading}` : styles.takePictureBtn}
+            disabled={isGalleryLoading}
+          >
+            {isGalleryLoading ? "Loading..." : <><FaImage /> Choose from Gallery</>}
           </button>
           {previewSrc && (
             <div className={styles.previewContainer}>
@@ -203,8 +223,19 @@ const RaiseComplaint = () => {
             onChange={handleChange}
             step="any" // Allow decimal input
           />
-          <button type="button" onClick={handleAutoLocation} className={styles.useLocationBtn}>
-            <FaMapMarkerAlt /> Use Current Location
+          <button
+            type="button"
+            onClick={() => {
+              setIsLocationLoading(true);
+              handleAutoLocation();
+              setTimeout(() => {
+                setIsLocationLoading(false);
+              }, 2000);
+            }}
+            className={isLocationLoading ? `${styles.useLocationBtn} ${styles.loading}` : styles.useLocationBtn}
+            disabled={isLocationLoading}
+          >
+            {isLocationLoading ? "Loading..." : <><FaMapMarkerAlt /> Use Current Location</>}
           </button>
         </div>
 
