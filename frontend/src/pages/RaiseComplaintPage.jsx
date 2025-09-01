@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import styles from "./RaiseComplaintPage.module.css";
 import CameraModal from "../Components/CameraModal"; // Import the modal
+import { FaCamera, FaImage, FaMapMarkerAlt } from "react-icons/fa";
 
 const initialFormData = {
   title: "",
@@ -118,7 +119,7 @@ const RaiseComplaint = () => {
 
         <div className={styles.captureSection}>
           <button type="button" onClick={() => setIsCameraOpen(true)} className={styles.takePictureBtn}>
-            📸 Take Picture or Video
+            <FaCamera /> Take Picture or Video
           </button>
           <input
             type="file"
@@ -128,7 +129,7 @@ const RaiseComplaint = () => {
             onChange={handleFileSelect}
           />
           <button type="button" onClick={() => fileInputRef.current.click()} className={styles.takePictureBtn}>
-            🖼️ Choose from Gallery
+            <FaImage /> Choose from Gallery
           </button>
           {previewSrc && (
             <div className={styles.previewContainer}>
@@ -203,7 +204,7 @@ const RaiseComplaint = () => {
             step="any" // Allow decimal input
           />
           <button type="button" onClick={handleAutoLocation} className={styles.useLocationBtn}>
-            📍 Use Current Location
+            <FaMapMarkerAlt /> Use Current Location
           </button>
         </div>
 
