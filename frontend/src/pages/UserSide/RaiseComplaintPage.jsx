@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import styles from "./RaiseComplaintPage.module.css";
-import CameraModal from "../../Components/CameraModal"; // Import the modal
+import CameraModal from "../../Components/RaiseComplaints/CameraModal"; // Import the modal
 import { FaCamera, FaImage, FaMapMarkerAlt } from "react-icons/fa";
 
 const initialFormData = {
