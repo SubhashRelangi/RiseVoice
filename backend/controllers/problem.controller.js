@@ -201,3 +201,15 @@ export const likeProblem = async (req, res) => {
     res.status(500).json({ message: 'Server Error', error });
   }
 };
+
+// @desc    Get all problem coordinates
+// @route   GET /api/problems/coordinates
+// @access  Public
+export const getProblemCoordinates = async (req, res) => {
+  try {
+    const problems = await Problem.find({}, 'title category status location.coordinates');
+    res.status(200).json(problems);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};

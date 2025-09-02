@@ -7,12 +7,16 @@ import {
   addComment,
   likeProblem,
   getProblemStats,
+  getProblemCoordinates,
 } from '../controllers/problem.controller.js';
 
 const router = express.Router();
 
 // GET problem statistics
 router.get('/stats', getProblemStats);
+
+// GET all problem coordinates
+router.get('/coordinates', getProblemCoordinates);
 
 // POST a new problem
 router.post('/', createProblem);
