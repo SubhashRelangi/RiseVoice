@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import styles from "./RaiseComplaintPage.module.css";
-import CameraModal from "../Components/CameraModal"; // Import the modal
+import CameraModal from "../../Components/CameraModal"; // Import the modal
 import { FaCamera, FaImage, FaMapMarkerAlt } from "react-icons/fa";
 
 const initialFormData = {
@@ -39,7 +39,6 @@ const RaiseComplaint = () => {
       (pos) => {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
-        const accuracy = pos.coords.accuracy; // Accuracy in meters
 
         setFormData((prev) => ({
           ...prev,
@@ -201,7 +200,8 @@ const RaiseComplaint = () => {
           type="text"
           id="address"
           name="address"
-          placeholder="Enter address or use current location"n          value={formData.address}
+          placeholder="Enter address"
+          value={formData.address}
           onChange={handleChange}
           required
         />
