@@ -8,6 +8,9 @@ import ComplaintDetailsPage from './pages/UserSide/ComplaintDetailsPage';
 import Navigation from './Components/Header';
 import Footer from './Components/Footer';
 import FloatingButton from './Components/FloatingButton';
+import DepartmentsHomePage from './pages/DepartmentalSide/DepartmentsHomePage';
+import DepartmentalComplaints from './pages/DepartmentalSide/DepartmentalComplaints';
+import DepartmentalComplaintPage from './pages/DepartmentalSide/DepartmentalComplaintPage';
 
 const App = () => {
   return (
@@ -19,9 +22,9 @@ const App = () => {
         <Route path="/track" element={<TrackPage />} />
         <Route path="/raise-complaint" element={<RaiseComplaintPage />} />
         <Route path="/complaint/:id" element={<ComplaintDetailsPage />} />
-        <Route path="/department" element={<ComplaintDetailsPage />} />
-        <Route path="/department/complaints" element={<ComplaintDetailsPage />} />
-        <Route path="/department/complaints/:id" element={<ComplaintDetailsPage />} />
+        <Route path="/department" element={<DepartmentsHomePage />} />
+        <Route path="/department/complaints" element={<DepartmentalComplaints />} />
+        <Route path="/department/complaints/:id" element={<DepartmentalComplaintPage />} />
       </Routes>
       <FloatingButton />
       <Footer />
