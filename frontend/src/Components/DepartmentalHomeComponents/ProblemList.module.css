@@ -1,0 +1,65 @@
+.problemListContainer {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.problemTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.problemTable th,
+.problemTable td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.problemTable th {
+  background-color: #f8f8f8;
+  font-weight: 600;
+  color: #555;
+}
+
+.problemTable tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.statusBadge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.inprogress {
+  background-color: #ffc107; /* Yellow */
+}
+
+.resolved {
+  background-color: #28a745; /* Green */
+}
+
+.completed {
+  background-color: #007bff; /* Blue */
+}
