@@ -282,8 +282,8 @@
   color: white;
   text-transform: uppercase;
 }
-.status.pending { background-color: #ffc107; }
-.status.inprogress { background-color: #0d6efd; }
+.status.pending { background-color: #0d6efd; }
+.status.inprogress { background-color: #ffc107; }
 .status.resolved { background-color: #28a745; }
 .status.rejected { background-color: #dc3545; }
 

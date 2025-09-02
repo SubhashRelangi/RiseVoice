@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./ComplaintDetailsPage.module.css";
-import ProgressBar from "../Components/ProgressBar";
+
+// Import icons
+import { FaArrowLeft, FaPrint, FaShareAlt  } from 'react-icons/fa';
 
 const ComplaintDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [complaint, setComplaint] = useState(null);
   const [newCommentText, setNewCommentText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const fetchComplaintDetails = async () => {
       try {
         const complaintResponse = await axios.get(`http://localhost:5000/api/problems/${id}`);
         setComplaint(complaintResponse.data);
-
-        const likedProblems = JSON.parse(localStorage.getItem("likedProblems") || "[]");
-        if (likedProblems.includes(id)) {
-          setIsLiked(true);
-        }
-
       } catch (err) {
         console.error("Error fetching complaint details:", err);
         setError("Failed to load complaint details.");
@@ -48,83 +44,145 @@ const ComplaintDetailsPage = () => {
     }
   };
 
-  const handleLikeProblem = async () => {
-    if (isLiked) return;
-
-    try {
-      const response = await axios.post(`http://localhost:5000/api/problems/${id}/like`);
-      setComplaint(response.data);
-      setIsLiked(true);
-
-      const likedProblems = JSON.parse(localStorage.getItem("likedProblems") || "[]");
-      localStorage.setItem("likedProblems", JSON.stringify([...likedProblems, id]));
-
-    } catch (err) {
-      console.error("Error liking problem:", err);
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Pending':
+        return '#0dcaf0'; // Cyan
+      case 'In Progress':
+        return '#ffc107'; // Yellow
+      case 'Resolved':
+        return '#198754'; // Green
+      case 'Rejected':
+        return '#dc3545'; // Red
+      default:
+        return '#6c757d'; // Gray
     }
   };
 
   if (loading) {
-    return <div className={styles.loading}>Loading complaint details...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   if (error) {
-    return <div className={styles.error}>Error: {error}</div>;
+    return <div className={styles.error}>{error}</div>;
   }
 
   if (!complaint) {
     return <div className={styles.notFound}>Complaint not found.</div>;
   }
 
+  const {
+    problemId,
+    title,
+    description,
+    category,
+    location,
+    status,
+    createdAt,
+    image,
+    comments,
+  } = complaint;
+
   return (
-    <div className={styles.detailsContainer}>
-      <h2 className={styles.title}>Complaint Details</h2>
-
-      <div className={styles.detailsCard}>
-        {complaint.image && complaint.image.url && (
-          <div className={styles.mediaContainer}>
-            {complaint.image.resource_type === 'video' ? (
-              <video src={complaint.image.url} controls className={styles.complaintImage} />
-            ) : (
-              <img src={complaint.image.url} alt="Complaint" className={styles.complaintImage} />
-            )}
+    <div className={styles.pageContainer}>
+      <div className={styles.header}>
+        <div className={styles.headerTitle}>
+          <h1>{problemId} - {title}</h1>
+          <div className={styles.headerMeta}>
+            <span>Raised: {new Date(createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
           </div>
-        )}
-        <p><strong>ID:</strong> {complaint.problemId}</p>
-        <p><strong>Title:</strong> {complaint.title}</p>
-        <p><strong>Description:</strong> {complaint.description}</p>
-        <p><strong>Category:</strong> {complaint.category}</p>
-        <p><strong>Location:</strong> {complaint.location ? complaint.location.address : 'N/A'}</p>
-        <ProgressBar status={complaint.status} />
-        <p><strong>Likes:</strong> {complaint.likes}</p>
-        <p><strong>Created At:</strong> {new Date(complaint.createdAt).toLocaleDateString()}</p>
-        <p><strong>Last Updated:</strong> {new Date(complaint.updatedAt).toLocaleDateString()}</p>
-        <button onClick={handleLikeProblem} className={styles.likeButton} disabled={isLiked}>
-          {isLiked ? "Liked" : "Like"}
-        </button>
+          <div className={styles.headerLocation}>
+            Location: {location?.address || 'N/A'}
+          </div>
+        </div>
+        <div className={styles.headerActions}>
+          <div 
+            className={styles.statusBadge}
+            style={{ backgroundColor: getStatusColor(status) }}
+          >
+            {status}
+          </div>
+          <div className={styles.actionButtons}>
+            <button onClick={() => navigate(-1)}><FaArrowLeft /> Back</button>
+            <button><FaPrint /> Print</button>
+            <button><FaShareAlt /> Share</button>
+          </div>
+        </div>
       </div>
 
-      <h3 className={styles.commentsTitle}>Comments</h3>
-      <div className={styles.commentsList}>
-        {complaint.comments && complaint.comments.length > 0 ? (
-          complaint.comments.map((comment) => (
-            <div key={comment._id} className={styles.commentItem}>
-              <p>{comment.text}</p>
-              <span className={styles.commentDate}>{new Date(comment.createdAt).toLocaleDateString()}</span>
+      <div className={styles.mainContent}>
+        <div className={styles.detailsSection}>
+          <div className={styles.complaintDetails}>
+            <h2>Complaint Details</h2>
+            <div className={styles.detailItem}>
+              <strong>Complaint ID:</strong>
+              <span>{problemId}</span>
             </div>
-          ))
-        ) : (
-          <p>No comments yet.</p>
-        )}
+            <div className={styles.detailItem}>
+              <strong>Date Raised:</strong>
+              <span>{new Date(createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+            </div>
+            <div className={styles.detailItem}>
+              <strong>Category:</strong>
+              <span>{category}</span>
+            </div>
+            <div className={styles.detailItem}>
+              <strong>Address:</strong>
+              <span>{location?.address || 'N/A'}</span>
+            </div>
+            <div className={styles.detailItem}>
+              <strong>Coordinates:</strong>
+              <span>
+                {location?.coordinates?.lat && location?.coordinates?.lng
+                  ? `${location.coordinates.lat}, ${location.coordinates.lng}`
+                  : 'N/A'}
+              </span>
+            </div>
+          </div>
+          <div className={styles.descriptionSection}>
+            <h2>Description</h2>
+            <p>{description}</p>
+          </div>
+        </div>
+
+        <div className={styles.attachmentsSection}>
+          <h2>Attachments</h2>
+          {image && image.url ? (
+            <div className={styles.attachmentContainer}>
+              {image.resource_type === 'video' ? (
+                <video src={image.url} controls className={styles.media} />
+              ) : (
+                <img src={image.url} alt="Attachment" className={styles.media} />
+              )}
+            </div>
+          ) : (
+            <div className={styles.noAttachment}>No attachments found.</div>
+          )}
+        </div>
       </div>
 
-      <div className={styles.addCommentForm}>
-        <textarea
-          placeholder="Add a comment..."
-          value={newCommentText}
-          onChange={(e) => setNewCommentText(e.target.value)}
-        ></textarea>
-        <button onClick={handleAddComment}>Add Comment</button>
+      <div className={styles.commentsSection}>
+        <h2>Comments</h2>
+        <div className={styles.commentsList}>
+          {comments && comments.length > 0 ? (
+            comments.map((comment) => (
+              <div key={comment._id} className={styles.commentItem}>
+                <p>{comment.text}</p>
+                <span className={styles.commentDate}>{new Date(comment.createdAt).toLocaleDateString()}</span>
+              </div>
+            ))
+          ) : (
+            <p>No comments yet.</p>
+          )}
+        </div>
+        <div className={styles.addCommentForm}>
+          <textarea
+            placeholder="Add a comment..."
+            value={newCommentText}
+            onChange={(e) => setNewCommentText(e.target.value)}
+          ></textarea>
+          <button onClick={handleAddComment}>Add Comment</button>
+        </div>
       </div>
     </div>
   );
