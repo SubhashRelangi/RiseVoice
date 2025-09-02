@@ -154,6 +154,32 @@ export const addComment = async (req, res) => {
 // @desc    Like a problem
 // @route   POST /api/problems/:id/like
 // @access  Public
+export const getProblemStats = async (req, res) => {
+  try {
+    const stats = await Problem.aggregate([
+      {
+        $group: {
+          _id: '$status',
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const statsMap = stats.reduce((acc, stat) => {
+      acc[stat._id] = stat.count;
+      return acc;
+    }, {});
+
+    res.status(200).json({
+      resolved: statsMap['Resolved'] || 0,
+      inProgress: statsMap['In Progress'] || 0,
+      pending: statsMap['Pending'] || 0,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};
+
 export const likeProblem = async (req, res) => {
   try {
     const problem = await Problem.findOne({ problemId: req.params.id });

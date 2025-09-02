@@ -6,9 +6,13 @@ import {
   deleteProblem,
   addComment,
   likeProblem,
+  getProblemStats,
 } from '../controllers/problem.controller.js';
 
 const router = express.Router();
+
+// GET problem statistics
+router.get('/stats', getProblemStats);
 
 // POST a new problem
 router.post('/', createProblem);

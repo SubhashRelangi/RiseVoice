@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/DepartmentalDashboard';
 
 const DepartmentsHomePage = () => {
   return (
-    <div>DepartmentsHomePage</div>
-  )
-}
+    <div>
+      <main>
+        <DepartmentalDashboard />
+      </main>
+    </div>
+  );
+};
 
-export default DepartmentsHomePage
+export default DepartmentsHomePage;
