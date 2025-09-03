@@ -1,0 +1,120 @@
+.statsContainer {
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.overallStats {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.overallStats h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.totalProblems {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.totalProblemsLabel {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.chartsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.chartCard {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chartCard h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.chartCard h3 svg {
+  margin-right: 0.5rem;
+}
+
+/* Bar Chart Styles */
+.barChart {
+  display: flex;
+  justify-content: space-around;
+  height: 200px;
+  border-left: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 0;
+}
+
+.barWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50px;
+  justify-content: flex-end;
+}
+
+.bar {
+  width: 100%;
+  transition: height 0.5s ease-in-out;
+}
+
+.barLabel {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+/* Pie Chart Styles */
+.pieChartContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.pieChart {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
