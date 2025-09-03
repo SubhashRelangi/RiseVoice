@@ -1,7 +1,8 @@
 import React from 'react';
-import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/DepartmentalDashboard';
+import ProblemStatistics from '../../Components/DepartmentalHomeComponents/ProblemStatistics';
 import ProblemList from '../../Components/DepartmentalHomeComponents/ProblemList';
 import ProblemMap from '../../Components/DepartmentalHomeComponents/ProblemMap/ProblemMap';
+import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/DepartmentalDashboard';
 
 const DepartmentsHomePage = () => {
   return (
@@ -10,9 +11,10 @@ const DepartmentsHomePage = () => {
         <DepartmentalDashboard />
         <ProblemMap />
         <ProblemList />
+        <ProblemStatistics />
       </main>
     </div>
   );
-}; // Added a comment to trigger recompile
+};
 
 export default DepartmentsHomePage;
