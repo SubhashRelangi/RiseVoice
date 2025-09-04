@@ -69,8 +69,12 @@ const departmentSchema = new mongoose.Schema({
   verificationCode: {
     type: String,
   },
-  verificationExpiry: {
+  verificationCodeExpires: {
     type: Date,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
   },
 }, { timestamps: true });
 
@@ -96,14 +100,6 @@ departmentSchema.pre('save', async function (next) {
 // Method to validate password
 departmentSchema.methods.comparePassword = async function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
-};
-
-// Method to generate verification code
-departmentSchema.methods.generateVerificationCode = function () {
-  const code = Math.floor(100000 + Math.random() * 900000).toString();
-  this.verificationCode = code;
-  this.verificationExpiry = Date.now() + 15 * 60 * 1000; // 15 minutes expiry
-  return code;
 };
 
 const Department = mongoose.model('Department', departmentSchema);

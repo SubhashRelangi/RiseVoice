@@ -1,6 +1,7 @@
 import Department from '../models/Department.model.js';
 import jwt from 'jsonwebtoken';
-import { sendEmail } from '../utils/email.js';
+import { sendVerificationEmail } from '../utils/email.js';
+import crypto from 'crypto';
 
 export const signupDepartment = async (req, res) => {
   const { email, password, departmentType, departmentName, location } = req.body;
@@ -21,19 +22,36 @@ export const signupDepartment = async (req, res) => {
       location,
     });
 
-    const verificationCode = newDepartment.generateVerificationCode();
-
     await newDepartment.save();
-
-    // Send verification email using the new sendEmail utility
-    const htmlContent = `<p>Your verification code is: <b>${verificationCode}</b></p><p>This code will expire in 15 minutes.</p>`;
-    await sendEmail(email, 'Verify Your Email', htmlContent);
 
     res.status(201).json({ message: 'Signup successful, please verify your email.' });
   } catch (error) {
     console.error('Signup error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
+};
+
+export const sendVerification = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const department = await Department.findOne({ email });
+        if (!department) {
+            return res.status(404).json({ message: 'Department not found.' });
+        }
+
+        const verificationCode = crypto.randomInt(100000, 999999).toString();
+        department.verificationCode = verificationCode;
+        department.verificationCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+        await department.save();
+
+        await sendVerificationEmail(email, verificationCode);
+
+        res.status(200).json({ message: 'Verification code sent to department email.' });
+    } catch (error) {
+        console.error('Send verification email error:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
 };
 
 export const verifyEmail = async (req, res) => {
@@ -50,16 +68,17 @@ export const verifyEmail = async (req, res) => {
       return res.status(400).json({ message: 'Invalid verification code.' });
     }
 
-    if (department.verificationExpiry < Date.now()) {
+    if (department.verificationCodeExpires < Date.now()) {
       return res.status(400).json({ message: 'Verification code has expired.' });
     }
 
+    department.isVerified = true;
     department.status = 'active';
-    department.verificationCode = undefined; // Clear code after successful verification
-    department.verificationExpiry = undefined; // Clear expiry
+    department.verificationCode = undefined;
+    department.verificationCodeExpires = undefined;
     await department.save();
 
-    res.status(200).json({ message: 'Email verified successfully.' });
+    res.status(200).json({ message: 'Email verified successfully' });
   } catch (error) {
     console.error('Email verification error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -77,8 +96,12 @@ export const loginDepartment = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials.' });
     }
 
+    if (!department.isVerified) {
+        return res.status(403).json({ message: 'Account not verified. Please verify your email.' });
+    }
+
     if (department.status !== 'active') {
-      return res.status(403).json({ message: 'Account not active. Please verify your email.' });
+      return res.status(403).json({ message: 'Account not active.' });
     }
 
     const isMatch = await department.comparePassword(password);
@@ -86,7 +109,6 @@ export const loginDepartment = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials.' });
     }
 
-    // Check if req.ip matches stored ipAddress
     if (department.ipAddress && department.ipAddress !== clientIpAddress) {
       return res.status(403).json({ message: 'Unauthorized IP address.' });
     }
@@ -94,7 +116,6 @@ export const loginDepartment = async (req, res) => {
     department.lastLogin = Date.now();
     await department.save();
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: department._id, email: department.email },
       process.env.JWT_SECRET,
@@ -116,26 +137,24 @@ export const loginDepartment = async (req, res) => {
 };
 
 export const resendVerificationCode = async (req, res) => {
-  const { email } = req.body;
+    const { email } = req.body;
+    try {
+        const department = await Department.findOne({ email });
+        if (!department) {
+            return res.status(404).json({ message: 'Department not found.' });
+        }
 
-  try {
-    const department = await Department.findOne({ email });
+        const verificationCode = crypto.randomInt(100000, 999999).toString();
+        department.verificationCode = verificationCode;
+        department.verificationCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-    if (!department) {
-      return res.status(404).json({ message: 'Department not found.' });
+        await department.save();
+
+        await sendVerificationEmail(email, verificationCode);
+
+        res.status(200).json({ message: 'New verification code sent successfully.' });
+    } catch (error) {
+        console.error('Resend verification code error:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
-
-    // Generate new verification code and expiry
-    const newVerificationCode = department.generateVerificationCode();
-    await department.save();
-
-    // Send new verification email
-    const htmlContent = `<p>Your new verification code is: <b>${newVerificationCode}</b></p><p>This code will expire in 15 minutes.</p>`;
-    await sendEmail(email, 'New Verification Code', htmlContent);
-
-    res.status(200).json({ message: 'New verification code sent successfully.' });
-  } catch (error) {
-    console.error('Resend verification code error:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
 };

@@ -128,7 +128,7 @@ const DepartmentSignup = () => {
 
     setIsSubmitting(true);
     try {
-      const res = await axios.post("/api/department/signup", formData);
+      const res = await axios.post("/api/departments/signup", formData);
 
       setMessage(res.data.message || "Signup successful!");
       setTimeout(() => navigate(`/departmentverify?email=${formData.email}`), 1500);

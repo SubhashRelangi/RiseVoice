@@ -49,7 +49,7 @@ const DepartmentVerify = () => {
 
     setIsVerifying(true);
     try {
-      const res = await axios.post("/api/department/verify", formData);
+      const res = await axios.post("/api/departments/verify-email", formData);
       setMessage(res.data.message || "Verification successful!");
       setTimeout(() => navigate("/department"), 1500);
     } catch (error) {
@@ -65,7 +65,7 @@ const DepartmentVerify = () => {
     setErrors({});
     setIsResending(true);
     try {
-      const res = await axios.post("/api/department/resend-verification", { email: formData.email });
+      const res = await axios.post("/api/departments/resend-verification", { email: formData.email });
       setMessage(res.data.message || "New verification code sent to your email.");
     } catch (error) {
       console.error("Resend code error:", error);

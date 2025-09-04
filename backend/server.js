@@ -9,6 +9,7 @@ import multer from 'multer';
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Middleware
 app.use(cors());
@@ -26,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
 // Routes
 app.use('/api/problems', problemRoutes);
-app.use('/api/department', departmentRoutes);
+app.use('/api/departments', departmentRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
