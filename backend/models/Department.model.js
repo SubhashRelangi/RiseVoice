@@ -44,6 +44,16 @@ const departmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  location: {
+    latitude: {
+      type: Number,
+      required: true,
+    },
+    longitude: {
+      type: Number,
+      required: true,
+    },
+  },
   lastLogin: {
     type: Date,
   },

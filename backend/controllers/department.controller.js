@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { sendEmail } from '../utils/email.js';
 
 export const signupDepartment = async (req, res) => {
-  const { email, password, departmentType, departmentName } = req.body;
+  const { email, password, departmentType, departmentName, location } = req.body;
   const ipAddress = req.ip;
 
   try {
@@ -18,6 +18,7 @@ export const signupDepartment = async (req, res) => {
       departmentType,
       departmentName,
       ipAddress,
+      location,
     });
 
     const verificationCode = newDepartment.generateVerificationCode();
@@ -100,7 +101,14 @@ export const loginDepartment = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({ message: 'Login successful.', token });
+    res.status(200).json({
+      message: 'Login successful.',
+      token,
+      departmentId: department.departmentId,
+      departmentName: department.departmentName,
+      departmentType: department.departmentType,
+      location: department.location,
+    });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
