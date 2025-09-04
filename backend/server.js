@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import problemRoutes from './routes/problems.route.js';
 import departmentRoutes from './routes/department.route.js';
 import multer from 'multer';
+import { startRequestScheduler } from './requestScheduler.js';
 
 dotenv.config();
 
@@ -38,4 +39,5 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
+  startRequestScheduler();
 });
