@@ -11,22 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-:root{
-  --background-color: #ffffff;
-  --background-color2: #f7f2f2;
-  --primary-color: #000000;
-  --secondary-color: #454343;
-  --accent-color: rgb(255, 55, 0);
-
-  /* Icon colors */
-  --icon-color1: #f4b400;
-  --icon-color2: #4285f4;
-  --icon-color3: #ea4335;
-  --icon-color4: #1e88e5;
-  --icon-color5: #34a853;
-  --icon-color6: #673ab7;
-
-  /* Button */
-  --button-color: #f97316;
-}

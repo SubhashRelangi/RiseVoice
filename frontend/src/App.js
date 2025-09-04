@@ -1,29 +1,25 @@
-import React from 'react'
-import { Routes, Route } from "react-router-dom";
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import TrackPage from './pages/TrackPage';
-import RaiseComplaintPage from './pages/RaiseComplaintPage';
-import ComplaintDetailsPage from './pages/ComplaintDetailsPage';
-import Navigation from './Components/Header';
-import Footer from './Components/Footer';
-import FloatingButton from './Components/FloatingButton';
+import logo from './logo.svg';
+import './App.css';
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/track" element={<TrackPage />} />
-        <Route path="/raise-complaint" element={<RaiseComplaintPage />} />
-        <Route path="/complaint/:id" element={<ComplaintDetailsPage />} />
-      </Routes>
-      <FloatingButton />
-      <Footer />
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
