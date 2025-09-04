@@ -114,3 +114,28 @@ export const loginDepartment = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+export const resendVerificationCode = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const department = await Department.findOne({ email });
+
+    if (!department) {
+      return res.status(404).json({ message: 'Department not found.' });
+    }
+
+    // Generate new verification code and expiry
+    const newVerificationCode = department.generateVerificationCode();
+    await department.save();
+
+    // Send new verification email
+    const htmlContent = `<p>Your new verification code is: <b>${newVerificationCode}</b></p><p>This code will expire in 15 minutes.</p>`;
+    await sendEmail(email, 'New Verification Code', htmlContent);
+
+    res.status(200).json({ message: 'New verification code sent successfully.' });
+  } catch (error) {
+    console.error('Resend verification code error:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};

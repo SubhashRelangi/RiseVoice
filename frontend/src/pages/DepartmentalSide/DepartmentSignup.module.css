@@ -1,0 +1,109 @@
+/* frontend/src/pages/DepartmentalSide/DepartmentSignup.module.css */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.signupForm {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #00796b;
+}
+
+.message {
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.message.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border 0.2s;
+}
+
+.input:focus,
+.select:focus {
+  border-color: #00796b;
+  outline: none;
+}
+
+.error {
+  display: block;
+  font-size: 0.8rem;
+  color: #c62828;
+  margin-top: 0.25rem;
+}
+
+.location {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  background: #00796b;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.button:hover:not(:disabled) {
+  background: #004d40;
+}
+
+.button:disabled {
+  background: #b2dfdb;
+  cursor: not-allowed;
+}

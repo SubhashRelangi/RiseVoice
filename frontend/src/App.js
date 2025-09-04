@@ -11,6 +11,8 @@ import FloatingButton from './Components/FloatingButton';
 import DepartmentsHomePage from './pages/DepartmentalSide/DepartmentsHomePage';
 import DepartmentalComplaints from './pages/DepartmentalSide/DepartmentalComplaints';
 import DepartmentalComplaintPage from './pages/DepartmentalSide/DepartmentalComplaintPage';
+import DepartmentSignup from './pages/DepartmentalSide/DepartmentSignup';
+import DepartmentVerify from './pages/DepartmentalSide/DepartmentVerify';
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         <Route path="/department" element={<DepartmentsHomePage />} />
         <Route path="/department/complaints" element={<DepartmentalComplaints />} />
         <Route path="/department/complaints/:id" element={<DepartmentalComplaintPage />} />
+        <Route path="/departmentsignup" element={<DepartmentSignup />} />
+        <Route path="/departmentverify" element={<DepartmentVerify />} />
       </Routes>
       <FloatingButton />
       <Footer />
