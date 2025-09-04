@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 const departmentCodeMap = {
   water: 'WT',
   electricity: 'EL',
-  infrastructure: 'IN',
-  waste: 'SW',
-  health: 'HL',
+  roads_infrastructure: 'RI',
+  waste_management: 'WM',
+  healthcare: 'HC',
   education: 'ED',
   transport: 'TR',
   agriculture: 'AG',
@@ -16,10 +16,14 @@ const departmentCodeMap = {
 };
 
 const departmentSchema = new mongoose.Schema({
+  departmentName: {
+    type: String,
+    required: true,
+  },
   departmentType: {
     type: String,
     required: true,
-    enum: Object.keys(departmentCodeMap),
+    enum: ['WATER', 'ELECTRICITY', 'ROADS_INFRASTRUCTURE', 'WASTE_MANAGEMENT', 'HEALTHCARE', 'EDUCATION'],
   },
   departmentId: {
     type: String,
@@ -48,6 +52,10 @@ const departmentSchema = new mongoose.Schema({
     enum: ['pending', 'active', 'locked'],
     default: 'pending',
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   verificationCode: {
     type: String,
   },
@@ -59,7 +67,7 @@ const departmentSchema = new mongoose.Schema({
 // Pre-save hook for generating departmentId and hashing password
 departmentSchema.pre('save', async function (next) {
   if (this.isNew) {
-    const code = departmentCodeMap[this.departmentType];
+    const code = departmentCodeMap[this.departmentType.toLowerCase()]; // Use toLowerCase for map lookup
     this.departmentId = `DPT-${code}-${uuidv4().slice(0, 6)}`;
   }
 
@@ -84,7 +92,7 @@ departmentSchema.methods.comparePassword = async function (candidatePassword) {
 departmentSchema.methods.generateVerificationCode = function () {
   const code = Math.floor(100000 + Math.random() * 900000).toString();
   this.verificationCode = code;
-  this.verificationExpiry = Date.now() + 10 * 60 * 1000; // 10 minutes expiry
+  this.verificationExpiry = Date.now() + 15 * 60 * 1000; // 15 minutes expiry
   return code;
 };
 
