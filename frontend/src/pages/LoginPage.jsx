@@ -40,16 +40,12 @@ const LoginPage = () => {
         </div>
 
         <input type="text" className='userid' placeholder='user id' />
-        <br />
         <input type="password" className='userid' placeholder='password' />
-        <br />
-
         {/* Captcha display */}
         <div className="captcha-box" >
           {captcha}
            <button type="button" onClick={generateCaptcha}>Reload Captcha</button>
         </div>
-        <br />
         <input 
           type="text" 
           className='captcha-input' 
@@ -58,8 +54,6 @@ const LoginPage = () => {
           onChange={(e) => setUserCaptcha(e.target.value)} 
           required 
         />
-        <br />
-       
         <button type="submit" className='login-btn'>Login</button>
       </form>
     </div>

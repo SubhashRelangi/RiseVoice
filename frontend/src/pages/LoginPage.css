@@ -1,37 +1,53 @@
+/* Reduce min-height and add padding to avoid scroll */
+/* Center the login box perfectly and prevent scrollbars */
+/* Move login box slightly up from center */
 .login-container {
     min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    background: #f5f7fa;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
 
+form {
+    /* ...existing code... */
+    margin-top: 7vh;
 }
 form {
     background: #fff;
-    padding: 2.5rem 2rem 2rem 2rem;
-    border-radius: 18px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 350px;
-    gap: 1rem;
+    width: 320px;
+    gap: 0.7rem;
+    max-height: 90vh;
+    overflow: visible;
 }
+/* Reduce profile image size */
 .profileuser {
-    width: 90px;
-    height: 90px;
-    margin-bottom: 1.5rem;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.4rem;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 16px rgba(106, 17, 203, 0.15);
-    border: 3px solid #2575fc;
+    box-shadow: 0 1px 4px rgba(106, 17, 203, 0.10);
+    border: 2px solid #2575fc;
 }
 .userid {
     width: 100%;
-    padding: 0.8rem 1rem;
-    margin: 0.3rem 0;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 0.5rem 0.7rem;
+    margin: 0.2rem 0;
+    border: 1.2px solid #e0e0e0;
+    border-radius: 7px;
+    font-size: 0.95rem;
     background: #f7f8fa;
     transition: border 0.2s;
 }
@@ -43,27 +59,27 @@ form {
 .captcha-box {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.5rem;
     background: #e3e9fc;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
+    padding: 0.4rem 0.7rem;
+    border-radius: 7px;
     font-family: 'Fira Mono', monospace;
-    font-size: 1.2rem;
-    letter-spacing: 3px;
+    font-size: 1rem;
+    letter-spacing: 2px;
     user-select: none;
     color: #2d3a4b;
     font-weight: 600;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
 }
 .captcha-box button {
     background: #2575fc;
     color: #fff;
     border: none;
-    border-radius: 6px;
-    padding: 0.3rem 0.8rem;
-    font-size: 0.95rem;
+    border-radius: 5px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.85rem;
     cursor: pointer;
-    margin-left: 0.7rem;
+    margin-left: 0.5rem;
     transition: background 0.2s;
 }
 .captcha-box button:hover {
@@ -71,12 +87,12 @@ form {
 }
 .captcha-input {
     width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 0.5rem 0.7rem;
+    border: 1.2px solid #e0e0e0;
+    border-radius: 7px;
+    font-size: 0.95rem;
     background: #f7f8fa;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     transition: border 0.2s;
 }
 .captcha-input:focus {
@@ -86,16 +102,16 @@ form {
 }
 .login-btn {
     width: 100%;
-    padding: 0.9rem;
+    padding: 0.4rem;
     background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
     color: #fff;
     border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
+    border-radius: 7px;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 1rem;
-    box-shadow: 0 2px 8px rgba(106, 17, 203, 0.08);
+    margin-top: 0.3rem;
+    box-shadow: 0 1px 4px rgba(106, 17, 203, 0.07);
     transition: background 0.2s, transform 0.1s;
 }
 .login-btn:hover {
@@ -103,12 +119,14 @@ form {
     transform: translateY(-2px) scale(1.03);
 }
 /* Responsive */
-@media (max-width: 500px) {
+@media (max-width: 400px) {
     form {
-        width: 95vw;
-        padding: 1.2rem;
+        width: 98vw;
+        padding: 0.5rem;
+        max-height: 98vh;
+        gap: 0.3rem;
     }
     .login-container {
-        padding: 1rem 0;
+        padding: 0;
     }
 }
