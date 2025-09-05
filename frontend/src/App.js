@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from './pages/UserSide/HomePage';
 import TrackPage from './pages/UserSide/TrackPage';
 import RaiseComplaintPage from './pages/UserSide/RaiseComplaintPage';
@@ -15,6 +15,14 @@ import DepartmentVerify from './pages/DepartmentalSide/DepartmentVerify';
 import DepartmentLogin from './pages/DepartmentalSide/DepartmentLogin';
 
 const App = () => {
+
+  const location = useLocation();
+  const departmentPrefixes = ['/department', '/raise-complaint'];
+
+  const isDepartmentalRoute = departmentPrefixes.some(prefix =>
+    location.pathname.startsWith(prefix)
+  );
+
   return (
     <div>
       <Navigation />
@@ -30,7 +38,7 @@ const App = () => {
         <Route path="/department/verify" element={<DepartmentVerify />} />
         <Route path="/department/login" element={<DepartmentLogin />} />
       </Routes>
-      <FloatingButton />
+      {!isDepartmentalRoute && <FloatingButton />}
       <Footer />
     </div>
   )
