@@ -15,7 +15,7 @@ app.set('trust proxy', 1);
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://voice-up-kappa.vercel.app',
   credentials: true,
 }));
 app.use(express.json({ limit: '50mb' }));
