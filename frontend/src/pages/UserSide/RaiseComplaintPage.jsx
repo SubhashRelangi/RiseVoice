@@ -21,6 +21,7 @@ const RaiseComplaint = () => {
   const [isCameraLoading, setIsCameraLoading] = useState(false); // New loading state for camera
   const [isGalleryLoading, setIsGalleryLoading] = useState(false); // New loading state for gallery
   const [isLocationLoading, setIsLocationLoading] = useState(false); // New loading state for location
+  const [isSubmitting, setIsSubmitting] = useState(false); // New loading state for submission
   const fileInputRef = useRef(null);
 
   const handleAutoLocation = () => {
@@ -92,6 +93,8 @@ const RaiseComplaint = () => {
         return;
     }
 
+    setIsSubmitting(true);
+
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       if (value) data.append(key, value);
@@ -107,6 +110,8 @@ const RaiseComplaint = () => {
     } catch (err) {
       console.error("Submission failed:", err);
       alert("Failed to submit complaint. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -240,8 +245,12 @@ const RaiseComplaint = () => {
           </button>
         </div>
 
-        <button type="submit" className={styles.submitBtn}>
-          Submit Complaint
+        <button
+          type="submit"
+          className={isSubmitting ? `${styles.submitBtn} ${styles.loading}` : styles.submitBtn}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : "Submit Complaint"}
         </button>
       </form>
 

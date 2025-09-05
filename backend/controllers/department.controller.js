@@ -23,7 +23,13 @@ export const signupDepartment = async (req, res) => {
       location,
     });
 
+    const verificationCode = crypto.randomInt(100000, 999999).toString();
+    newDepartment.verificationCode = verificationCode;
+    newDepartment.verificationCodeExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+
     await newDepartment.save();
+
+    await sendVerificationEmail(email, verificationCode);
 
     res.status(201).json({ message: 'Signup successful, please verify your email.' });
   } catch (error) {
