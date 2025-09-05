@@ -5,7 +5,8 @@ import crypto from 'crypto';
 
 export const signupDepartment = async (req, res) => {
   const { email, password, departmentType, departmentName, location } = req.body;
-  const ipAddress = req.ip;
+  const forwardedIpsStr = req.header('x-forwarded-for');
+  const ipAddress = forwardedIpsStr ? forwardedIpsStr.split(',')[0].trim() : req.ip;
 
   try {
     const existingDepartment = await Department.findOne({ email });
@@ -87,7 +88,8 @@ export const verifyEmail = async (req, res) => {
 
 export const loginDepartment = async (req, res) => {
   const { departmentId, password } = req.body;
-  const clientIpAddress = req.ip;
+  const forwardedIpsStr = req.header('x-forwarded-for');
+  const clientIpAddress = forwardedIpsStr ? forwardedIpsStr.split(',')[0].trim() : req.ip;
 
   try {
     const department = await Department.findOne({ departmentId });
