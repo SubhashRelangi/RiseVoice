@@ -26,8 +26,8 @@ const App = () => {
         <Route path="/department" element={<DepartmentsHomePage />} />
         <Route path="/department/complaints" element={<DepartmentalComplaints />} />
         <Route path="/department/complaints/:id" element={<DepartmentalComplaintPage />} />
-        <Route path="/departmentsignup" element={<DepartmentSignup />} />
-        <Route path="/departmentverify" element={<DepartmentVerify />} />
+        <Route path="/department/signup" element={<DepartmentSignup />} />
+        <Route path="/department/verify" element={<DepartmentVerify />} />
         <Route path="/department/login" element={<DepartmentLogin />} />
       </Routes>
       <FloatingButton />

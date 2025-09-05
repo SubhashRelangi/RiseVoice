@@ -132,7 +132,7 @@ const DepartmentSignup = () => {
       const res = await axios.post(`${API_BASE_URL}/api/departments/signup`, formData);
 
       setMessage(res.data.message || "Signup successful!");
-      setTimeout(() => navigate(`/departmentverify?email=${formData.email}`), 1500);
+      setTimeout(() => navigate(`/department/verify?email=${formData.email}`), 1500);
     } catch (err) {
       console.error("Signup error:", err);
       setMessage(err.response?.data?.message || "Signup failed. Try again.");

@@ -32,7 +32,7 @@ const Header = () => {
         <a href="/track" className={styles.navLinkEle}>
           Track
         </a>
-        <a href="/login" className={styles.navLinkEle}>
+        <a href="/department/login" className={styles.navLinkEle}>
           Login
         </a>
       </div>
