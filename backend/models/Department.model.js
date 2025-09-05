@@ -42,7 +42,7 @@ const departmentSchema = new mongoose.Schema({
   },
   ipAddress: {
     type: String,
-    required: true,
+    required: false,
   },
   location: {
     latitude: {

@@ -12,8 +12,9 @@ const DepartmentalDashboard = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
       try {
-        const response = await axios.get('/api/problems/stats');
+        const response = await axios.get(`${API_BASE_URL}/api/problems/stats`);
         setStats(response.data);
       } catch (error) {
         console.error('Error fetching problem stats:', error);

@@ -16,6 +16,8 @@ const DepartmentVerify = () => {
   const [isVerifying, setIsVerifying] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +51,7 @@ const DepartmentVerify = () => {
 
     setIsVerifying(true);
     try {
-      const res = await axios.post("/api/departments/verify-email", formData);
+      const res = await axios.post(`${API_BASE_URL}/api/departments/verify-email`, formData);
       setMessage(res.data.message || "Verification successful!");
       setTimeout(() => navigate("/department"), 1500);
     } catch (error) {
@@ -65,7 +67,7 @@ const DepartmentVerify = () => {
     setErrors({});
     setIsResending(true);
     try {
-      const res = await axios.post("/api/departments/resend-verification", { email: formData.email });
+      const res = await axios.post(`${API_BASE_URL}/api/departments/resend-verification`, { email: formData.email });
       setMessage(res.data.message || "New verification code sent to your email.");
     } catch (error) {
       console.error("Resend code error:", error);

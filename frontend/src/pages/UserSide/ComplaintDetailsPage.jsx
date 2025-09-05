@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Import icons
-import { FaArrowLeft, FaPrint, FaShareAlt  } from 'react-icons/fa';
+import { FaArrowLeft, FaPrint, FaShareAlt } from 'react-icons/fa';
 
 const ComplaintDetailsPage = () => {
   const { id } = useParams();
@@ -12,11 +12,13 @@ const ComplaintDetailsPage = () => {
   const [newCommentText, setNewCommentText] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 
   useEffect(() => {
     const fetchComplaintDetails = async () => {
       try {
-        const complaintResponse = await axios.get(`http://localhost:5000/api/problems/${id}`);
+        const complaintResponse = await axios.get(`${API_BASE_URL}/api/problems/${id}`);
         setComplaint(complaintResponse.data);
       } catch (err) {
         console.error("Error fetching complaint details:", err);
@@ -33,7 +35,7 @@ const ComplaintDetailsPage = () => {
     if (!newCommentText.trim() || !complaint) return;
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/problems/${id}/comments`, {
+      const response = await axios.post(`${API_BASE_URL}/api/problems/${id}/comments`, {
         text: newCommentText,
       });
       setComplaint(response.data);
@@ -84,8 +86,8 @@ const ComplaintDetailsPage = () => {
 
   return (
     <>
-    <style>
-      {`
+      <style>
+        {`
         /* General Page Layout */
         .pageContainer {
           background-color: #f8f9fa;
@@ -392,108 +394,108 @@ const ComplaintDetailsPage = () => {
           }
         }
       `}
-    </style>
-    <div className="pageContainer">
-      <div className="header">
-        <div className="headerTitle">
-          <h1>{problemId} - {title}</h1>
-          <div className="headerMeta">
-            <span>Raised: {new Date(createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-          </div>
-          <div className="headerLocation">
-            Location: {location?.address || 'N/A'}
-          </div>
-        </div>
-        <div className="headerActions">
-          <div 
-            className="statusBadge"
-            style={{ backgroundColor: getStatusColor(status) }}
-          >
-            {status}
-          </div>
-          <div className="actionButtons">
-            <button onClick={() => navigate(-1)}><FaArrowLeft /> Back</button>
-            <button><FaPrint /> Print</button>
-            <button><FaShareAlt /> Share</button>
-          </div>
-        </div>
-      </div>
-
-      <div className="mainContent">
-        <div className="detailsSection">
-          <div className="complaintDetails">
-            <h2>Complaint Details</h2>
-            <div className="detailItem">
-              <strong>Complaint ID:</strong>
-              <span>{problemId}</span>
+      </style>
+      <div className="pageContainer">
+        <div className="header">
+          <div className="headerTitle">
+            <h1>{problemId} - {title}</h1>
+            <div className="headerMeta">
+              <span>Raised: {new Date(createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
             </div>
-            <div className="detailItem">
-              <strong>Date Raised:</strong>
-              <span>{new Date(createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-            </div>
-            <div className="detailItem">
-              <strong>Category:</strong>
-              <span>{category}</span>
-            </div>
-            <div className="detailItem">
-              <strong>Address:</strong>
-              <span>{location?.address || 'N/A'}</span>
-            </div>
-            <div className="detailItem">
-              <strong>Coordinates:</strong>
-              <span>
-                {location?.coordinates?.lat && location?.coordinates?.lng
-                  ? `${location.coordinates.lat}, ${location.coordinates.lng}`
-                  : 'N/A'}
-              </span>
+            <div className="headerLocation">
+              Location: {location?.address || 'N/A'}
             </div>
           </div>
-          <div className="descriptionSection">
-            <h2>Description</h2>
-            <p>{description}</p>
+          <div className="headerActions">
+            <div
+              className="statusBadge"
+              style={{ backgroundColor: getStatusColor(status) }}
+            >
+              {status}
+            </div>
+            <div className="actionButtons">
+              <button onClick={() => navigate(-1)}><FaArrowLeft /> Back</button>
+              <button><FaPrint /> Print</button>
+              <button><FaShareAlt /> Share</button>
+            </div>
           </div>
         </div>
 
-        <div className="attachmentsSection">
-          <h2>Attachments</h2>
-          {image && image.url ? (
-            <div className="attachmentContainer">
-              {image.resource_type === 'video' ? (
-                <video src={image.url} controls className="media" />
-              ) : (
-                <img src={image.url} alt="Attachment" className="media" />
-              )}
-            </div>
-          ) : (
-            <div className="noAttachment">No attachments found.</div>
-          )}
-        </div>
-      </div>
-
-      <div className="commentsSection">
-        <h2>Comments</h2>
-        <div className="commentsList">
-          {comments && comments.length > 0 ? (
-            comments.map((comment) => (
-              <div key={comment._id} className="commentItem">
-                <p>{comment.text}</p>
-                <span className="commentDate">{new Date(comment.createdAt).toLocaleDateString()}</span>
+        <div className="mainContent">
+          <div className="detailsSection">
+            <div className="complaintDetails">
+              <h2>Complaint Details</h2>
+              <div className="detailItem">
+                <strong>Complaint ID:</strong>
+                <span>{problemId}</span>
               </div>
-            ))
-          ) : (
-            <p>No comments yet.</p>
-          )}
+              <div className="detailItem">
+                <strong>Date Raised:</strong>
+                <span>{new Date(createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+              </div>
+              <div className="detailItem">
+                <strong>Category:</strong>
+                <span>{category}</span>
+              </div>
+              <div className="detailItem">
+                <strong>Address:</strong>
+                <span>{location?.address || 'N/A'}</span>
+              </div>
+              <div className="detailItem">
+                <strong>Coordinates:</strong>
+                <span>
+                  {location?.coordinates?.lat && location?.coordinates?.lng
+                    ? `${location.coordinates.lat}, ${location.coordinates.lng}`
+                    : 'N/A'}
+                </span>
+              </div>
+            </div>
+            <div className="descriptionSection">
+              <h2>Description</h2>
+              <p>{description}</p>
+            </div>
+          </div>
+
+          <div className="attachmentsSection">
+            <h2>Attachments</h2>
+            {image && image.url ? (
+              <div className="attachmentContainer">
+                {image.resource_type === 'video' ? (
+                  <video src={image.url} controls className="media" />
+                ) : (
+                  <img src={image.url} alt="Attachment" className="media" />
+                )}
+              </div>
+            ) : (
+              <div className="noAttachment">No attachments found.</div>
+            )}
+          </div>
         </div>
-        <div className="addCommentForm">
-          <textarea
-            placeholder="Add a comment..."
-            value={newCommentText}
-            onChange={(e) => setNewCommentText(e.target.value)}
-          ></textarea>
-          <button onClick={handleAddComment}>Add Comment</button>
+
+        <div className="commentsSection">
+          <h2>Comments</h2>
+          <div className="commentsList">
+            {comments && comments.length > 0 ? (
+              comments.map((comment) => (
+                <div key={comment._id} className="commentItem">
+                  <p>{comment.text}</p>
+                  <span className="commentDate">{new Date(comment.createdAt).toLocaleDateString()}</span>
+                </div>
+              ))
+            ) : (
+              <p>No comments yet.</p>
+            )}
+          </div>
+          <div className="addCommentForm">
+            <textarea
+              placeholder="Add a comment..."
+              value={newCommentText}
+              onChange={(e) => setNewCommentText(e.target.value)}
+            ></textarea>
+            <button onClick={handleAddComment}>Add Comment</button>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

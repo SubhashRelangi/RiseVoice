@@ -12,8 +12,9 @@ const ProblemStatistics = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
       try {
-        const response = await axios.get('/api/problems/stats');
+        const response = await axios.get(`${API_BASE_URL}/api/problems/stats`);
         // The API returns "Resloved" but the UI shows "Resolved"
         // Also, the image shows "Completed" but the API returns "In Progress" and "Pending"
         // I will map the API response to the UI labels.

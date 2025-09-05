@@ -127,8 +127,9 @@ const DepartmentSignup = () => {
     }
 
     setIsSubmitting(true);
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
     try {
-      const res = await axios.post("/api/departments/signup", formData);
+      const res = await axios.post(`${API_BASE_URL}/api/departments/signup`, formData);
 
       setMessage(res.data.message || "Signup successful!");
       setTimeout(() => navigate(`/departmentverify?email=${formData.email}`), 1500);

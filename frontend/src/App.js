@@ -1,7 +1,6 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
 import HomePage from './pages/UserSide/HomePage';
-import LoginPage from './pages/LoginPage';
 import TrackPage from './pages/UserSide/TrackPage';
 import RaiseComplaintPage from './pages/UserSide/RaiseComplaintPage';
 import ComplaintDetailsPage from './pages/UserSide/ComplaintDetailsPage';
@@ -13,6 +12,7 @@ import DepartmentalComplaints from './pages/DepartmentalSide/DepartmentalComplai
 import DepartmentalComplaintPage from './pages/DepartmentalSide/DepartmentalComplaintPage';
 import DepartmentSignup from './pages/DepartmentalSide/DepartmentSignup';
 import DepartmentVerify from './pages/DepartmentalSide/DepartmentVerify';
+import DepartmentLogin from './pages/DepartmentalSide/DepartmentLogin';
 
 const App = () => {
   return (
@@ -20,7 +20,6 @@ const App = () => {
       <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/track" element={<TrackPage />} />
         <Route path="/raise-complaint" element={<RaiseComplaintPage />} />
         <Route path="/complaint/:id" element={<ComplaintDetailsPage />} />
@@ -29,6 +28,7 @@ const App = () => {
         <Route path="/department/complaints/:id" element={<DepartmentalComplaintPage />} />
         <Route path="/departmentsignup" element={<DepartmentSignup />} />
         <Route path="/departmentverify" element={<DepartmentVerify />} />
+        <Route path="/department/login" element={<DepartmentLogin />} />
       </Routes>
       <FloatingButton />
       <Footer />

@@ -98,7 +98,8 @@ const RaiseComplaint = () => {
     });
 
     try {
-      await axios.post("http://localhost:5000/api/problems", data);
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      await axios.post(`${API_BASE_URL}/api/problems`, data);
       alert("Complaint submitted successfully!");
       // Reset form
       setFormData(initialFormData);

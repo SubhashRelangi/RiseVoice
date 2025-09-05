@@ -11,8 +11,9 @@ const ProblemSummary = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
       try {
-        const response = await axios.get('/api/problems/stats');
+        const response = await axios.get(`${API_BASE_URL}/api/problems/stats`);
         const apiStats = response.data;
         setStats({
           resolved: apiStats.resolved || 0,

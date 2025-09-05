@@ -18,7 +18,8 @@ const TrackPage = () => {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/problems");
+        const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+        const response = await axios.get(`${API_BASE_URL}/api/problems`);
         setAllComplaints(response.data);
         setFilteredComplaints(response.data); // Initially display all
       } catch (error) {

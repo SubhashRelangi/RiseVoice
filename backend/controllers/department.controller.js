@@ -95,7 +95,7 @@ export const loginDepartment = async (req, res) => {
     const department = await Department.findOne({ departmentId });
 
     if (!department) {
-      return res.status(400).json({ message: 'Invalid credentials.' });
+      return res.status(400).json({ message: 'Invalid Department ID or Password.' });
     }
 
     if (!department.isVerified) {
@@ -108,7 +108,7 @@ export const loginDepartment = async (req, res) => {
 
     const isMatch = await department.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials.' });
+      return res.status(400).json({ message: 'Invalid Department ID or Password.' });
     }
 
     if (department.ipAddress && department.ipAddress !== clientIpAddress) {
