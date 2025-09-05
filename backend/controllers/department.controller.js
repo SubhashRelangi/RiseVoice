@@ -85,7 +85,26 @@ export const verifyEmail = async (req, res) => {
     department.verificationCodeExpires = undefined;
     await department.save();
 
-    res.status(200).json({ message: 'Email verified successfully' });
+    const token = jwt.sign(
+      { id: department._id, email: department.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '12h' }
+    );
+
+    res.cookie('jwtToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 43200000 // 12 hours
+    });
+
+    res.status(200).json({
+        message: 'Email verified successfully',
+        departmentId: department.departmentId,
+        departmentName: department.departmentName,
+        departmentType: department.departmentType,
+        location: department.location,
+    });
   } catch (error) {
     console.error('Email verification error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -127,12 +146,18 @@ export const loginDepartment = async (req, res) => {
     const token = jwt.sign(
       { id: department._id, email: department.email },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: '12h' }
     );
+
+    res.cookie('jwtToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 43200000 // 12 hours
+    });
 
     res.status(200).json({
       message: 'Login successful.',
-      token,
       departmentId: department.departmentId,
       departmentName: department.departmentName,
       departmentType: department.departmentType,

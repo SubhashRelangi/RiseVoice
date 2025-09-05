@@ -51,8 +51,16 @@ const DepartmentVerify = () => {
 
     setIsVerifying(true);
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/departments/verify-email`, formData);
+      const res = await axios.post(`${API_BASE_URL}/api/departments/verify-email`, formData, { withCredentials: true });
       setMessage(res.data.message || "Verification successful!");
+
+      localStorage.setItem('departmentDetails', JSON.stringify({
+        departmentId: res.data.departmentId,
+        departmentName: res.data.departmentName,
+        departmentType: res.data.departmentType,
+        location: res.data.location,
+      }));
+
       setTimeout(() => navigate("/department"), 1500);
     } catch (error) {
       console.error("Verification error:", error);
