@@ -13,6 +13,7 @@ import DepartmentalComplaintPage from './pages/DepartmentalSide/DepartmentalComp
 import DepartmentSignup from './pages/DepartmentalSide/DepartmentSignup';
 import DepartmentVerify from './pages/DepartmentalSide/DepartmentVerify';
 import DepartmentLogin from './pages/DepartmentalSide/DepartmentLogin';
+import ProtectedRoute from './Components/Auth/ProtectedRoute';
 
 const App = () => {
 
@@ -31,12 +32,12 @@ const App = () => {
         <Route path="/track" element={<TrackPage />} />
         <Route path="/raise-complaint" element={<RaiseComplaintPage />} />
         <Route path="/complaint/:id" element={<ComplaintDetailsPage />} />
-        <Route path="/department" element={<DepartmentsHomePage />} />
-        <Route path="/department/complaints" element={<DepartmentalComplaints />} />
-        <Route path="/department/complaints/:id" element={<DepartmentalComplaintPage />} />
         <Route path="/department/signup" element={<DepartmentSignup />} />
         <Route path="/department/verify" element={<DepartmentVerify />} />
         <Route path="/department/login" element={<DepartmentLogin />} />
+        <Route path="/department" element={<ProtectedRoute><DepartmentsHomePage /></ProtectedRoute>} />
+        <Route path="/department/complaints" element={<ProtectedRoute><DepartmentalComplaints /></ProtectedRoute>} />
+        <Route path="/department/complaints/:id" element={<ProtectedRoute><DepartmentalComplaintPage /></ProtectedRoute>} />
       </Routes>
       {!isDepartmentalRoute && <FloatingButton />}
       <Footer />
