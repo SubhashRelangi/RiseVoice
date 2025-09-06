@@ -8,11 +8,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendVerificationEmail = async (toEmail, code) => {
+export const sendVerificationEmail = async (toEmail, code, departmentId, departmentName) => {
   const htmlContent = `
-    <h1>Verification Code</h1>
+    <h1>VoiceUp - Department Email Verification</h1>
+    <p>Dear ${departmentName || 'Department'},</p>
+    <p>Your Department ID is: <strong>${departmentId}</strong></p>
     <p>Your verification code is: <strong>${code}</strong></p>
     <p>This code will expire in 10 minutes.</p>
+    <p>Thank you for registering with VoiceUp.</p>
   `;
 
   const mailOptions = {

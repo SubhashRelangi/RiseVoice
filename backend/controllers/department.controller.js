@@ -26,7 +26,7 @@ export const signupDepartment = async (req, res) => {
 
     await newDepartment.save();
 
-    await sendVerificationEmail(email, verificationCode);
+    await sendVerificationEmail(email, verificationCode, newDepartment.departmentId, newDepartment.departmentName);
 
     res.status(201).json({ message: 'Signup successful, please verify your email.' });
   } catch (error) {
@@ -174,7 +174,7 @@ export const resendVerificationCode = async (req, res) => {
 
         await department.save();
 
-        await sendVerificationEmail(email, verificationCode);
+        await sendVerificationEmail(email, verificationCode, department.departmentId, department.departmentName);
 
         res.status(200).json({ message: 'New verification code sent successfully.' });
     } catch (error) {
