@@ -26,24 +26,26 @@ const getAwesomeMarkerIcon = (status) => {
 
   switch (status) {
     case 'Pending':
-      markerColor = 'orange';
+      markerColor = 'red';
       break;
     case 'In Progress':
-      markerColor = 'blue';
+      markerColor = 'orange';
       break;
     case 'Resolved':
       markerColor = 'green';
       break;
     case 'Rejected':
-      markerColor = 'red';
+      markerColor = 'darkred';
       break;
     default:
       markerColor = 'blue'; // Fallback
   }
 
   return L.AwesomeMarkers.icon({
-    icon: 'info-sign',
-    markerColor: markerColor
+    icon: 'fa-location-dot',   // Modern location pin icon
+    prefix: 'fa',              // Use FontAwesome
+    markerColor: markerColor,  // Marker background color
+    iconColor: 'white'         // Icon color inside the marker
   });
 };
 
@@ -78,7 +80,6 @@ const ProblemMap = () => {
         />
         {problems.map(problem => {
           if (problem.location && problem.location.coordinates && problem.location.coordinates.lat && problem.location.coordinates.lng) {
-            console.log("Rendering marker for problem:", problem.title, "at coordinates:", problem.location.coordinates.lat, problem.location.coordinates.lng);
             return (
               <Marker
                 key={problem._id}
@@ -93,7 +94,6 @@ const ProblemMap = () => {
               </Marker>
             );
           } else {
-            console.log("Skipping problem due to missing coordinates:", problem.title, problem.location);
             return null;
           }
         })}
