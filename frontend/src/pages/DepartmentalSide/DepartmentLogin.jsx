@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './DepartmentLogin.module.css';
 
-const DepartmentLogin = () => {
+const DepartmentLogin = ({ setIsLoggedIn }) => {
   const [departmentId, setDepartmentId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -30,6 +30,7 @@ const DepartmentLogin = () => {
         location: response.data.location,
       }));
 
+      setIsLoggedIn(true);
       navigate('/department');
     } catch (err) {
       if (err.response) {

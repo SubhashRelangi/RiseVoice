@@ -182,3 +182,13 @@ export const resendVerificationCode = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
+export const logoutDepartment = (req, res) => {
+    res.cookie('jwtToken', '', {
+        httpOnly: true,
+        expires: new Date(0),
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+    });
+    res.status(200).json({ message: 'Logout successful.' });
+};

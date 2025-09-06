@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./DepartmentVerify.module.css";
 
-const DepartmentVerify = () => {
+const DepartmentVerify = ({ setIsLoggedIn }) => {
   const [searchParams] = useSearchParams();
   const initialEmail = searchParams.get("email") || "";
 
@@ -61,6 +61,7 @@ const DepartmentVerify = () => {
         location: res.data.location,
       }));
 
+      setIsLoggedIn(true);
       setTimeout(() => navigate("/department"), 1500);
     } catch (error) {
       console.error("Verification error:", error);
