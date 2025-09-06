@@ -13,7 +13,6 @@ const DepartmentSignup = () => {
     password: "",
     confirmPassword: "",
     location: { latitude: null, longitude: null },
-    ipAddress: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -33,7 +32,7 @@ const DepartmentSignup = () => {
     "POLICE",
   ];
 
-  // Get location & IP on load
+  // Get location on load
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -56,19 +55,6 @@ const DepartmentSignup = () => {
         { enableHighAccuracy: true, timeout: 10000 }
       );
     }
-
-    axios
-      .get("https://api.ipify.org?format=json")
-      .then((res) => {
-        setFormData((prev) => ({ ...prev, ipAddress: res.data.ip }));
-      })
-      .catch((err) => {
-        console.error("IP fetch error:", err);
-        setErrors((prev) => ({
-          ...prev,
-          ipAddress: "Unable to fetch IP address",
-        }));
-      });
   }, []);
 
   // Handle input changes
@@ -107,9 +93,6 @@ const DepartmentSignup = () => {
 
     if (!formData.location.latitude || !formData.location.longitude)
       newErrors.location = "Location is required.";
-
-    if (!formData.ipAddress)
-      newErrors.ipAddress = "IP Address is required.";
 
     return newErrors;
   };
@@ -234,18 +217,13 @@ const DepartmentSignup = () => {
           )}
         </div>
 
-        {/* Location & IP */}
+        {/* Location */}
         <div className={styles.location}>
           <strong>Location:</strong>{" "}
           {formData.location.latitude && formData.location.longitude
             ? `${formData.location.latitude.toFixed(5)}, ${formData.location.longitude.toFixed(5)}`
             : "Detecting..."}
           {errors.location && <p className={styles.error}>{errors.location}</p>}
-        </div>
-
-        <div className={styles.location}>
-          <strong>IP:</strong> {formData.ipAddress || "Detecting..."}
-          {errors.ipAddress && <p className={styles.error}>{errors.ipAddress}</p>}
         </div>
 
         {/* Submit */}

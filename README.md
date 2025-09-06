@@ -34,7 +34,7 @@ VoiceUp is packed with intuitive features designed to make your voice heard and 
 
 *   **Secure Departmental Authentication:**
     *   Dedicated signup, email verification, and login pages for government departments.
-    *   IP address validation for enhanced security (optional per department configuration).
+    
     *   JWT-based authentication for secure access.
 *   **Departmental Dashboard:**
     *   Overview of problem statistics (resolved, in progress, pending).

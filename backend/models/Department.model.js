@@ -40,10 +40,7 @@ const departmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ipAddress: {
-    type: String,
-    required: false,
-  },
+  
   location: {
     latitude: {
       type: Number,

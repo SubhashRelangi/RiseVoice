@@ -5,8 +5,6 @@ import crypto from 'crypto';
 
 export const signupDepartment = async (req, res) => {
   const { email, password, departmentType, departmentName, location } = req.body;
-  const forwardedIpsStr = req.header('x-forwarded-for');
-  const ipAddress = forwardedIpsStr ? forwardedIpsStr.split(',')[0].trim() : req.ip;
 
   try {
     const existingDepartment = await Department.findOne({ email });
@@ -19,7 +17,6 @@ export const signupDepartment = async (req, res) => {
       password,
       departmentType,
       departmentName,
-      ipAddress,
       location,
     });
 
@@ -113,8 +110,6 @@ export const verifyEmail = async (req, res) => {
 
 export const loginDepartment = async (req, res) => {
   const { departmentId, password } = req.body;
-  const forwardedIpsStr = req.header('x-forwarded-for');
-  const clientIpAddress = forwardedIpsStr ? forwardedIpsStr.split(',')[0].trim() : req.ip;
 
   try {
     const department = await Department.findOne({ departmentId });
@@ -134,10 +129,6 @@ export const loginDepartment = async (req, res) => {
     const isMatch = await department.comparePassword(password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid Department ID or Password.' });
-    }
-
-    if (department.ipAddress && department.ipAddress !== clientIpAddress) {
-      return res.status(403).json({ message: 'Unauthorized IP address.' });
     }
 
     department.lastLogin = Date.now();
