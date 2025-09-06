@@ -56,6 +56,10 @@
   background-color: #ffc107; /* Yellow */
 }
 
+.pending {
+  background-color: #6c757d; /* Grey */
+}
+
 .resolved {
   background-color: #28a745; /* Green */
 }
