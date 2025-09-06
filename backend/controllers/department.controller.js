@@ -192,3 +192,18 @@ export const logoutDepartment = (req, res) => {
     });
     res.status(200).json({ message: 'Logout successful.' });
 };
+
+export const getDepartmentProfile = (req, res) => {
+  // The 'protect' middleware already attached the department to req.department
+  if (req.department) {
+    res.status(200).json({
+      name: req.department.departmentName,
+      serviceType: req.department.departmentType, // Assuming departmentType maps to serviceType
+      isActive: req.department.status === 'active', // Assuming status field exists
+      isVerified: req.department.isVerified,
+      // Add any other fields you want to expose to the frontend
+    });
+  } else {
+    res.status(404).json({ message: 'Department profile not found.' });
+  }
+};

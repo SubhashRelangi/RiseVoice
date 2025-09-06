@@ -18,15 +18,10 @@ import DepartmentProfile from './pages/DepartmentalSide/DepartmentProfile';
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('departmentDetails'));
   const location = useLocation();
 
-  useEffect(() => {
-    const token = Cookies.get('jwtToken');
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  // Removed useEffect that was trying to read httpOnly cookie
 
   const departmentPrefixes = ['/department', '/raise-complaint'];
 

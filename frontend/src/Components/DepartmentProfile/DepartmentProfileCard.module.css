@@ -1,0 +1,81 @@
+.card {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.leftBorder {
+  width: 8px;
+  background-color: #4285f4; /* Google Blue */
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.content {
+  flex-grow: 1;
+  padding-left: 20px; /* Space for the left border */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.icon {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #4285f4; /* Google Blue */
+}
+
+.departmentName {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.serviceType {
+  font-size: 16px;
+  color: #777;
+  display: flex;
+  align-items: center;
+}
+
+.statusTags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.activeTag {
+  background-color: #28a745; /* Green for active */
+}
+
+.verifiedTag {
+  background-color: #28a745; /* Green for verified */
+}
+
+.tagIcon {
+  margin-right: 5px;
+}

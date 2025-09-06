@@ -12,6 +12,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     try {
       await axios.post('/api/departments/logout', {}, { withCredentials: true });
       Cookies.remove('jwtToken');
+      localStorage.removeItem('departmentDetails'); // Remove department details from localStorage
       setIsLoggedIn(false);
       navigate('/department/login');
     } catch (error) {
