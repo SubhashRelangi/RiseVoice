@@ -92,7 +92,7 @@ export const verifyEmail = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'Strict',
-      maxAge: 1000 * 60 * 60 // 1 hour
+      maxAge: 1000 * 60 * 60 * 12 // 12 hours
     });
 
     res.status(200).json({
@@ -144,7 +144,7 @@ export const loginDepartment = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'Strict',
-      maxAge: 1000 * 60 * 60 // 1 hour
+      maxAge: 1000 * 60 * 60 * 12 // 12 hours
     });
 
     res.status(200).json({
