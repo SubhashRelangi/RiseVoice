@@ -54,9 +54,15 @@ const DepartmentProfile = () => {
   };
 
   const getServiceDescription = (serviceType) => {
+    if (!serviceType || typeof serviceType !== 'string') {
+      console.warn('Invalid serviceType received:', serviceType);
+      return 'No description available';
+    }
+
     const lowerCaseServiceType = serviceType.toLowerCase();
     return departmentData[lowerCaseServiceType]?.description || 'No description available';
   };
+
 
   useEffect(() => {
     const fetchDepartmentProfile = async () => {
