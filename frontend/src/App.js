@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import HomePage from './pages/UserSide/HomePage';
 import TrackPage from './pages/UserSide/TrackPage';
 import RaiseComplaintPage from './pages/UserSide/RaiseComplaintPage';
@@ -16,12 +15,28 @@ import DepartmentVerify from './pages/DepartmentalSide/DepartmentVerify';
 import DepartmentLogin from './pages/DepartmentalSide/DepartmentLogin';
 import DepartmentProfile from './pages/DepartmentalSide/DepartmentProfile';
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
+import axios from 'axios';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('departmentDetails'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize to false
   const location = useLocation();
 
-  // Removed useEffect that was trying to read httpOnly cookie
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get('/api/departments/checkAuth'); // Use the new endpoint
+        if (response.status === 200 && response.data.isAuthenticated) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+        setIsLoggedIn(false);
+      }
+    };
+    checkLoginStatus();
+  }, []); // Run once on component mount
 
   const departmentPrefixes = ['/department', '/raise-complaint'];
 

@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import 'leaflet/dist/leaflet.css';
+import axios from 'axios'; // Import axios
+
+axios.defaults.withCredentials = true; // Configure axios to send cookies
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -91,8 +91,8 @@ export const verifyEmail = async (req, res) => {
     res.cookie('jwtToken', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 43200000 // 12 hours
+      sameSite: 'Strict',
+      maxAge: 1000 * 60 * 60 // 1 hour
     });
 
     res.status(200).json({
@@ -143,8 +143,8 @@ export const loginDepartment = async (req, res) => {
     res.cookie('jwtToken', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 43200000 // 12 hours
+      sameSite: 'Strict',
+      maxAge: 1000 * 60 * 60 // 1 hour
     });
 
     res.status(200).json({
@@ -188,7 +188,7 @@ export const logoutDepartment = (req, res) => {
         httpOnly: true,
         expires: new Date(0),
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: 'Strict',
     });
     res.status(200).json({ message: 'Logout successful.' });
 };
@@ -205,5 +205,21 @@ export const getDepartmentProfile = (req, res) => {
     });
   } else {
     res.status(404).json({ message: 'Department profile not found.' });
+  }
+};
+
+export const checkAuth = (req, res) => {
+  const token = req.cookies.jwtToken;
+
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Assuming the token contains department ID and email
+    res.status(200).json({ isAuthenticated: true, department: { id: decoded.id, email: decoded.email } });
+  } catch (error) {
+    res.status(401).json({ message: 'Token is not valid.' });
   }
 };

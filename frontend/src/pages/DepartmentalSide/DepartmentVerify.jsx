@@ -51,15 +51,8 @@ const DepartmentVerify = ({ setIsLoggedIn }) => {
 
     setIsVerifying(true);
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/departments/verify-email`, formData, { withCredentials: true });
+      const res = await axios.post(`${API_BASE_URL}/api/departments/verify-email`, formData);
       setMessage(res.data.message || "Verification successful!");
-
-      localStorage.setItem('departmentDetails', JSON.stringify({
-        departmentId: res.data.departmentId,
-        departmentName: res.data.departmentName,
-        departmentType: res.data.departmentType,
-        location: res.data.location,
-      }));
 
       setIsLoggedIn(true);
       setTimeout(() => navigate("/department"), 1500);
@@ -74,7 +67,7 @@ const DepartmentVerify = ({ setIsLoggedIn }) => {
   const handleResendCode = async () => {
     setMessage("");
     setErrors({});
-    setIsResending(true);
+    setIsResending(false);
     try {
       const res = await axios.post(`${API_BASE_URL}/api/departments/resend-verification`, { email: formData.email });
       setMessage(res.data.message || "New verification code sent to your email.");

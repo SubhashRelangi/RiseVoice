@@ -21,14 +21,7 @@ const DepartmentLogin = ({ setIsLoggedIn }) => {
       const response = await axios.post(`${API_BASE_URL}/api/departments/login`, {
         departmentId,
         password,
-      }, { withCredentials: true });
-
-      localStorage.setItem('departmentDetails', JSON.stringify({
-        departmentId: response.data.departmentId,
-        departmentName: response.data.departmentName,
-        departmentType: response.data.departmentType,
-        location: response.data.location,
-      }));
+      });
 
       setIsLoggedIn(true);
       navigate('/department');
