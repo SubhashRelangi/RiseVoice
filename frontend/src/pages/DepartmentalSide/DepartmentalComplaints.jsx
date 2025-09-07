@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import ComplaintsDashboard from '../../Components/DepartmentalComplaints/ComplaintsDashboard';
 
 const DepartmentalComplaints = () => {
   return (
-    <div>DepartmentalComplaints</div>
-  )
-}
+    <div>
+      <ComplaintsDashboard />
+    </div>
+  );
+};
 
-export default DepartmentalComplaints
+export default DepartmentalComplaints;
