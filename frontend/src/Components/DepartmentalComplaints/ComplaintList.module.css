@@ -1,0 +1,179 @@
+.complaintListContainer {
+  width: 100%;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 10px 20px;
+  background: #e5e7eb;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tab:hover {
+  background: #d1d5db;
+}
+
+.activeTab {
+  background: #3b82f6;
+  color: white;
+}
+
+/* Full-width complaints */
+.complaintsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.complaintCard {
+  flex: 0 0 100%;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.complaintCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* Card header */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.problemId {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* Title */
+.title {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  color: #111827;
+}
+
+/* Status below title, right-aligned */
+.statusWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.statusTag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.pendingStatus {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.inProgressStatus {
+  background-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.resolvedStatus {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+/* Card meta */
+.cardMeta {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.cardMeta p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 2px 0;
+}
+
+/* Description */
+.description {
+  font-size: 15px;
+  color: #374151;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* Card footer */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.categoryResponses {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.category {
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.viewDetailsButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.viewDetailsButton:hover {
+  background: #2563eb;
+}

@@ -4,22 +4,26 @@ import styles from './ComplaintsDashboard.module.css';
 import { FaFilter, FaSearch, FaMapMarkerAlt, FaExclamationTriangle, FaClock, FaCheckCircle } from 'react-icons/fa';
 import axiosInstance from '../../axiosInstance';
 
-const ComplaintsDashboard = () => {
+const ComplaintsDashboard = ({
+  departmentLocation,
+  departmentName,
+  departmentType,
+  searchTerm,
+  setSearchTerm,
+  selectedStatus,
+  setSelectedStatus,
+  selectedRadius,
+  setSelectedRadius,
+}) => {
   const [stats, setStats] = useState({ total: 0, pending: 0, inProgress: 0, resolved: 0 });
   const [address, setAddress] = useState('');
-  const [departmentName, setDepartmentName] = useState('');
-  const [departmentType, setDepartmentType] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statsResponse, profileResponse] = await Promise.all([
-          axiosInstance.get('/api/problems/stats'),
-          axiosInstance.get('/api/departments/profile'),
-        ]);
-
+        const statsResponse = await axiosInstance.get('/api/problems/stats');
         const statsData = statsResponse.data;
         setStats({
           total: statsData.resolved + statsData.inProgress + statsData.pending,
@@ -28,12 +32,8 @@ const ComplaintsDashboard = () => {
           pending: statsData.pending,
         });
 
-        const profileData = profileResponse.data;
-        setDepartmentName(profileData.name);
-        setDepartmentType(profileData.serviceType);
-
-        if (profileData.location) {
-          const { latitude, longitude } = profileData.location;
+        if (departmentLocation) {
+          const { latitude, longitude } = departmentLocation;
           const geoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
           const geoData = await geoResponse.json();
           setAddress(geoData.display_name);
@@ -47,13 +47,13 @@ const ComplaintsDashboard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [departmentLocation]); // Re-run when departmentLocation changes
 
   return (
     <div className={styles.dashboard}>
       <div className={styles.header}>
         <h1>Complaints Dashboard</h1>
-        <p>Managing complaints for {departmentName} ({departmentType}) within 3km radius</p>
+        <p>Managing complaints for {departmentName} ({departmentType}) within {selectedRadius}km radius</p>
         {address && (
           <div className={styles.location}>
             <FaMapMarkerAlt />
@@ -70,16 +70,32 @@ const ComplaintsDashboard = () => {
         <div className={styles.filterControls}>
           <div className={styles.search}>
             <FaSearch />
-            <input type="text" placeholder="Search complaints..." />
+            <input
+              type="text"
+              placeholder="Search complaints..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-          <select>
+          <select
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+          >
             <option>All Status</option>
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Resolved</option>
           </select>
           
-          <div className={styles.radius}>
-            <span>Within 3km</span>
-          </div>
-          <span className={styles.complaintsFound}>{stats.total} complaints found</span>
+          <select
+            className={styles.radius}
+            value={selectedRadius}
+            onChange={(e) => setSelectedRadius(e.target.value)}
+          >
+            <option value="3">Within 3km</option>
+            <option value="2">Within 2km</option>
+            <option value="1">Within 1km</option>
+          </select>
         </div>
       </div>
 

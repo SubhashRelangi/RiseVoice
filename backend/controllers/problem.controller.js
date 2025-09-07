@@ -74,7 +74,59 @@ export const createProblem = (req, res) => {
 // @access  Public
 export const getProblems = async (req, res) => {
   try {
-    const problems = await Problem.find();
+    const { search, status, radius, departmentLat, departmentLng } = req.query;
+    let filter = {};
+
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { problemId: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    if (status) {
+      filter.status = status;
+    }
+
+    let problems = await Problem.find(filter);
+
+    // Haversine formula for distance calculation (same as frontend)
+    const haversineDistance = (lat1, lon1, lat2, lon2) => {
+      const R = 6371; // Radius of Earth in kilometers
+
+      const toRad = (Value) => (Value * Math.PI) / 180;
+
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+      const distance = R * c; // Distance in kilometers
+      return distance;
+    };
+
+    if (radius && departmentLat && departmentLng) {
+      const deptLat = parseFloat(departmentLat);
+      const deptLng = parseFloat(departmentLng);
+      const maxDistance = parseFloat(radius);
+
+      problems = problems.filter(problem => {
+        if (problem.location && problem.location.coordinates) {
+          const complaintLat = problem.location.coordinates.lat;
+          const complaintLng = problem.location.coordinates.lng;
+          const dist = haversineDistance(deptLat, deptLng, complaintLat, complaintLng);
+          return dist <= maxDistance;
+        }
+        return false;
+      });
+    }
+
     res.status(200).json(problems);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error });
