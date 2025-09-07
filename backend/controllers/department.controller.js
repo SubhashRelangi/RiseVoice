@@ -199,6 +199,7 @@ export const getDepartmentProfile = (req, res) => {
     res.status(200).json({
       name: req.department.departmentName,
       serviceType: req.department.departmentType, // Assuming departmentType maps to serviceType
+      location: req.department.location,
       isActive: req.department.status === 'active', // Assuming status field exists
       isVerified: req.department.isVerified,
       // Add any other fields you want to expose to the frontend

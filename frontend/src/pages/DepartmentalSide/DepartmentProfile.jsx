@@ -12,6 +12,7 @@ const DepartmentProfile = () => {
       try {
         const response = await axios.get('/api/departments/profile'); // Corrected endpoint
         setDepartment(response.data);
+        console.log('Fetched department profile:', response.data);
       } catch (err) {
         setError('Failed to fetch department profile.');
         console.error('Error fetching department profile:', err);
@@ -40,6 +41,7 @@ const DepartmentProfile = () => {
       <DepartmentProfileCard
         departmentName={department.name}
         serviceType={department.serviceType} // Assuming a serviceType field
+        location={department.location} // Assuming a location field with { latitude, longitude }
         isActive={department.isActive} // Assuming an isActive field
         isVerified={department.isVerified} // Assuming an isVerified field
       />
