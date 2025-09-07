@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DepartmentProfileCard from '../../Components/DepartmentProfile/DepartmentProfileCard';
 import DepartmentDetailsCard from '../../Components/DepartmentProfile/DepartmentDetailsCard';
+import DepartmentAuditTrailCard from '../../Components/DepartmentProfile/DepartmentAuditTrailCard';
 
 const DepartmentProfile = () => {
   const [department, setDepartment] = useState(null);
@@ -50,9 +51,13 @@ const DepartmentProfile = () => {
         departmentId={department.id || 'N/A'}
         email={department.email || 'N/A'}
         locationCoords={department.location ? `${department.location.latitude}, ${department.location.longitude}` : 'N/A'}
-        lastLogin={'January 15, 2024 at 02:30 PM'} // Placeholder, replace with actual data if available
+        lastLogin={department.lastLogin ? new Date(department.lastLogin).toLocaleString() : 'N/A'}
         departmentStatus={department.isActive ? 'Active' : 'Inactive'}
         verificationStatus={department.isVerified ? 'Verified' : 'Unverified'}
+      />
+      <DepartmentAuditTrailCard
+        createdDate={department.createdAt ? new Date(department.createdAt).toLocaleString() : 'N/A'}
+        lastUpdatedDate={department.updatedAt ? new Date(department.updatedAt).toLocaleString() : 'N/A'}
       />
     </div>
   );

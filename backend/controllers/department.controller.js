@@ -204,7 +204,9 @@ export const getDepartmentProfile = (req, res) => {
       location: req.department.location,
       isActive: req.department.status === 'active', // Assuming status field exists
       isVerified: req.department.isVerified,
-      lastLogin: req.department.lastLogin, // Add lastLogin field
+      lastLogin: req.department.lastLogin,
+      createdAt: req.department.createdAt, // Add createdAt field
+      updatedAt: req.department.updatedAt, // Add updatedAt field
       // Add any other fields you want to expose to the frontend
     });
   } else {

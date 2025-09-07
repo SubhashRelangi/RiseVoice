@@ -23,7 +23,7 @@ const departmentSchema = new mongoose.Schema({
   departmentType: {
     type: String,
     required: true,
-    enum: ['WATER', 'ELECTRICITY', 'ROADS_INFRASTRUCTURE', 'WASTE_MANAGEMENT', 'HEALTHCARE', 'EDUCATION'],
+    enum: ['WATER', 'ELECTRICITY', 'ROADS_INFRASTRUCTURE', 'WASTE_MANAGEMENT', 'HEALTHCARE', 'EDUCATION', 'TRANSPORT', 'AGRICULTURE', 'REVENUE', 'POLICE'],
   },
   departmentId: {
     type: String,
