@@ -1,7 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { FaBuilding, FaTint, FaCheckCircle, FaShieldAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import {
+  FaBuilding,
+  FaTint,
+  FaCheckCircle,
+  FaShieldAlt,
+  FaMapMarkerAlt,
+  FaLightbulb,
+  FaRoad,
+  FaRecycle,
+  FaHospital,
+  FaGraduationCap,
+  FaBus,
+  FaSeedling,
+  FaMoneyBillAlt,
+} from 'react-icons/fa';
 import styles from './DepartmentProfileCard.module.css';
 import axios from 'axios';
+
+const serviceTypeIconMap = {
+  WATER: FaTint,
+  ELECTRICITY: FaLightbulb,
+  ROADS_INFRASTRUCTURE: FaRoad,
+  WASTE_MANAGEMENT: FaRecycle,
+  HEALTHCARE: FaHospital,
+  EDUCATION: FaGraduationCap,
+  TRANSPORT: FaBus,
+  AGRICULTURE: FaSeedling,
+  REVENUE: FaMoneyBillAlt,
+  POLICE: FaShieldAlt, // Using FaShieldAlt for Police as it's already imported
+};
 
 const DepartmentProfileCard = ({ departmentName, serviceType, location, isActive, isVerified }) => {
   const [locationName, setLocationName] = useState('Loading location...');
@@ -32,6 +59,8 @@ const DepartmentProfileCard = ({ departmentName, serviceType, location, isActive
     fetchLocationName();
   }, [location]);
 
+  const ServiceIconComponent = serviceTypeIconMap[serviceType] || FaBuilding; // Default to FaBuilding if type not found
+
   return (
     <div className={styles.card}>
       <div className={styles.leftBorder}></div>
@@ -41,7 +70,7 @@ const DepartmentProfileCard = ({ departmentName, serviceType, location, isActive
           <h2 className={styles.departmentName}>{departmentName}</h2>
         </div>
         <div className={styles.serviceType}>
-          <FaTint className={styles.icon} />
+          <ServiceIconComponent className={styles.icon} />
           {serviceType}
         </div>
         <div className={styles.location}>
