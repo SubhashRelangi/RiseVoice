@@ -1,0 +1,84 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.cardHeader h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.cardContent {
+  position: relative;
+  padding-left: 15px; /* space for left border */
+}
+
+.leftBorder {
+  width: 4px;
+  background-color: #4285f4;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+}
+
+.classificationItem {
+  display: flex;
+  align-items: flex-start; /* icon on top, text expands */
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.iconContainer {
+  background-color: #e0e7ff;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  flex-shrink: 0; /* prevent shrinking */
+}
+
+.itemIcon {
+  font-size: 22px;
+  color: #4285f4;
+}
+
+.textContainer {
+  flex: 1; /* 🔑 text takes full width */
+}
+
+.departmentType {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
