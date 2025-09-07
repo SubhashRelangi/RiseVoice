@@ -67,12 +67,23 @@ const DepartmentProfile = () => {
   useEffect(() => {
     const fetchDepartmentProfile = async () => {
       try {
-        const response = await axios.get('/api/departments/profile'); // Corrected endpoint
+        const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+        const response = await axios.get(`${API_BASE_URL}/api/departments/profile`, {
+          withCredentials: true, // Important for cookies
+        });
+
+        if (!response.data || typeof response.data !== "object") {
+          console.error("Unexpected response:", response.data);
+          setError("Invalid response from server");
+          return;
+        }
+
         setDepartment(response.data);
-        console.log('Fetched department profile:', response.data);
+        console.log("Fetched department profile:", response.data);
       } catch (err) {
-        setError('Failed to fetch department profile.');
-        console.error('Error fetching department profile:', err);
+        setError("Failed to fetch department profile.");
+        console.error("Error fetching department profile:", err);
       } finally {
         setLoading(false);
       }
@@ -80,6 +91,7 @@ const DepartmentProfile = () => {
 
     fetchDepartmentProfile();
   }, []);
+
 
   if (loading) {
     return <div>Loading department profile...</div>;
