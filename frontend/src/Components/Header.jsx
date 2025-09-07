@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,7 +9,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/api/departments/logout'); // No need for withCredentials here, it's global
+      await axiosInstance.post('/api/departments/logout');
       setIsLoggedIn(false);
       navigate('/department/login');
     } catch (error) {

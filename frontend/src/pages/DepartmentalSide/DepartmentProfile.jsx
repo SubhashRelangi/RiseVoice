@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axiosInstance';
 import DepartmentProfileCard from '../../Components/DepartmentProfile/DepartmentProfileCard';
 import DepartmentDetailsCard from '../../Components/DepartmentProfile/DepartmentDetailsCard';
 import DepartmentAuditTrailCard from '../../Components/DepartmentProfile/DepartmentAuditTrailCard';
@@ -67,11 +67,7 @@ const DepartmentProfile = () => {
   useEffect(() => {
     const fetchDepartmentProfile = async () => {
       try {
-        const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-
-        const response = await axios.get(`${API_BASE_URL}/api/departments/profile`, {
-          withCredentials: true, // Important for cookies
-        });
+        const response = await axiosInstance.get('/api/departments/profile');
 
         if (!response.data || typeof response.data !== "object") {
           console.error("Unexpected response:", response.data);

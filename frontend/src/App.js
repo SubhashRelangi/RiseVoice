@@ -15,7 +15,7 @@ import DepartmentVerify from './pages/DepartmentalSide/DepartmentVerify';
 import DepartmentLogin from './pages/DepartmentalSide/DepartmentLogin';
 import DepartmentProfile from './pages/DepartmentalSide/DepartmentProfile';
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
-import axios from 'axios';
+import axiosInstance from './axiosInstance';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize to false
@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get('/api/departments/checkAuth'); // Use the new endpoint
+        const response = await axiosInstance.get('/api/departments/checkAuth'); // Use the new endpoint
         if (response.status === 200 && response.data.isAuthenticated) {
           setIsLoggedIn(true);
         } else {
