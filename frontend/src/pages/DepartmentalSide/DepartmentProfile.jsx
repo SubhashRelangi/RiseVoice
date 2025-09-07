@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DepartmentProfileCard from '../../Components/DepartmentProfile/DepartmentProfileCard';
+import DepartmentDetailsCard from '../../Components/DepartmentProfile/DepartmentDetailsCard';
 
 const DepartmentProfile = () => {
   const [department, setDepartment] = useState(null);
@@ -44,6 +45,14 @@ const DepartmentProfile = () => {
         location={department.location} // Assuming a location field with { latitude, longitude }
         isActive={department.isActive} // Assuming an isActive field
         isVerified={department.isVerified} // Assuming an isVerified field
+      />
+      <DepartmentDetailsCard
+        departmentId={department.id || 'N/A'}
+        email={department.email || 'N/A'}
+        locationCoords={department.location ? `${department.location.latitude}, ${department.location.longitude}` : 'N/A'}
+        lastLogin={'January 15, 2024 at 02:30 PM'} // Placeholder, replace with actual data if available
+        departmentStatus={department.isActive ? 'Active' : 'Inactive'}
+        verificationStatus={department.isVerified ? 'Verified' : 'Unverified'}
       />
     </div>
   );

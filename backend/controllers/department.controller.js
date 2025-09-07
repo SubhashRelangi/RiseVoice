@@ -198,10 +198,13 @@ export const getDepartmentProfile = (req, res) => {
   if (req.department) {
     res.status(200).json({
       name: req.department.departmentName,
+      id: req.department.departmentId,
+      email: req.department.email,
       serviceType: req.department.departmentType, // Assuming departmentType maps to serviceType
       location: req.department.location,
       isActive: req.department.status === 'active', // Assuming status field exists
       isVerified: req.department.isVerified,
+      lastLogin: req.department.lastLogin, // Add lastLogin field
       // Add any other fields you want to expose to the frontend
     });
   } else {

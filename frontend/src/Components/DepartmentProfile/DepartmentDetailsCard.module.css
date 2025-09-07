@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+  justify-content: center; /* Center cards when they wrap */
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  flex: 1; /* Allow cards to grow and shrink */
+  min-width: 300px; /* Minimum width for cards before wrapping */
+  max-width: 45%; /* Max width to allow two cards per row */
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.headerIcon {
+  font-size: 24px;
+  color: #4285f4; /* Google Blue */
+  margin-right: 10px;
+}
+
+.cardHeader h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.cardContent .detailItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.cardContent .detailItem:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.value {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.inlineIcon {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.statusActive {
+  color: #28a745; /* Green */
+}
+
+.statusInactive {
+  color: #dc3545; /* Red */
+}
+
+.statusVerified {
+  color: #28a745; /* Green */
+}
+
+.statusUnverified {
+  color: #ffc107; /* Yellow/Orange */
+}
