@@ -1,165 +1,279 @@
-body {
-    background-color: #f0f2f5;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-
 .pageContainer {
     display: flex;
-    max-width: 1200px;
-    margin: 2rem auto;
-    gap: 1rem;
+    gap: 20px;
+    padding: 20px;
+    background: #fafafa;
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    /* prevent vertical stretching */
 }
 
+
+/* Main Section */
 .mainContent {
-    flex: 2;
+    flex: 3;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 20px;
+    min-width: 300px;
+    order: 1;
 }
 
+/* Sidebar */
 .sidebar {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 20px;
+    min-width: 280px;
+    order: 2;
 }
 
+/* Comments at bottom */
+.commentsSection {
+    flex: 0 0 100%;
+    /* do not shrink, always take full width */
+    order: 3;
+    margin-top: 20px;
+    width: 100%;
+    /* ensure it spans full container */
+    box-sizing: border-box;
+}
+
+
+/* Cards */
 .card {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.complaintHeader {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    color: #606770;
-}
-
-.tag {
-    background-color: #e7f3ff;
-    color: #1877f2;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-weight: bold;
-    margin-right: 1rem;
-}
-
-.creationDate {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
+/* Headings */
 .title {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
-}
-
-.section {
-    margin-bottom: 1.5rem;
-}
-
-.section:last-child {
-    margin-bottom: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #222;
 }
 
 .sectionTitle {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.location {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
     font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
 }
 
-.coordinates {
-    color: #606770;
-    margin-left: 1.7rem;
+/* Complaint Info */
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid #f1f1f1;
 }
 
-.comment {
-    background-color: #f0f2f5;
-    padding: 1rem;
+.infoLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+}
+
+.infoValue {
+    font-size: 13px;
+    font-weight: 400;
+    color: #444;
+}
+
+.likes {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #e63946;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Attachments */
+.attachmentContainer {
+    text-align: center;
+}
+
+.media {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+}
+
+.noAttachment {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Quick Actions */
+.actionButton {
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border: none;
     border-radius: 8px;
-    margin-bottom: 1rem;
+    background: #f1f1f1;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
 }
 
-.comment:last-child {
-    margin-bottom: 0;
+.actionButton:hover {
+    background: #ddd;
+}
+
+.resolvedButton {
+    background: #4caf50;
+    color: white;
+}
+
+.resolvedButton:hover {
+    background: #45a049;
+}
+
+/* Comments */
+.comment {
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
 }
 
 .commentHeader {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
 }
 
 .commentAuthor {
-    font-weight: bold;
+    color: #111;
 }
 
 .commentDate {
-    color: #606770;
-    font-size: 0.9rem;
+    color: #777;
+    font-weight: 400;
 }
 
-.infoItem {
-    margin-bottom: 1rem;
-}
-
-.infoLabel {
-    display: block;
-    color: #606770;
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
-}
-
-.infoValue {
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.likes {
+.addComment {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #ff4b4b;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.actionButton {
+.addComment textarea {
     width: 100%;
-    padding: 0.75rem;
+    /* take full card width */
+    min-height: 80px;
+    resize: vertical;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 6px;
-    border: 1px solid #ccd0d5;
-    background-color: #fff;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 14px;
+    font-family: inherit;
+    box-sizing: border-box;
+    /* prevent overflow */
+}
+
+.addComment button {
+    align-self: flex-end;
+    /* keep button aligned to right */
+    padding: 8px 16px;
+    font-size: 14px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.addComment button:hover {
+    background: #1e4ecf;
+}
+
+/* Complaint Header */
+.complaintHeader {
+    display: flex;
+    justify-content: space-between;
+    /* pushes items apart */
+    align-items: center;
+    width: 100%;
+    padding: 8px 0;
+    flex-wrap: wrap;
+    /* keeps responsive on small screens */
+}
+
+.creationDate {
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    gap: 5px;
+    margin-left: auto;
+    /* pushes it to the right */
 }
 
-.actionButton:hover {
-    background-color: #f0f2f5;
+.tag {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
+    color: #fff;
+    /* white text */
 }
 
-.resolvedButton {
-    border-color: #34a853;
-    color: #34a853;
+/* Category-specific colors */
+.tag.Electricity {
+    background-color: #f39c12;
+    /* orange/yellow */
 }
 
-.resolvedButton:hover {
-    background-color: #e6f4ea;
+.tag.Water {
+    background-color: #3498db;
+    /* blue */
+}
+
+.tag.Road {
+    background-color: #2ecc71;
+    /* green */
+}
+
+.tag.Health {
+    background-color: #e74c3c;
+    /* red */
+}
+
+.tag.Education {
+    background-color: #9b59b6;
+    /* purple */
+}
+
+
+
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .pageContainer {
+        flex-direction: column;
+    }
+
+    .mainContent,
+    .sidebar,
+    .commentsSection {
+        order: unset;
+        width: 100%;
+    }
+
+    .media {
+        max-height: 200px;
+    }
 }

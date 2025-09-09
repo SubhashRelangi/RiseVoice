@@ -28,41 +28,42 @@ export const createProblem = (req, res) => {
       options.quality = 'auto:good';
     }
 
-    const uploadStream = cloudinary.uploader.upload_stream(options, (error, result) => {
+    const uploadStream = cloudinary.uploader.upload_stream(options, async (error, result) => {
       if (error) {
         console.error('Cloudinary upload error:', error);
         return res.status(500).json({ message: 'Server Error', error });
       }
 
-      const imageUrl = {
-        url: result.secure_url,
-        public_id: result.public_id,
-        resource_type: resource_type,
-      };
+      try {
+        const imageUrl = {
+          url: result.secure_url,
+          public_id: result.public_id,
+          resource_type: resource_type,
+        };
 
-      const newProblem = new Problem({
-        title,
-        description,
-        category,
-        location: {
-          address,
-          coordinates: { lat, lng },
-        },
-        image: imageUrl,
-        comments: [],
-        likes: 0,
-      });
-
-      newProblem.save()
-        .then(savedProblem => res.status(201).json(savedProblem))
-        .catch(saveError => {
-            console.error('DB save error:', saveError);
-            res.status(500).json({ message: 'Server Error', error: saveError });
+        const newProblem = new Problem({
+          title,
+          description,
+          category,
+          location: {
+            address,
+            coordinates: { lat, lng },
+          },
+          image: imageUrl,
+          comments: [],
+          likes: 0,
+          status: 'Pending',
         });
+
+        const savedProblem = await newProblem.save();
+        res.status(201).json(savedProblem);
+      } catch (saveError) {
+        console.error('DB save error:', saveError);
+        res.status(500).json({ message: 'Server Error', error: saveError });
+      }
     });
 
     Readable.from(imageFile.buffer).pipe(uploadStream);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error', error });
@@ -99,24 +100,21 @@ export const getProblems = async (req, res) => {
 
     let problems = await Problem.find(filter);
 
-    // Haversine formula for distance calculation (same as frontend)
+    // Haversine distance filter
     const haversineDistance = (lat1, lon1, lat2, lon2) => {
-      const R = 6371; // Radius of Earth in kilometers
-
-      const toRad = (Value) => (Value * Math.PI) / 180;
+      const R = 6371; // km
+      const toRad = (val) => (val * Math.PI) / 180;
 
       const dLat = toRad(lat2 - lat1);
       const dLon = toRad(lon2 - lon1);
 
       const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLat / 2) ** 2 +
         Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        Math.sin(dLon / 2) ** 2;
 
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-      const distance = R * c; // Distance in kilometers
-      return distance;
+      return R * c;
     };
 
     if (radius && departmentLat && departmentLng) {
@@ -125,9 +123,8 @@ export const getProblems = async (req, res) => {
       const maxDistance = parseFloat(radius);
 
       problems = problems.filter(problem => {
-        if (problem.location && problem.location.coordinates) {
-          const complaintLat = problem.location.coordinates.lat;
-          const complaintLng = problem.location.coordinates.lng;
+        if (problem.location?.coordinates) {
+          const { lat: complaintLat, lng: complaintLng } = problem.location.coordinates;
           const dist = haversineDistance(deptLat, deptLng, complaintLat, complaintLng);
           return dist <= maxDistance;
         }
@@ -151,13 +148,8 @@ export const getProblemById = async (req, res) => {
       return res.status(404).json({ message: 'Problem not found' });
     }
 
-    // Ensure likes and comments are not undefined
-    if (problem.likes === undefined) {
-      problem.likes = 0;
-    }
-    if (!problem.comments) {
-      problem.comments = [];
-    }
+    if (problem.likes === undefined) problem.likes = 0;
+    if (!problem.comments) problem.comments = [];
 
     res.status(200).json(problem);
   } catch (error) {
@@ -180,34 +172,28 @@ export const deleteProblem = async (req, res) => {
   }
 };
 
-// @desc    Add a comment to a problem
+// @desc    Add a comment
 // @route   POST /api/problems/:id/comments
 // @access  Public
 export const addComment = async (req, res) => {
   try {
-    console.log('Received comment data:', req.body); // Log the request body
     const { text, user } = req.body;
     const problem = await Problem.findOne({ problemId: req.params.id });
 
-    if (!problem) {
-      return res.status(404).json({ message: 'Problem not found' });
-    }
+    if (!problem) return res.status(404).json({ message: 'Problem not found' });
 
     const newComment = {
       text,
       user: user || { name: 'Anonymous', role: 'User' },
     };
 
-    if (!problem.comments) {
-      problem.comments = [];
-    }
-
+    if (!problem.comments) problem.comments = [];
     problem.comments.push(newComment);
-    await problem.save();
 
+    await problem.save();
     res.status(201).json(problem);
   } catch (error) {
-    console.error('Error adding comment:', error); // Log the full error object
+    console.error('Error adding comment:', error);
     res.status(500).json({ message: 'Server Error', error });
   }
 };
@@ -215,15 +201,47 @@ export const addComment = async (req, res) => {
 // @desc    Like a problem
 // @route   POST /api/problems/:id/like
 // @access  Public
+export const likeProblem = async (req, res) => {
+  try {
+    const problem = await Problem.findOne({ problemId: req.params.id });
+    if (!problem) return res.status(404).json({ message: 'Problem not found' });
+
+    problem.likes = (problem.likes || 0) + 1;
+    await problem.save();
+
+    res.status(200).json(problem);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};
+
+// @desc    Update problem status
+// @route   PUT /api/problems/:id/status
+// @access  Public
+export const updateProblemStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const problem = await Problem.findOne({ problemId: req.params.id });
+
+    if (!problem) return res.status(404).json({ message: 'Problem not found' });
+
+    problem.status = status;
+    await problem.save();
+
+    res.status(200).json(problem);
+  } catch (error) {
+    console.error('Error updating problem status:', error);
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};
+
+// @desc    Get stats of problems
+// @route   GET /api/problems/stats
+// @access  Public
 export const getProblemStats = async (req, res) => {
   try {
     const stats = await Problem.aggregate([
-      {
-        $group: {
-          _id: '$status',
-          count: { $sum: 1 },
-        },
-      },
+      { $group: { _id: '$status', count: { $sum: 1 } } },
     ]);
 
     const statsMap = stats.reduce((acc, stat) => {
@@ -236,28 +254,6 @@ export const getProblemStats = async (req, res) => {
       inProgress: statsMap['In Progress'] || 0,
       pending: statsMap['Pending'] || 0,
     });
-  } catch (error) {
-    res.status(500).json({ message: 'Server Error', error });
-  }
-};
-
-export const likeProblem = async (req, res) => {
-  try {
-    const problem = await Problem.findOne({ problemId: req.params.id });
-
-    if (!problem) {
-      return res.status(404).json({ message: 'Problem not found' });
-    }
-
-    if (problem.likes === undefined) {
-      problem.likes = 1;
-    } else {
-      problem.likes += 1;
-    }
-
-    await problem.save();
-
-    res.status(200).json(problem);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error });
   }

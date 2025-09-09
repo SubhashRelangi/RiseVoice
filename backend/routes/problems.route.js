@@ -8,6 +8,7 @@ import {
   likeProblem,
   getProblemStats,
   getProblemCoordinates,
+  updateProblemStatus,
 } from '../controllers/problem.controller.js';
 
 const router = express.Router();
@@ -35,5 +36,8 @@ router.post('/:id/comments', addComment);
 
 // POST to like a problem
 router.post('/:id/like', likeProblem);
+
+// PUT to update problem status
+router.put('/:id/status', updateProblemStatus);
 
 export default router;
