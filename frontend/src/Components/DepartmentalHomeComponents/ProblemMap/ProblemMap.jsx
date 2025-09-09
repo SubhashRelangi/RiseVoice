@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './ProblemMap.module.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -49,27 +49,8 @@ const getAwesomeMarkerIcon = (status) => {
   });
 };
 
-const ProblemMap = () => {
-  const [problems, setProblems] = useState([]);
+const ProblemMap = ({ problems }) => {
   const kakinadaPosition = [16.989065, 82.247467]; // Kakinada coordinates
-
-  useEffect(() => {
-    const fetchProblems = async () => {
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/problems/coordinates`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setProblems(data);
-      } catch (error) {
-        console.error("Could not fetch problems:", error);
-      }
-    };
-
-    fetchProblems();
-  }, []);
 
   return (
     <div className={styles.mapContainer}>

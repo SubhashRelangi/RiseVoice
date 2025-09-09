@@ -1,19 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProblemStatistics from '../../Components/DepartmentalHomeComponents/ProblemStatistics';
 import ProblemList from '../../Components/DepartmentalHomeComponents/ProblemList';
 import ProblemMap from '../../Components/DepartmentalHomeComponents/ProblemMap/ProblemMap';
 import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/DepartmentalDashboard';
 import ProblemSummary from '../../Components/DepartmentalHomeComponents/ProblemSummary';
+import axiosInstance from '../../axiosInstance';
 
 const DepartmentsHomePage = () => {
+  const [problems, setProblems] = useState([]);
+  const [stats, setStats] = useState({
+    resolved: 0,
+    inProgress: 0,
+    pending: 0,
+  });
+
+  useEffect(() => {
+    const fetchDepartmentData = async () => {
+      try {
+        // First, get the department's profile to find their location
+        const profileResponse = await axiosInstance.get('/api/departments/profile');
+        const departmentLocation = profileResponse.data.location;
+
+        // Then, fetch problems within a 3km radius of the department's location
+        const problemsResponse = await axiosInstance.get('/api/problems', {
+          params: {
+            radius: 3, // 3km radius
+            departmentLat: departmentLocation.latitude,
+            departmentLng: departmentLocation.longitude,
+          },
+        });
+        
+        const fetchedProblems = problemsResponse.data;
+        setProblems(fetchedProblems);
+
+        // Calculate stats based on the fetched problems
+        const newStats = {
+          resolved: fetchedProblems.filter(p => p.status === 'Resolved').length,
+          inProgress: fetchedProblems.filter(p => p.status === 'In Progress').length,
+          pending: fetchedProblems.filter(p => p.status === 'Pending').length,
+        };
+        setStats(newStats);
+
+      } catch (error) {
+        console.error('Error fetching department data or problems:', error);
+      }
+    };
+
+    fetchDepartmentData();
+  }, []);
+
   return (
     <div>
       <main>
-        <DepartmentalDashboard />
-        <ProblemMap />
-        <ProblemList />
-        <ProblemStatistics />
-        <ProblemSummary />
+        <DepartmentalDashboard stats={stats} />
+        <ProblemMap problems={problems} />
+        <ProblemList problems={problems} />
+        <ProblemStatistics problems={problems} />
+        <ProblemSummary problems={problems} />
       </main>
     </div>
   );

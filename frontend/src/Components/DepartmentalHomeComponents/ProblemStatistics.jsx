@@ -1,38 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styles from './ProblemStatistics.module.css';
 import { FaChartBar, FaChartPie } from 'react-icons/fa';
 
-const ProblemStatistics = () => {
-  const [stats, setStats] = useState({
-    resolved: 0,
-    inProgress: 0,
-    pending: 0,
-  });
+const ProblemStatistics = ({ problems }) => {
+  const stats = {
+    resolved: problems.filter(p => p.status === 'Resolved').length,
+    inProgress: problems.filter(p => p.status === 'In Progress').length,
+    pending: problems.filter(p => p.status === 'Pending').length,
+  };
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-      try {
-        const response = await axios.get(`${API_BASE_URL}/api/problems/stats`);
-        // The API returns "Resloved" but the UI shows "Resolved"
-        // Also, the image shows "Completed" but the API returns "In Progress" and "Pending"
-        // I will map the API response to the UI labels.
-        const apiStats = response.data;
-        setStats({
-          resolved: apiStats.resolved || 0,
-          inProgress: apiStats.inProgress || 0,
-          pending: apiStats.pending || 0, // Assuming "pending" should be "completed"
-        });
-      } catch (error) {
-        console.error('Error fetching problem stats:', error);
-      }
-    };
-
-    fetchStats();
-  }, []);
-
-  const totalProblems = stats.resolved + stats.inProgress + stats.pending;
+  const totalProblems = problems.length;
   const resolvedPercentage = totalProblems > 0 ? Math.round((stats.resolved / totalProblems) * 100) : 0;
   const inProgressPercentage = totalProblems > 0 ? Math.round((stats.inProgress / totalProblems) * 100) : 0;
   const pendingPercentage = totalProblems > 0 ? Math.round((stats.pending / totalProblems) * 100) : 0;

@@ -1,29 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styles from './DepartmentalDashboard.module.css';
 import { FaCheckCircle, FaHourglassHalf, FaExclamationCircle } from 'react-icons/fa';
 
-const DepartmentalDashboard = () => {
-  const [stats, setStats] = useState({
-    resolved: 0,
-    inProgress: 0,
-    pending: 0,
-  });
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-      try {
-        const response = await axios.get(`${API_BASE_URL}/api/problems/stats`);
-        setStats(response.data);
-      } catch (error) {
-        console.error('Error fetching problem stats:', error);
-      }
-    };
-
-    fetchStats();
-  }, []);
-
+const DepartmentalDashboard = ({ stats }) => {
   return (
     <div className={styles.dashboardContainer}>
       <div className={styles.dashboardHeader}>

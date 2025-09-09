@@ -1,27 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './ProblemList.module.css';
 
-const ProblemList = () => {
-  const [problems, setProblems] = useState([]);
-
-  useEffect(() => {
-    const fetchProblems = async () => {
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/problems`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setProblems(data);
-      } catch (error) {
-        console.error("Could not fetch problems:", error);
-      }
-    };
-
-    fetchProblems();
-  }, []);
-
+const ProblemList = ({ problems }) => {
   return (
     <div className={styles.problemListContainer}>
       <div className={styles.header}>
