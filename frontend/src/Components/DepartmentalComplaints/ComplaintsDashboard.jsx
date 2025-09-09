@@ -14,31 +14,21 @@ const ComplaintsDashboard = ({
   setSelectedStatus,
   selectedRadius,
   setSelectedRadius,
+  stats, // Receive stats as prop
 }) => {
-  const [stats, setStats] = useState({ total: 0, pending: 0, inProgress: 0, resolved: 0 });
   const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAddress = async () => {
       try {
-        const statsResponse = await axiosInstance.get('/api/problems/stats');
-        const statsData = statsResponse.data;
-        setStats({
-          total: statsData.resolved + statsData.inProgress + statsData.pending,
-          resolved: statsData.resolved,
-          inProgress: statsData.inProgress,
-          pending: statsData.pending,
-        });
-
         if (departmentLocation) {
           const { latitude, longitude } = departmentLocation;
           const geoResponse = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
           const geoData = await geoResponse.json();
           setAddress(geoData.display_name);
         }
-
       } catch (error) {
         setError(error.message);
       } finally {
@@ -46,7 +36,7 @@ const ComplaintsDashboard = ({
       }
     };
 
-    fetchData();
+    fetchAddress();
   }, [departmentLocation]); // Re-run when departmentLocation changes
 
   return (
@@ -101,7 +91,7 @@ const ComplaintsDashboard = ({
 
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {!loading && !error && (
+      {!loading && !error && ( // Only render summary if not loading and no error
         <div className={styles.summary}>
           <div className={styles.summaryCard}>
             <div className={styles.cardIcon} style={{ color: '#E74C3C' }}>

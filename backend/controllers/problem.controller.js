@@ -86,7 +86,11 @@ export const getProblems = async (req, res) => {
     }
 
     if (status) {
-      filter.status = status;
+      if (status === 'Resolved') {
+        filter.$or = [{ status: 'Resolved' }, { status: 'Resloved' }];
+      } else {
+        filter.status = status;
+      }
     }
 
     if (category) {

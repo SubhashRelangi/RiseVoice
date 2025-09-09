@@ -8,34 +8,14 @@ const ComplaintList = ({
   searchTerm,
   selectedStatus,
   selectedRadius,
+  departmentType,
+  complaints, // Receive complaints as prop
 }) => {
-  const [complaints, setComplaints] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // No longer fetching here
+  const [error, setError] = useState(null); // No longer fetching here
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'new', 'older'
 
-  useEffect(() => {
-    const fetchComplaints = async () => {
-      try {
-        const response = await axiosInstance.get('/api/problems', {
-          params: {
-            search: searchTerm,
-            status: selectedStatus === 'All Status' ? '' : selectedStatus,
-            radius: selectedRadius,
-            departmentLat: departmentLocation ? departmentLocation.latitude : '',
-            departmentLng: departmentLocation ? departmentLocation.longitude : '',
-          },
-        });
-        setComplaints(response.data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchComplaints();
-  }, [searchTerm, selectedStatus, selectedRadius, departmentLocation]);
+  // No useEffect for fetching complaints here anymore
 
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
@@ -44,6 +24,7 @@ const ComplaintList = ({
       case 'in progress':
         return styles.inProgressStatus;
       case 'resolved':
+      case 'resloved': // Handle typo
         return styles.resolvedStatus;
       default:
         return '';
