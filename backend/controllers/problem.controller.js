@@ -74,7 +74,7 @@ export const createProblem = (req, res) => {
 // @access  Public
 export const getProblems = async (req, res) => {
   try {
-    const { search, status, radius, departmentLat, departmentLng } = req.query;
+    const { search, status, radius, departmentLat, departmentLng, category } = req.query;
     let filter = {};
 
     if (search) {
@@ -87,6 +87,10 @@ export const getProblems = async (req, res) => {
 
     if (status) {
       filter.status = status;
+    }
+
+    if (category) {
+      filter.category = category;
     }
 
     let problems = await Problem.find(filter);

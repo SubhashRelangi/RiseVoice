@@ -32,6 +32,7 @@ const getAwesomeMarkerIcon = (status) => {
       markerColor = 'orange';
       break;
     case 'Resolved':
+    case 'Resloved':
       markerColor = 'green';
       break;
     case 'Rejected':
@@ -49,13 +50,19 @@ const getAwesomeMarkerIcon = (status) => {
   });
 };
 
-const ProblemMap = ({ problems }) => {
-  const kakinadaPosition = [16.989065, 82.247467]; // Kakinada coordinates
+const ProblemMap = ({ problems, departmentLocation }) => {
+  const mapCenter = departmentLocation
+    ? [departmentLocation.latitude, departmentLocation.longitude]
+    : [16.989065, 82.247467]; // Default to Kakinada if location not available
+
+  if (!departmentLocation) {
+    return <div>Loading map...</div>;
+  }
 
   return (
     <div className={styles.mapContainer}>
       <h2 className={styles.title}>Community Concerns Map</h2>
-      <MapContainer center={kakinadaPosition} zoom={13} scrollWheelZoom={true} className={styles.map}>
+      <MapContainer center={mapCenter} zoom={13} scrollWheelZoom={true} className={styles.map}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

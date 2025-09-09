@@ -6,6 +6,18 @@ import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/D
 import ProblemSummary from '../../Components/DepartmentalHomeComponents/ProblemSummary';
 import axiosInstance from '../../axiosInstance';
 
+const mapDepartmentTypeToCategory = (departmentType) => {
+  const mapping = {
+    WATER: 'Water',
+    ELECTRICITY: 'Electricity',
+    ROADS_INFRASTRUCTURE: 'Road',
+    WASTE_MANAGEMENT: 'Waste',
+    HEALTHCARE: 'Health',
+    EDUCATION: 'Education',
+  };
+  return mapping[departmentType] || 'Other';
+};
+
 const DepartmentsHomePage = () => {
   const [problems, setProblems] = useState([]);
   const [stats, setStats] = useState({
@@ -13,20 +25,25 @@ const DepartmentsHomePage = () => {
     inProgress: 0,
     pending: 0,
   });
+  const [departmentLocation, setDepartmentLocation] = useState(null);
 
   useEffect(() => {
     const fetchDepartmentData = async () => {
       try {
         // First, get the department's profile to find their location
         const profileResponse = await axiosInstance.get('/api/departments/profile');
-        const departmentLocation = profileResponse.data.location;
+        const { location, serviceType } = profileResponse.data;
+        setDepartmentLocation(location);
+
+        const category = mapDepartmentTypeToCategory(serviceType);
 
         // Then, fetch problems within a 3km radius of the department's location
         const problemsResponse = await axiosInstance.get('/api/problems', {
           params: {
             radius: 3, // 3km radius
-            departmentLat: departmentLocation.latitude,
-            departmentLng: departmentLocation.longitude,
+            departmentLat: location.latitude,
+            departmentLng: location.longitude,
+            category: category,
           },
         });
         
@@ -35,7 +52,7 @@ const DepartmentsHomePage = () => {
 
         // Calculate stats based on the fetched problems
         const newStats = {
-          resolved: fetchedProblems.filter(p => p.status === 'Resolved').length,
+          resolved: fetchedProblems.filter(p => p.status === 'Resolved' || p.status === 'Resloved').length,
           inProgress: fetchedProblems.filter(p => p.status === 'In Progress').length,
           pending: fetchedProblems.filter(p => p.status === 'Pending').length,
         };
@@ -53,7 +70,7 @@ const DepartmentsHomePage = () => {
     <div>
       <main>
         <DepartmentalDashboard stats={stats} />
-        <ProblemMap problems={problems} />
+        <ProblemMap problems={problems} departmentLocation={departmentLocation} />
         <ProblemList problems={problems} />
         <ProblemStatistics problems={problems} />
         <ProblemSummary problems={problems} />

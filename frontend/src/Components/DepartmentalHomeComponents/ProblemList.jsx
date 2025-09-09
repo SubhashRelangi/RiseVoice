@@ -1,6 +1,19 @@
 import React from 'react';
 import styles from './ProblemList.module.css';
 
+const getStatusClass = (status) => {
+  if (status === 'Resolved' || status === 'Resloved') {
+    return styles.resolved;
+  }
+  if (status === 'In Progress') {
+    return styles.inprogress;
+  }
+  if (status === 'Pending') {
+    return styles.pending;
+  }
+  return ''; // Default class if no match
+};
+
 const ProblemList = ({ problems }) => {
   return (
     <div className={styles.problemListContainer}>
@@ -25,7 +38,7 @@ const ProblemList = ({ problems }) => {
                 <td>{problem.title}</td>
                 <td>{problem.location.address}</td>
                 <td>
-                  <span className={`${styles.statusBadge} ${styles[problem.status.replace(/\s/g, '').toLowerCase()]}`}>
+                  <span className={`${styles.statusBadge} ${getStatusClass(problem.status)}`}>
                     {problem.status}
                   </span>
                 </td>

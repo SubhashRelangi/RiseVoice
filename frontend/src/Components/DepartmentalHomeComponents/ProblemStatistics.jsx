@@ -4,9 +4,9 @@ import { FaChartBar, FaChartPie } from 'react-icons/fa';
 
 const ProblemStatistics = ({ problems }) => {
   const stats = {
-    resolved: problems.filter(p => p.status === 'Resolved').length,
-    inProgress: problems.filter(p => p.status === 'In Progress').length,
-    pending: problems.filter(p => p.status === 'Pending').length,
+    resolved: problems.filter(p => p.status === 'Resolved' || p.status === 'Resloved').length,
+    inProgress: problems.filter(p => p.status === 'In Progress' || p.status === 'In Progress').length,
+    pending: problems.filter(p => p.status === 'Pending' || p.status === 'Pending').length,
   };
 
   const totalProblems = problems.length;

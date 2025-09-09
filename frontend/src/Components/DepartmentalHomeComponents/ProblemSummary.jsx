@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './ProblemSummary.module.css';
 
 const ProblemSummary = ({ problems }) => {
-  const resolvedProblems = problems.filter(problem => problem.status === 'Resolved');
-  const inProgressProblems = problems.filter(problem => problem.status === 'In Progress');
-  const pendingProblems = problems.filter(problem => problem.status === 'Pending');
+  const resolvedProblems = problems.filter(problem => problem.status === 'Resolved' || problem.status === 'Resloved');
+  const inProgressProblems = problems.filter(problem => problem.status === 'In Progress' || problem.status === 'In Progress');
+  const pendingProblems = problems.filter(problem => problem.status === 'Pending' || problem.status === 'Pending');
 
   return (
     <div className={styles.summaryContainer}>
