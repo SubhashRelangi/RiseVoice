@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './ComplaintList.module.css';
 import { FaClock, FaMapMarkerAlt, FaEye, FaCommentAlt } from 'react-icons/fa';
 import axiosInstance from '../../axiosInstance';
@@ -126,9 +127,9 @@ const ComplaintList = ({
                   <span className={styles.category}>{complaint.category}</span>
                   <p><FaCommentAlt /> {complaint.comments ? complaint.comments.length : 0} comments</p>
                 </div>
-                <button className={styles.viewDetailsButton}>
+                <Link to={`/department/complaints/${complaint.problemId}`} className={styles.viewDetailsButton}>
                   <FaEye /> View Details
-                </button>
+                </Link>
               </div>
             </div>
           ))}
