@@ -20,7 +20,7 @@ VoiceUp is packed with intuitive features designed to make your voice heard and 
     *   Monitor the live status of your submitted complaints with an enhanced, responsive UI.
     *   Powerful filtering capabilities: Easily search by ID, description, location, status, category, and date.
 *   **Community Engagement:**
-    *   **Commenting:** Engage in discussions on existing problems to provide additional information or context.
+    *   **Commenting:** Engage in discussions on existing problems to provide additional information or context, with comments now displaying author information (anonymous or departmental).
     *   **Liking:** Show your support for a complaint and help to highlight its importance. (Note: Current implementation allows multiple likes from the same browser; "Like Once" logic needs further development.)
 *   **Adaptive & Intuitive User Interface:**
     *   **Responsive Design:** A modern, clean interface that looks stunning and performs flawlessly on any device (desktop, tablet, mobile).
@@ -39,7 +39,7 @@ VoiceUp is packed with intuitive features designed to make your voice heard and 
 *   **Departmental Dashboard:**
     *   Overview of problem statistics (resolved, in progress, pending).
     *   Integration with problem list and map views for comprehensive monitoring.
-*   **Complaint Management (Planned):** Dedicated sections for departments to view and manage complaints relevant to them (currently placeholder components).
+*   **Complaint Management:** Departments can now view and manage complaints relevant to them, including updating complaint statuses (e.g., Mark In Progress, Mark as Resolved) and viewing attached media (images/videos).
 
 ---
 
@@ -62,7 +62,7 @@ Built with robust and modern technologies to ensure performance and scalability:
 
 The backend is built with Node.js and Express.js, providing a RESTful API.
 *   **Server Setup:** `server.js` acts as the entry point, handling middleware (CORS, JSON/URL parsing, Multer for multipart data), connecting to MongoDB via Mongoose, and mounting API routes.
-*   **Problem Module:** Manages all complaint-related operations. This includes creating problems with media uploads (handled by Cloudinary), retrieving problems (all, by ID, by coordinates), deleting problems, and adding comments and likes. Problem data is structured with categories, locations, and status.
+*   **Problem Module:** Manages all complaint-related operations. This includes creating problems with media uploads (handled by Cloudinary), retrieving problems (all, by ID, by coordinates), deleting problems, adding comments (with author information), and liking problems. It also now supports updating problem statuses.
 *   **Department Module:** Handles the full lifecycle of departmental accounts, from secure signup (with password hashing via bcrypt and custom `departmentId` generation) and email verification (using Nodemailer and generated codes) to JWT-based login with optional IP validation.
 *   **Utilities:** Includes an email service for sending verification codes and a request scheduler to send periodic HTTP GET requests, useful for maintaining server activity on certain hosting environments.
 
@@ -71,8 +71,8 @@ The backend is built with Node.js and Express.js, providing a RESTful API.
 The frontend is a React.js single-page application, utilizing `react-router-dom` for navigation.
 *   **Routing:** `App.js` centralizes all application routes, distinguishing between user-facing and departmental sections.
 *   **User Interface:**
-    *   **Citizen-Facing:** Provides intuitive forms for complaint submission (integrating camera/gallery and geolocation), a comprehensive tracking page with advanced filtering (by ID, description, location, status, category, date), and detailed views for individual complaints with commenting capabilities.
-    *   **Departmental-Facing:** Features secure login and signup flows. Includes dashboard components for an overview of problem statistics and a map view. Placeholder components are present for future development of detailed departmental complaint management.
+    *   **Citizen-Facing:** Provides intuitive forms for complaint submission (integrating camera/gallery and geolocation), a comprehensive tracking page with advanced filtering (by ID, description, location, status, category, date), and detailed views for individual complaints with commenting capabilities (displaying author information).
+    *   **Departmental-Facing:** Features secure login and signup flows. Includes dashboard components for an overview of problem statistics and a map view. Departments can now update complaint statuses and view attached media directly from the complaint details page.
 *   **Global Components:** A consistent header, footer, and a floating button for quick complaint submission are integrated across the application. API calls are managed using Axios, with base URLs configured via environment variables for flexible deployment.
 
 ---
@@ -142,7 +142,6 @@ Once both servers are running, open your browser and navigate to `http://localho
 We're continuously working to improve VoiceUp. Here are some planned features:
 
 *   **Real-time Notifications:** Instant updates on complaint status changes.
-*   **Full Departmental Complaint Management:** Implement detailed views and actions for departments to manage complaints.
 *   **User Feedback System:** Allow citizens to provide feedback on resolved issues.
 *   **Advanced Analytics:** Generate insights into complaint trends and resolution efficiency.
 *   **Robust User Authentication:** Further enhance security and user management (e.g., password reset, multi-factor authentication).
@@ -155,7 +154,7 @@ We're continuously working to improve VoiceUp. Here are some planned features:
 
 ## ⚠️ Known Issues
 
-*   **"Resloved" Typo:** There is a known typo in the database where the "Resolved" status is sometimes misspelled as "Resloved". The frontend has a workaround to handle this, but the underlying data should be corrected.
+*   **"Resloved" Typo:** There is a known typo in the database where the "Resolved" status is sometimes misspelled as "Resloved". This has been addressed in the backend model to prevent validation errors, but data cleanup may still be beneficial.
 
 ---
 
