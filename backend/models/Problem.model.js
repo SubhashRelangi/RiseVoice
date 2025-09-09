@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 const commentSchema = new mongoose.Schema({
   text: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  user: {
+    name: { type: String, default: 'Anonymous' },
+    role: { type: String, default: 'User' },
+  }
 });
 
 const problemSchema = new mongoose.Schema({
@@ -33,7 +37,7 @@ const problemSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Pending", "In Progress", "Resolved", "Rejected"],
+    enum: ["Pending", "In Progress", "Resolved", "Rejected", "Resloved"],
     default: "Pending",
   },
   likes: {

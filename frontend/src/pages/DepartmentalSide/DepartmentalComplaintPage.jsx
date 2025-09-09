@@ -9,6 +9,8 @@ const DepartmentalComplaintPage = () => {
   const [complaint, setComplaint] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [newComment, setNewComment] = useState('');
+  const [departmentProfile, setDepartmentProfile] = useState(null);
 
   useEffect(() => {
     const fetchComplaint = async () => {
@@ -22,8 +24,36 @@ const DepartmentalComplaintPage = () => {
       }
     };
 
+    const fetchDepartmentProfile = async () => {
+      try {
+        const response = await axiosInstance.get('/api/departments/profile');
+        setDepartmentProfile(response.data);
+      } catch (error) {
+        console.error('Failed to fetch department profile', error);
+      }
+    };
+
     fetchComplaint();
+    fetchDepartmentProfile();
   }, [id]);
+
+  const handleAddComment = async () => {
+    if (!newComment.trim()) return;
+
+    try {
+      const response = await axiosInstance.post(`/api/problems/${id}/comments`, {
+        text: newComment,
+        user: {
+          name: departmentProfile?.name || 'Department',
+          role: 'Department',
+        },
+      });
+      setComplaint(response.data);
+      setNewComment('');
+    } catch (err) {
+      console.error('Error adding comment:', err);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -94,6 +124,14 @@ const DepartmentalComplaintPage = () => {
               <p>{comment.text}</p>
             </div>
           ))}
+          <div className={styles.addComment}>
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Add a public comment..."
+            />
+            <button onClick={handleAddComment}>Comment</button>
+          </div>
         </div>
       </div>
       <div className={styles.sidebar}>

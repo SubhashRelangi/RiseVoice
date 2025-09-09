@@ -186,7 +186,7 @@ export const deleteProblem = async (req, res) => {
 export const addComment = async (req, res) => {
   try {
     console.log('Received comment data:', req.body); // Log the request body
-    const { text } = req.body;
+    const { text, user } = req.body;
     const problem = await Problem.findOne({ problemId: req.params.id });
 
     if (!problem) {
@@ -195,6 +195,7 @@ export const addComment = async (req, res) => {
 
     const newComment = {
       text,
+      user: user || { name: 'Anonymous', role: 'User' },
     };
 
     if (!problem.comments) {

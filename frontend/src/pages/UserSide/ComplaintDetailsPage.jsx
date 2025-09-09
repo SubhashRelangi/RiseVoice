@@ -478,7 +478,7 @@ const ComplaintDetailsPage = () => {
             {comments && comments.length > 0 ? (
               comments.map((comment) => (
                 <div key={comment._id} className="commentItem">
-                  <p>{comment.text}</p>
+                  <p><strong>{comment.user ? comment.user.name : 'Anonymous'}:</strong> {comment.text}</p>
                   <span className="commentDate">{new Date(comment.createdAt).toLocaleDateString()}</span>
                 </div>
               ))
