@@ -41,27 +41,28 @@ const trustedDeviceService = {
     async validateTrustedDeviceToken(plainToken, departmentId, userAgent, ipAddress) {
         if (!plainToken) return false;
 
-        const trustedDevice = await TrustedDevice.findOne({ department: departmentId, revoked: false });
+        const trustedDevices = await TrustedDevice.find({ department: departmentId, revoked: false });
 
-        if (!trustedDevice) {
-            return false; // No trusted device found for this department or it's revoked
+        if (trustedDevices.length === 0) {
+            return false; // No trusted devices found for this department
         }
 
-        const isMatch = await bcrypt.compare(plainToken, trustedDevice.tokenHash);
-
-        if (isMatch) {
-            // Optionally, add more stringent checks here, e.g., IP address or user agent matching
-            // For now, we'll allow a match if the token hash matches and it's for the correct department.
-            // You might want to implement a more flexible matching strategy for userAgent/ipAddress
-            // to account for minor variations or dynamic IPs.
-            
-            // Update lastUsedAt timestamp
-            trustedDevice.lastUsedAt = new Date();
-            await trustedDevice.save();
-            return true;
+        for (const trustedDevice of trustedDevices) {
+            const isMatch = await bcrypt.compare(plainToken, trustedDevice.tokenHash);
+            if (isMatch) {
+                // Optionally, add more stringent checks here, e.g., IP address or user agent matching
+                // For now, we'll allow a match if the token hash matches and it's for the correct department.
+                // You might want to implement a more flexible matching strategy for userAgent/ipAddress
+                // to account for minor variations or dynamic IPs.
+                
+                // Update lastUsedAt timestamp for the matched device
+                trustedDevice.lastUsedAt = new Date();
+                await trustedDevice.save();
+                return true;
+            }
         }
 
-        return false;
+        return false; // No matching trusted device found
     },
 
     /**
