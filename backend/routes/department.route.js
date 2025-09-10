@@ -1,5 +1,5 @@
 import express from 'express';
-import { signupDepartment, sendVerification, verifyEmail, loginDepartment, resendVerificationCode, logoutDepartment, getDepartmentProfile, checkAuth } from '../controllers/department.controller.js';
+import { signupDepartment, sendVerification, verifyEmail, loginDepartment, resendVerificationCode, logoutDepartment, getDepartmentProfile, checkAuth, verifyLoginOTP } from '../controllers/department.controller.js';
 import { protect } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
@@ -10,6 +10,7 @@ router.post('/resend-verification', resendVerificationCode);
 router.post('/verify-email', verifyEmail);
 router.post('/login', loginDepartment);
 router.post('/logout', logoutDepartment);
+router.post('/verify-login-otp', verifyLoginOTP); // New route for OTP verification during login
 
 router.get('/checkAuth', checkAuth);
 
