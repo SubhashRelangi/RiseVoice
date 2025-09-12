@@ -29,7 +29,7 @@
   text-align: center;
   color: #bdbdbd;
   font-weight: bold;
-  width: 100px; /* Adjust as needed */
+  width: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,19 +38,19 @@
 
 .progressBarItem::before {
   content: '';
-  position: relative; /* Changed to relative */
+  position: relative;
   width: 20px;
   height: 20px;
   background-color: #e0e0e0;
   border-radius: 50%;
-  transform: none; /* Removed transform */
-  margin-bottom: 5px; /* Added margin to separate text from circle */
+  transform: none;
+  margin-bottom: 5px;
 }
 
 .progressBarItem.active::before {
-  background-color: #0d6efd;
+  background-color: var(--button-primary-bg);
 }
 
 .progressBarItem.active {
-  color: #0d6efd;
+  color: var(--button-primary-bg);
 }

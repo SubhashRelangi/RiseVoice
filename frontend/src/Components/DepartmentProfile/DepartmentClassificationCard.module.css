@@ -1,10 +1,10 @@
 .card {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: var(--background-color);
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--box-shadow-light);
   margin: 20px 0;
   padding: 20px;
   box-sizing: border-box;
@@ -15,24 +15,24 @@
   align-items: center;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .cardHeader h3 {
   font-size: 18px;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .cardContent {
   position: relative;
-  padding-left: 15px; /* space for left border */
+  padding-left: 15px;
 }
 
 .leftBorder {
   width: 4px;
-  background-color: #4285f4;
+  background-color: var(--icon-color-2);
   position: absolute;
   left: 0;
   top: 0;
@@ -42,7 +42,7 @@
 
 .classificationItem {
   display: flex;
-  align-items: flex-start; /* icon on top, text expands */
+  align-items: flex-start;
   background-color: #f8f9fa;
   padding: 15px;
   border-radius: 8px;
@@ -56,29 +56,29 @@
   align-items: center;
   justify-content: center;
   margin-right: 15px;
-  flex-shrink: 0; /* prevent shrinking */
+  flex-shrink: 0;
 }
 
 .itemIcon {
   font-size: 22px;
-  color: #4285f4;
+  color: var(--icon-color-2);
 }
 
 .textContainer {
-  flex: 1; /* 🔑 text takes full width */
+  flex: 1;
 }
 
 .departmentType {
   display: block;
   font-size: 16px;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 5px;
 }
 
 .description {
   font-size: 14px;
-  color: #555;
+  color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
 }

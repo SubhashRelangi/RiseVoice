@@ -4,9 +4,9 @@
   align-items: center;
   gap: 2rem;
   padding: 1rem;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   border-radius: 0.75rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--box-shadow-light);
   margin-bottom: 2rem;
 }
 
@@ -25,13 +25,13 @@
 }
 
 .resolved {
-  background-color: #28a745; /* green */
+  background-color: var(--status-resolved);
 }
 
 .inProgress {
-  background-color: #ffc107; /* orange/yellow */
+  background-color: var(--status-inprogress);
 }
 
 .Pending {
-  background-color: #17a2b8; /* blue */
+  background-color: var(--status-completed);
 }

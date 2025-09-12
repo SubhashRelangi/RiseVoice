@@ -3,15 +3,15 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f1f8ff, #e0f7fa);
+  background: var(--background-gradient-blue);
   font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
 .card {
-  background: #fff;
+  background: var(--background-color);
   padding: 2rem;
   border-radius: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px var(--box-shadow-dark);
   width: 100%;
   max-width: 400px;
 }
@@ -21,7 +21,7 @@
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .field {
@@ -39,13 +39,13 @@
   width: 100%;
   padding: 0.75rem;
   border-radius: 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color-dark);
   outline: none;
   font-size: 1rem;
 }
 
 .input:focus {
-  border-color: #007bff;
+  border-color: var(--button-primary-bg);
   box-shadow: 0 0 4px rgba(0,123,255,0.3);
 }
 
@@ -54,8 +54,8 @@
   padding: 0.9rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #fff;
-  background: #007bff;
+  color: var(--text-light);
+  background: var(--button-primary-bg);
   border: none;
   border-radius: 0.8rem;
   cursor: pointer;
@@ -63,15 +63,15 @@
 }
 
 .button:hover {
-  background: #0056b3;
+  background: var(--button-primary-hover);
 }
 
 .resendButton {
-  margin-top: 1rem; /* Add a gap of 1rem (16px) */
+  margin-top: 1rem;
 }
 
 .error {
-  color: red;
+  color: var(--text-error);
   font-size: 0.85rem;
   margin-top: 0.3rem;
   display: block;

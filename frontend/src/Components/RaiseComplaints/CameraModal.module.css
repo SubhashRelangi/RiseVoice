@@ -1,5 +1,3 @@
-/* CameraModal.module.css */
-
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -15,14 +13,14 @@
 }
 
 .modalContent {
-  background: #ffffff;
+  background: var(--background-color);
   padding: 25px;
   border-radius: 12px;
   position: relative;
   width: 90%;
   max-width: 550px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px var(--box-shadow-dark);
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -36,7 +34,7 @@
   top: 15px;
   right: 15px;
   background: #e0e0e0;
-  color: #333;
+  color: var(--text-primary);
   border: none;
   border-radius: 50%;
   width: 30px;
@@ -51,15 +49,15 @@
 
 .closeButton:hover {
   background-color: #c0c0c0;
-  color: #000;
+  color: var(--primary-color);
 }
 
 .videoContainer video {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: #000; /* Ensures black background for video */
+  box-shadow: 0 4px 10px var(--box-shadow-light);
+  background-color: var(--primary-color);
 }
 
 .captureButton {
@@ -67,8 +65,8 @@
   padding: 12px 25px;
   font-size: 1rem;
   cursor: pointer;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--button-primary-bg);
+  color: var(--text-light);
   border: none;
   border-radius: 8px;
   transition: background-color 0.3s ease;
@@ -77,14 +75,14 @@
 }
 
 .captureButton:hover {
-  background-color: #0056b3;
+  background-color: var(--button-primary-hover);
 }
 
 .previewContainer img, .previewContainer video {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px var(--box-shadow-light);
 }
 
 .buttonGroup {
@@ -92,7 +90,7 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  flex-wrap: wrap;
 }
 
 .buttonGroup button {
@@ -107,23 +105,21 @@
 }
 
 .buttonGroup button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-primary-hover);
   border-color: #b0b0b0;
 }
 
-/* Specific styles for the "OK" button (last-child in buttonGroup) */
 .buttonGroup button:last-child {
-  background-color: #28a745;
-  color: white;
-  border-color: #28a745;
+  background-color: var(--button-success-bg);
+  color: var(--text-light);
+  border-color: var(--button-success-bg);
 }
 
 .buttonGroup button:last-child:hover {
-  background-color: #218838;
-  border-color: #218838;
+  background-color: var(--button-success-hover);
+  border-color: var(--button-success-hover);
 }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
   .modalContent {
     padding: 20px;

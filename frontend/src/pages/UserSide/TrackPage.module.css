@@ -1,8 +1,7 @@
-/* ========== Container and Title ========== */
 .trackContainer {
   padding: 2.5rem;
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+  background: var(--background-gradient-blue);
   backdrop-filter: blur(6px);
   min-height: 100vh;
 }
@@ -11,11 +10,514 @@
   font-size: 2.8rem;
   font-weight: 700;
   margin-bottom: 2.5rem;
-  color: #0d6efd;
+  color: var(--button-primary-bg);
   text-align: center;
   letter-spacing: 0.8px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 2px var(--box-shadow-light);
 }
+
+.filterBox {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px var(--box-shadow-dark);
+  border: 1px solid #cce0ff;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.filterContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1.1rem;
+  border: 1px solid #a0b0c0;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  background-color: var(--background-color);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  border-color: var(--button-primary-bg);
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25);
+  outline: none;
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filterRow select,
+.filterRow input[type="date"] {
+  flex: 1;
+  min-width: 180px;
+  padding: 1rem;
+  border: 1px solid #a0b0c0;
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.filterRow select:focus,
+.filterRow input[type="date"]:focus {
+  border-color: var(--button-primary-bg);
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25);
+  outline: none;
+}
+
+.dateFilter {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 2;
+  min-width: 260px;
+}
+
+.dateFilter span {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.resetBtn {
+  padding: 1rem 2.2rem;
+  background: linear-gradient(135deg, var(--button-danger-bg), var(--button-danger-hover));
+  color: var(--text-light);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 10px var(--box-shadow-light);
+}
+
+.resetBtn:hover {
+  background: linear-gradient(135deg, var(--button-danger-hover), var(--button-danger-bg));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px var(--box-shadow-dark);
+}
+
+@media (max-width: 767px) {
+  .trackContainer {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filterBox {
+    padding: 1rem;
+  }
+
+  .filterContent {
+    gap: 0.8rem;
+  }
+
+  .searchInput {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .filterRow {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .filterRow select,
+  .filterRow input[type="date"] {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  .dateFilter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    min-width: 100%;
+  }
+
+  .resetBtn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .complaintCard {
+    padding: 1rem;
+  }
+
+  .cardHeader h4 {
+    font-size: 1.1rem;
+  }
+
+  .status {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .date {
+    font-size: 0.8rem;
+  }
+
+  .complaintCard p {
+    font-size: 0.85rem;
+  }
+
+  .description {
+    font-size: 0.85rem;
+  }
+
+  .cardFooter {
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .cardFooter span {
+    font-size: 0.8rem;
+  }
+
+  .detailsBtn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
+
+.complaintsList {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 768px) {
+  .complaintsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .complaintsList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.complaintCard {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 1.8rem;
+  box-shadow: 0 6px 20px var(--box-shadow-light);
+  border: 1px solid #dee2e6;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.complaintCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px var(--box-shadow-dark);
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.cardHeader h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--button-primary-bg);
+}
+
+.status {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--text-light);
+  text-transform: uppercase;
+}
+.status.pending { background-color: var(--button-primary-bg); }
+.status.inprogress { background-color: var(--status-inprogress); }
+.status.resolved { background-color: var(--status-resolved); }
+.status.rejected { background-color: var(--status-rejected); }
+
+.date {
+  font-size: 0.9rem;
+  color: var(--status-pending);
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+
+.complaintCard p {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #343a40;
+  line-height: 1.5;
+}
+
+.description {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #495057;
+  line-height: 1.6;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f2f5;
+}
+
+.cardFooter span {
+  font-size: 0.9rem;
+  color: var(--status-pending);
+  font-weight: 500;
+}
+
+.detailsBtn {
+  background: linear-gradient(135deg, #17a2b8, #138496);
+  color: var(--text-light);
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.detailsBtn:hover {
+  background: linear-gradient(135deg, #138496, #117a8b);
+  transform: scale(1.03);
+}
+
+.detailsModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.detailsModalContent {
+  background-color: var(--background-color);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px var(--box-shadow-dark);
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.detailsModalCloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.detailsModalCloseBtn:hover { color: var(--status-rejected); }
+
+.detailsModalContent h2 {
+  font-size: 2rem;
+  color: var(--button-primary-bg);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.detailsModalImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.detailsModalContent p {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #343a40;
+}
+
+.detailsModalContent p strong { color: #212529; }
+
+.detailsModalContent h3 {
+  font-size: 1.5rem;
+  color: var(--button-primary-bg);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color-light);
+  padding-bottom: 0.5rem;
+}
+
+.commentsList {
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color-light);
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #f8f9fa;
+}
+
+.commentItem {
+  background-color: var(--background-color);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.commentItem p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.commentActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.commentActions span {
+  font-size: 1rem;
+  color: var(--status-rejected);
+  font-weight: bold;
+}
+
+.commentActions button {
+  background-color: var(--button-primary-bg);
+  color: var(--text-light);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.commentActions button:hover { background-color: #0a58ca; }
+
+.addCommentForm {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.addCommentForm textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  min-height: 80px;
+  resize: vertical;
+}
+
+.addCommentForm button {
+  background-color: var(--button-success-bg);
+  color: var(--text-light);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.addCommentForm button:hover { background-color: var(--button-success-hover); }
+
+@media (max-width: 767px) {
+  .detailsModalContent {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .detailsModalContent h2 { font-size: 1.5rem; }
+  .detailsModalContent p { font-size: 0.9rem; }
+  .detailsModalContent h3 { font-size: 1.2rem; }
+
+  .commentItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .commentActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .addCommentForm textarea { font-size: 0.9rem; }
+  .addCommentForm button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
 
 /* ========== Filter Box ========== */
 .filterBox {

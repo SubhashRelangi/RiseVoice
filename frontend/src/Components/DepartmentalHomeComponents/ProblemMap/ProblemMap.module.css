@@ -2,7 +2,7 @@
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px var(--box-shadow-dark);
   margin: 20px 0;
 }
 
@@ -10,12 +10,12 @@
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.8rem;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .map {
   height: 450px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color-dark);
 }

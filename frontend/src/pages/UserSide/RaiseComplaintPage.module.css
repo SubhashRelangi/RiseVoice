@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem; /* Keep generous padding for desktop */
-  background: linear-gradient(135deg, var(--background-color2), var(--background-color));
+  padding: 3rem;
+  background: var(--background-gradient-blue);
   min-height: 100vh;
   animation: fadeIn 0.8s ease-in-out;
 }
@@ -14,48 +14,48 @@
 }
 
 .complaintForm {
-  background: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
-  backdrop-filter: blur(12px); /* Slightly more blur */
-  padding: 2.5rem 3rem; /* Increased padding for a more spacious feel */
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  padding: 2.5rem 3rem;
   border-radius: 1.5rem;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Stronger shadow */
-  max-width: 580px; /* Increased max-width for desktop */
+  box-shadow: 0 15px 40px var(--box-shadow-dark);
+  max-width: 580px;
   width: 100%;
   transition: transform 0.3s ease;
 }
 
 .complaintForm:hover {
-  transform: translateY(-5px); /* More noticeable hover effect */
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .complaintForm h2 {
   text-align: center;
   color: var(--primary-color);
-  margin-bottom: 2rem; /* Increased margin-bottom */
-  font-size: 2.2rem; /* Slightly larger font size */
-  font-weight: 700; /* Bolder font weight */
-  letter-spacing: 0.8px; /* Increased letter spacing */
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
 }
 
 .complaintForm label {
-  font-size: 0.95rem; /* Slightly larger label font size */
+  font-size: 0.95rem;
   color: var(--secondary-color);
-  margin-bottom: 0.4rem; /* Adjusted margin */
+  margin-bottom: 0.4rem;
   display: block;
-  font-weight: 500; /* Added font-weight */
+  font-weight: 500;
 }
 
 .complaintForm input,
 .complaintForm textarea,
 .complaintForm select {
   width: 100%;
-  padding: 1rem; /* Increased padding */
-  margin-bottom: 1.2rem; /* Increased margin-bottom */
+  padding: 1rem;
+  margin-bottom: 1.2rem;
   border-radius: 0.8rem;
-  border: 1px solid #e0e0e0; /* Lighter border */
-  font-size: 1.05rem; /* Slightly larger font size */
-  background: #fdfdfd; /* Slightly off-white background */
+  border: 1px solid #e0e0e0;
+  font-size: 1.05rem;
+  background: #fdfdfd;
   color: var(--secondary-color);
   transition: all 0.3s ease;
   box-sizing: border-box;
@@ -65,57 +65,57 @@
 .complaintForm textarea:focus,
 .complaintForm select:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 4px rgba(255, 55, 0, 0.25); /* Slightly stronger focus shadow */
+  box-shadow: 0 0 0 4px rgba(255, 55, 0, 0.25);
   outline: none;
 }
 
 textarea {
   resize: vertical;
-  min-height: 140px; /* Increased min-height */
+  min-height: 140px;
 }
 
 .captureSection {
   text-align: center;
-  margin-bottom: 2rem; /* Increased margin-bottom */
-  padding: 2rem; /* Increased padding */
+  margin-bottom: 2rem;
+  padding: 2rem;
   border: 2px dashed var(--primary-color);
   border-radius: 1rem;
-  background-color: rgba(255, 255, 255, 0.7); /* Slightly less transparent */
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .takePictureBtn {
-  padding: 1rem 2rem; /* Increased padding for better touch target */
-  font-size: 1.1rem; /* Slightly larger font size */
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
   cursor: pointer;
   background-color: var(--accent-color);
-  color: white;
+  color: var(--text-light);
   border: none;
   border-radius: 0.8rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-bottom: 1.5rem; /* Adjusted margin */
-  font-weight: 600; /* Bolder text */
+  margin-bottom: 1.5rem;
+  font-weight: 600;
 }
 
 .takePictureBtn:hover {
-  background-color: #e60000; /* Darker shade of accent-color */
-  transform: translateY(-3px); /* More noticeable hover effect */
+  background-color: #e60000;
+  transform: translateY(-3px);
 }
 
 .previewContainer {
-  margin-top: 1.5rem; /* Adjusted margin */
-  border: 1px solid #f0f0f0; /* Lighter border */
+  margin-top: 1.5rem;
+  border: 1px solid #f0f0f0;
   border-radius: 0.8rem;
   overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* Stronger shadow */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
 
 .previewContainer h4 {
   margin: 0;
-  padding: 0.7rem; /* Increased padding */
+  padding: 0.7rem;
   background-color: var(--primary-color);
-  color: white;
-  font-size: 1.05rem; /* Slightly larger font size */
-  border-bottom: 1px solid #eee;
+  color: var(--text-light);
+  font-size: 1.05rem;
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .previewImage {
@@ -126,24 +126,24 @@ textarea {
 
 .locationRow {
   display: flex;
-  gap: 0.8rem; /* Increased gap */
-  margin-bottom: 1.2rem; /* Adjusted margin */
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
   flex-wrap: wrap;
   align-items: center;
 }
 
 .locationRow input {
   flex: 1;
-  min-width: 140px; /* Increased min-width for inputs */
+  min-width: 140px;
   margin-bottom: 0;
 }
 
 .useLocationBtn {
-  padding: 1rem 1.5rem; /* Increased padding */
+  padding: 1rem 1.5rem;
   font-size: 1rem;
   cursor: pointer;
-  background-color: var(--button-color);
-  color: white;
+  background-color: var(--button-secondary-bg);
+  color: var(--text-light);
   border: none;
   border-radius: 0.8rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -152,16 +152,16 @@ textarea {
 }
 
 .useLocationBtn:hover {
-  background: #ea580c;
+  background: var(--button-secondary-hover);
   transform: translateY(-3px);
 }
 
 .submitBtn {
-  background: var(--button-color);
-  color: #fff;
-  font-size: 1.2rem; /* Larger font size */
+  background: var(--button-secondary-bg);
+  color: var(--text-light);
+  font-size: 1.2rem;
   font-weight: bold;
-  padding: 1.1rem; /* Increased padding */
+  padding: 1.1rem;
   width: 100%;
   border: none;
   border-radius: 1rem;
@@ -170,11 +170,10 @@ textarea {
 }
 
 .submitBtn:hover {
-  background: #ea580c;
+  background: var(--button-secondary-hover);
   transform: translateY(-3px);
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
   .complaintContainer {
     padding: 1.5rem;
@@ -183,7 +182,7 @@ textarea {
   .complaintForm {
     padding: 1.5rem 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px var(--box-shadow-light);
   }
 
   .complaintForm h2 {

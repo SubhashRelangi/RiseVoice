@@ -2,16 +2,16 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 80px;   /* default desktop size */
+  width: 80px;
   height: 80px;
-  background-color: var(--button-color); /* Orange */
+  background-color: var(--button-secondary-bg);
   border: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 16px var(--box-shadow-dark);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 1000;
 }
@@ -22,11 +22,10 @@
 }
 
 .floatingBtn .icon {
-  color: white;
-  font-size: 34px; /* desktop size */
+  color: var(--text-light);
+  font-size: 34px;
 }
 
-/* 📱 Mobile (max-width: 768px) */
 @media (max-width: 768px) {
   .floatingBtn {
     width: 60px;
@@ -40,7 +39,6 @@
   }
 }
 
-/* 🖥️ Large screens (min-width: 1200px) */
 @media (min-width: 1200px) {
   .floatingBtn {
     width: 90px;

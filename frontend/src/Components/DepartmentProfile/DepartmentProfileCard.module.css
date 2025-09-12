@@ -1,9 +1,9 @@
 .card {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--background-color);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--box-shadow-light);
   margin: 20px;
   padding: 20px;
   position: relative;
@@ -12,7 +12,7 @@
 
 .leftBorder {
   width: 8px;
-  background-color: #4285f4; /* Google Blue */
+  background-color: var(--icon-color-2);
   height: 100%;
   position: absolute;
   left: 0;
@@ -23,7 +23,7 @@
 
 .content {
   flex-grow: 1;
-  padding-left: 20px; /* Space for the left border */
+  padding-left: 20px;
 }
 
 .header {
@@ -35,23 +35,23 @@
 .icon {
   font-size: 24px;
   margin-right: 10px;
-  color: #4285f4; /* Google Blue */
+  color: var(--icon-color-2);
 }
 
 .departmentName {
   font-size: 22px;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .serviceType,
 .location {
   font-size: 16px;
-  color: #777;
+  color: var(--text-tertiary);
   display: flex;
   align-items: center;
-  margin-top: 5px; /* Add some space between serviceType and location */
+  margin-top: 5px;
 }
 
 .statusTags {
@@ -67,15 +67,15 @@
   border-radius: 20px;
   font-size: 14px;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-light);
 }
 
 .activeTag {
-  background-color: #28a745; /* Green for active */
+  background-color: var(--status-active);
 }
 
 .verifiedTag {
-  background-color: #28a745; /* Green for verified */
+  background-color: var(--status-verified);
 }
 
 .tagIcon {

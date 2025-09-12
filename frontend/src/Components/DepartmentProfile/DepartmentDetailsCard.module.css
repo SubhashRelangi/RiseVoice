@@ -2,18 +2,18 @@
   display: flex;
   gap: 20px;
   margin-top: 20px;
-  flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
-  justify-content: center; /* Center cards when they wrap */
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card {
-  background-color: #fff;
+  background-color: var(--background-color);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--box-shadow-light);
   padding: 20px;
-  flex: 1; /* Allow cards to grow and shrink */
-  min-width: 300px; /* Minimum width for cards before wrapping */
-  max-width: 45%; /* Max width to allow two cards per row */
+  flex: 1;
+  min-width: 300px;
+  max-width: 45%;
 }
 
 .cardHeader {
@@ -21,19 +21,19 @@
   align-items: center;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .headerIcon {
   font-size: 24px;
-  color: #4285f4; /* Google Blue */
+  color: var(--icon-color-2);
   margin-right: 10px;
 }
 
 .cardHeader h3 {
   font-size: 18px;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -49,13 +49,13 @@
 
 .label {
   font-size: 14px;
-  color: #777;
+  color: var(--text-tertiary);
   margin-bottom: 5px;
 }
 
 .value {
   font-size: 16px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -67,17 +67,17 @@
 }
 
 .statusActive {
-  color: #28a745; /* Green */
+  color: var(--status-active);
 }
 
 .statusInactive {
-  color: #dc3545; /* Red */
+  color: var(--status-inactive);
 }
 
 .statusVerified {
-  color: #28a745; /* Green */
+  color: var(--status-verified);
 }
 
 .statusUnverified {
-  color: #ffc107; /* Yellow/Orange */
+  color: var(--status-unverified);
 }

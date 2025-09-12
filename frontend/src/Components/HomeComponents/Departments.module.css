@@ -1,13 +1,9 @@
-/* Departments.module.css */
-
-/* Root Section */
 .departments {
   text-align: center;
   padding: 1rem 1rem;
   background: var(--background-color);
 }
 
-/* Section Title */
 .departmentsTitle {
   font-size: 3rem;
   font-weight: bold;
@@ -15,14 +11,12 @@
   margin-bottom: 0.5rem;
 }
 
-/* Section Subtitle */
 .departmentsSubtitle {
   color: var(--secondary-color);
   font-size: 1.4rem;
   margin-bottom: 2rem;
 }
 
-/* Grid Layout */
 .departmentsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -31,16 +25,15 @@
   margin: 0 auto;
 }
 
-/* Individual Card */
 .departmentCard {
   background: var(--background-color);
   border-radius: 12px;
   padding: 1rem 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px var(--box-shadow-light);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  align-items: center; /* centers icon and text */
+  align-items: center;
   text-align: center;
 }
 
@@ -49,7 +42,6 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Card Icon */
 .departmentCard .icon {
   width: 80px;
   height: 80px;
@@ -58,12 +50,11 @@
   justify-content: center;
   border-radius: 50%;
   font-size: 2rem;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--background-color);
+  box-shadow: 0 2px 8px var(--box-shadow-light);
   margin-bottom: 0.5rem;
 }
 
-/* Card Text */
 .departmentCard h3 {
   font-size: 1.3rem;
   font-weight: 600;
@@ -76,17 +67,13 @@
   line-height: 1.5;
 }
 
-/* Icon Colors */
-.icon.electricity { color: #f4b400; }
-.icon.transport { color: #4285f4; }
-.icon.healthcare { color: #ea4335; }
-.icon.water { color: #1e88e5; }
-.icon.sanitation { color: #34a853; }
-.icon.police { color: #673ab7; }
+.icon.electricity { color: var(--icon-color-1); }
+.icon.transport { color: var(--icon-color-2); }
+.icon.healthcare { color: var(--icon-color-3); }
+.icon.water { color: var(--icon-color-4); }
+.icon.sanitation { color: var(--icon-color-5); }
+.icon.police { color: var(--icon-color-6); }
 
-/* ---------------- Responsive Styles ---------------- */
-
-/* Tablets (1024px and below) */
 @media (max-width: 1024px) {
   .departmentsGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -110,7 +97,6 @@
   .departmentsSubtitle { font-size: 1.2rem; }
 }
 
-/* Mobile (600px and below) */
 @media (max-width: 600px) {
   .departmentsGrid {
     grid-template-columns: 1fr;
@@ -118,7 +104,7 @@
   }
 
   .departmentCard {
-    padding: 0.6rem 0.6rem; /* smaller card */
+    padding: 0.6rem 0.6rem;
   }
 
   .departmentCard .icon {

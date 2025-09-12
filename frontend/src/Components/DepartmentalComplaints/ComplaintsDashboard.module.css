@@ -15,14 +15,14 @@
   }
   
   .header p {
-    color: #555;
+    color: var(--text-secondary);
     margin: 0.5rem 0;
   }
   
   .location {
     display: flex;
     align-items: center;
-    color: #555;
+    color: var(--text-secondary);
   }
   
   .location svg {
@@ -30,11 +30,11 @@
   }
   
   .filters {
-    background-color: #fff;
+    background-color: var(--background-color);
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--box-shadow-light);
   }
   
   .filterHeader {
@@ -70,7 +70,7 @@
   
   .search svg {
     margin-right: 0.5rem;
-    color: #888;
+    color: var(--border-color-darker);
   }
   
   .search input {
@@ -83,19 +83,19 @@
   .filterControls select {
     padding: 0.5rem;
     border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #fff;
+    border: 1px solid var(--border-color-dark);
+    background-color: var(--background-color);
   }
   
   .radius {
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #fff;
+    border: 1px solid var(--border-color-dark);
+    background-color: var(--background-color);
   }
   
   .complaintsFound {
-    color: #555;
+    color: var(--text-secondary);
     margin-left: auto;
   }
   
@@ -106,12 +106,12 @@
   }
   
   .summaryCard {
-    background-color: #fff;
+    background-color: var(--background-color);
     border-radius: 8px;
     padding: 1.5rem;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--box-shadow-light);
   }
   
   .cardIcon {
@@ -121,7 +121,7 @@
   
   .cardContent p {
     margin: 0;
-    color: #555;
+    color: var(--text-secondary);
   }
   
   .cardContent span {

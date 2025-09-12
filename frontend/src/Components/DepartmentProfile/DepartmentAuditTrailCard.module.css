@@ -1,7 +1,7 @@
 .card {
-  background-color: #fff;
+  background-color: var(--background-color);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--box-shadow-light);
   margin: 20px;
   padding: 20px;
   position: relative;
@@ -13,26 +13,26 @@
   align-items: center;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color-light);
 }
 
 .headerIcon {
   font-size: 24px;
-  color: #4285f4; /* Google Blue */
+  color: var(--icon-color-2);
   margin-right: 10px;
 }
 
 .cardHeader h3 {
   font-size: 18px;
   font-weight: bold;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .cardContent {
   display: flex;
-  justify-content: space-around; /* Distribute items evenly */
-  gap: 20px; /* Space between created and last updated */
+  justify-content: space-around;
+  gap: 20px;
 }
 
 .detailItem {
@@ -42,12 +42,12 @@
 
 .label {
   font-size: 14px;
-  color: #777;
+  color: var(--text-tertiary);
   margin-bottom: 5px;
 }
 
 .value {
   font-size: 16px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 500;
 }

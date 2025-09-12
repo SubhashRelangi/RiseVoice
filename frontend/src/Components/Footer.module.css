@@ -1,6 +1,6 @@
 .footer {
   background: var(--primary-color);
-  color: #eee;
+  color: var(--border-color-light);
   padding: 3rem 1rem 1rem;
   margin-top: 3rem;
 }
@@ -13,10 +13,9 @@
   margin: 0 auto;
 }
 
-/* Brand */
 .footerBrand h2 {
   font-size: 1.5rem;
-  color: var(--icon-color1);
+  color: var(--icon-color-1);
 }
 
 .footerBrand p {
@@ -25,7 +24,6 @@
   color: #bbb;
 }
 
-/* Links */
 .footerLinks h3,
 .footerServices h3,
 .footerContact h3 {
@@ -54,21 +52,19 @@
 
 .footerLinks a:hover,
 .footerServices a:hover {
-  color: var(--icon-color1);
+  color: var(--icon-color-1);
 }
 
-/* Contact */
 .footerContact p {
   font-size: 0.9rem;
   color: var(--background-color2);
   margin: 0.3rem 0;
 }
 
-/* Social icons */
 .socialIcons a {
   margin-right: 10px;
   font-size: 1.3rem;
-  color: var(--icon-color1);
+  color: var(--icon-color-1);
   transition: 0.3s;
 }
 
@@ -76,10 +72,9 @@
   color: var(--background-color);
 }
 
-/* Bottom strip */
 .footerBottom {
   text-align: center;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--text-primary);
   margin-top: 2rem;
   padding-top: 1rem;
   font-size: 0.9rem;

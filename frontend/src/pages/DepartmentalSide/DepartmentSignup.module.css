@@ -1,19 +1,17 @@
-/* frontend/src/pages/DepartmentalSide/DepartmentSignup.module.css */
-
 .page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+  background: var(--background-gradient-blue);
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .signupForm {
-  background: #ffffff;
+  background: var(--background-color);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px var(--box-shadow-light);
   width: 100%;
   max-width: 420px;
 }
@@ -54,14 +52,14 @@
   display: block;
   font-weight: 500;
   margin-bottom: 0.4rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .input,
 .select {
   width: 100%;
   padding: 0.6rem 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color-dark);
   border-radius: 6px;
   font-size: 0.95rem;
   transition: border 0.2s;
@@ -83,14 +81,14 @@
 .location {
   margin: 1rem 0;
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .button {
   width: 100%;
   padding: 0.75rem;
   background: #00796b;
-  color: white;
+  color: var(--text-light);
   font-size: 1rem;
   font-weight: bold;
   border: none;

@@ -17,7 +17,7 @@
 
 .dashboardHeader p {
   font-size: 1.125rem;
-  color: #6c757d;
+  color: var(--status-pending);
 }
 
 .dashboardGrid {
@@ -27,10 +27,10 @@
 }
 
 .dashboardCard {
-  background-color: #ffffff;
+  background-color: var(--background-color);
   border-radius: 0.75rem;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--box-shadow-light);
   transition: transform 0.2s ease-in-out;
 }
 
@@ -59,16 +59,16 @@
 }
 
 .resolvedIcon {
-  color: #28a745;
+  color: var(--status-resolved);
   font-size: 1.5rem;
 }
 
 .inProgressIcon {
-  color: #ffc107;
+  color: var(--status-inprogress);
   font-size: 1.5rem;
 }
 
 .completedIcon {
-  color: #17a2b8;
+  color: var(--status-completed);
   font-size: 1.5rem;
 }

@@ -12,21 +12,65 @@ code {
     monospace;
 }
 
-:root{
+:root {
+  /* Base Colors */
   --background-color: #ffffff;
   --background-color2: #f7f2f2;
   --primary-color: #000000;
   --secondary-color: #454343;
   --accent-color: rgb(255, 55, 0);
 
-  /* Icon colors */
-  --icon-color1: #f4b400;
-  --icon-color2: #4285f4;
-  --icon-color3: #ea4335;
-  --icon-color4: #1e88e5;
-  --icon-color5: #34a853;
-  --icon-color6: #673ab7;
+  /* Text Colors */
+  --text-primary: #333;
+  --text-secondary: #555;
+  --text-tertiary: #777;
+  --text-light: #fff;
+  --text-error: #dc3545;
 
-  /* Button */
-  --button-color: #f97316;
+  /* Border Colors */
+  --border-color-light: #eee;
+  --border-color-dark: #ccc;
+  --border-color-darker: #888;
+
+  /* Status Colors */
+  --status-active: #28a745;
+  --status-inactive: #dc3545;
+  --status-verified: #28a745;
+  --status-unverified: #ffc107;
+  --status-pending: #6c757d;
+  --status-inprogress: #ffc107;
+  --status-resolved: #28a745;
+  --status-completed: #007bff;
+  --status-rejected: #dc3545;
+
+  /* Icon Colors */
+  --icon-color-1: #f4b400;
+  --icon-color-2: #4285f4;
+  --icon-color-3: #ea4335;
+  --icon-color-4: #1e88e5;
+  --icon-color-5: #34a853;
+  --icon-color-6: #673ab7;
+
+  /* Button Colors */
+  --button-primary-bg: #007bff;
+  --button-primary-hover: #0056b3;
+  --button-secondary-bg: #f97316;
+  --button-secondary-hover: #ea580c;
+  --button-danger-bg: #ff6b6b;
+  --button-danger-hover: #ee5253;
+  --button-success-bg: #28a745;
+  --button-success-hover: #218838;
+
+  /* Miscellaneous */
+  --link-hover-color: #d97b00;
+  --box-shadow-light: rgba(0, 0, 0, 0.1);
+  --box-shadow-dark: rgba(0, 0, 0, 0.15);
+  --background-light-blue: #f0f2f5;
+  --background-dark-blue: #e0f7fa;
+  --background-gradient-blue: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+  --department-water-bg: #3498db;
+  --department-electricity-bg: #f39c12;
+  --department-road-bg: #2ecc71;
+  --department-health-bg: #e74c3c;
+  --department-education-bg: #9b59b6;
 }

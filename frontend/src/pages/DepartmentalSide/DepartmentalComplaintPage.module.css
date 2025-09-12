@@ -9,7 +9,6 @@
     align-items: flex-start;
 }
 
-/* Main Section */
 .mainContent {
     flex: 3;
     display: flex;
@@ -19,7 +18,6 @@
     order: 1;
 }
 
-/* Sidebar */
 .sidebar {
     flex: 1;
     display: flex;
@@ -29,7 +27,6 @@
     order: 2;
 }
 
-/* Comments at bottom */
 .commentsSection {
     flex: 0 0 100%;
     order: 3;
@@ -38,15 +35,13 @@
     box-sizing: border-box;
 }
 
-/* Cards */
 .card {
-    background: #fff;
+    background: var(--background-color);
     padding: 16px;
     border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 6px var(--box-shadow-light);
 }
 
-/* Headings */
 .title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -58,10 +53,9 @@
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #333;
+    color: var(--text-primary);
 }
 
-/* Complaint Info */
 .infoItem {
     display: flex;
     justify-content: space-between;
@@ -85,13 +79,12 @@
 .likes {
     margin-top: 10px;
     font-size: 14px;
-    color: #e63946;
+    color: var(--status-rejected);
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-/* Attachments */
 .attachmentContainer {
     text-align: center;
 }
@@ -107,7 +100,6 @@
     color: #666;
 }
 
-/* Quick Actions */
 .actionButton {
     width: 100%;
     margin: 8px 0;
@@ -125,17 +117,16 @@
 }
 
 .resolvedButton {
-    background: #4caf50;
-    color: white;
+    background: var(--button-success-bg);
+    color: var(--text-light);
 }
 
 .resolvedButton:hover {
     background: #45a049;
 }
 
-/* Comments */
 .comment {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color-light);
     padding: 8px 0;
 }
 
@@ -144,7 +135,7 @@
     justify-content: space-between;
     font-size: 13px;
     font-weight: 600;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .commentAuthor {
@@ -152,7 +143,7 @@
 }
 
 .commentDate {
-    color: #777;
+    color: var(--text-tertiary);
     font-weight: 400;
 }
 
@@ -180,7 +171,7 @@
     padding: 8px 16px;
     font-size: 14px;
     background: #2563eb;
-    color: white;
+    color: var(--text-light);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -191,7 +182,6 @@
     background: #1e4ecf;
 }
 
-/* Complaint Header */
 .complaintHeader {
     display: flex;
     justify-content: space-between;
@@ -204,30 +194,27 @@
 .creationDate {
     font-size: 13px;
     font-weight: 500;
-    color: #555;
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
     gap: 5px;
     margin-left: auto;
 }
 
-/* Category Tag */
 .tag {
     font-size: 14px;
     font-weight: 600;
     padding: 5px 12px;
     border-radius: 6px;
-    color: #fff;
+    color: var(--text-light);
 }
 
-/* Category-specific colors */
-.tag.Electricity { background-color: #f39c12; }
-.tag.Water { background-color: #3498db; }
-.tag.Road { background-color: #2ecc71; }
-.tag.Health { background-color: #e74c3c; }
-.tag.Education { background-color: #9b59b6; }
+.tag.Electricity { background-color: var(--department-electricity-bg); }
+.tag.Water { background-color: var(--department-water-bg); }
+.tag.Road { background-color: var(--department-road-bg); }
+.tag.Health { background-color: var(--department-health-bg); }
+.tag.Education { background-color: var(--department-education-bg); }
 
-/* Responsive Design */
 @media (max-width: 900px) {
     .pageContainer {
         flex-direction: column;

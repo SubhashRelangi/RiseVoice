@@ -11,13 +11,11 @@
 .DashboardContainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* Default: 4 per row */
     gap: 7rem;
     width: 100%;
     max-width: 1800px;
 }
 
-/* Card */
 .DashboardContent {
     background-color: var(--background-color2);
     border-radius: 10px;
@@ -32,10 +30,9 @@
 
 .DashboardContent:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px var(--box-shadow-light);
 }
 
-/* Text */
 .Heading,
 .Para {
     margin: 0;
@@ -53,7 +50,6 @@
     margin-top: 0.5rem;
 }
 
-/* 📱 Tablet & Mobile → 2 per row */
 @media (max-width: 1199px) {
     .DashboardContainer {
         grid-template-columns: repeat(2, 1fr);
@@ -61,7 +57,6 @@
     }
 }
 
-/* 📱 Extra small phones → 1 per row */
 @media (max-width: 480px) {
     .DashboardContainer {
         grid-template-columns: 1fr;

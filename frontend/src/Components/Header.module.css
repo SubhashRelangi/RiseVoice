@@ -4,25 +4,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color-light);
   padding: 0 1.5rem;
   box-sizing: border-box;
   position: relative;
 }
 
-/* Brand */
 .brand {
   font-size: 20px;
   font-weight: bold;
 }
 
-/* Links container */
 .navLinks {
   display: flex;
   gap: 2rem;
 }
 
-/* Individual links */
 .navLinkEle {
   color: var(--primary-color);
   font-size: 18px;
@@ -32,10 +29,9 @@
 }
 
 .navLinkEle:hover {
-  color: #d97b00;
+  color: var(--link-hover-color);
 }
 
-/* Hamburger button (hidden by default) */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -50,45 +46,44 @@
   border-radius: 5px;
 }
 
-/* 📱 Mobile styles */
 @media (max-width: 768px) {
 
   .navigation{
-    height: 70px; /* slightly shorter height */
-    padding: 0 1rem; /* less padding */
-    z-index: 100; /* Ensure navigation is on top */
-    position: relative; /* Already there, but good to confirm */
+    height: 70px;
+    padding: 0 1rem;
+    z-index: 100;
+    position: relative;
   }
 
   .brand {
-    font-size: 15px; /* smaller brand text */
+    font-size: 15px;
   }
 
   .navLinks {
     position: absolute;
-    top: 100%; /* Changed from 80px to 100% */
+    top: 100%;
     right: 0;
     background: var(--background-color);
     flex-direction: column;
     width: 200px;
     padding: 1rem;
-    border-left: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    display: none; /* hidden by default */
-    z-index: 99; /* Slightly lower than navigation, but higher than page content */
-    box-shadow: -2px 2px 5px rgba(0,0,0,0.1); /* Add a subtle shadow */
+    border-left: 1px solid var(--border-color-light);
+    border-bottom: 1px solid var(--border-color-light);
+    display: none;
+    z-index: 99;
+    box-shadow: -2px 2px 5px var(--box-shadow-light);
   }
 
   .navLinksActive {
-    display: flex; /* show when active */
+    display: flex;
   }
 
   .navLinkEle {
-    font-size: 16px; /* smaller nav links on mobile */
+    font-size: 16px;
     padding: 10px 0;
   }
 
   .hamburger {
-    display: flex; /* show hamburger on mobile */
+    display: flex;
   }
 }
