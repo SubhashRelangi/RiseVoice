@@ -26,10 +26,17 @@
   font-weight: 600;
   text-decoration: none;
   transition: color 0.3s ease;
+  padding-bottom: 5px; /* Add padding to make space for the border */
+  border-bottom: 3px solid transparent; /* Transparent border by default */
 }
 
 .navLinkEle:hover {
   color: var(--link-hover-color);
+}
+
+.navLinkEle.active {
+  border-bottom: 3px solid var(--accent-color);
+  color: var(--accent-color);
 }
 
 .hamburger {

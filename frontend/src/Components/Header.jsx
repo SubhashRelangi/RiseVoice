@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import axiosInstance from '../axiosInstance';
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -16,6 +17,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
       console.error('Logout error:', error);
     }
   };
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className={styles.navigation}>
@@ -37,30 +40,30 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
       <div className={`${styles.navLinks} ${menuOpen ? styles.navLinksActive : ''}`}>
         {isLoggedIn ? (
           <>
-            <a href="/department" className={styles.navLinkEle}>
+            <Link to="/department" className={`${styles.navLinkEle} ${isActive('/department') ? styles.active : ''}`}>
               Home
-            </a>
-            <a href="/department/complaints" className={styles.navLinkEle}>
+            </Link>
+            <Link to="/department/complaints" className={`${styles.navLinkEle} ${isActive('/department/complaints') ? styles.active : ''}`}>
               Complaints
-            </a>
-            <a href="/department/profile" className={styles.navLinkEle}>
+            </Link>
+            <Link to="/department/profile" className={`${styles.navLinkEle} ${isActive('/department/profile') ? styles.active : ''}`}>
               Profile
-            </a>
+            </Link>
             <button onClick={handleLogout} className={styles.navLinkEle}>
               Logout
             </button>
           </>
         ) : (
           <>
-            <a href="/" className={styles.navLinkEle}>
+            <Link to="/" className={`${styles.navLinkEle} ${isActive('/') ? styles.active : ''}`}>
               Home
-            </a>
-            <a href="/track" className={styles.navLinkEle}>
+            </Link>
+            <Link to="/track" className={`${styles.navLinkEle} ${isActive('/track') ? styles.active : ''}`}>
               Track
-            </a>
-            <a href="/department/login" className={styles.navLinkEle}>
+            </Link>
+            <Link to="/department/login" className={`${styles.navLinkEle} ${isActive('/department/login') ? styles.active : ''}`}>
               Login
-            </a>
+            </Link>
           </>
         )}
       </div>
