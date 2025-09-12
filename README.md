@@ -13,46 +13,40 @@ VoiceUp is packed with intuitive features designed to make your voice heard and 
 ### Citizen-Facing Features:
 
 *   **Effortless Complaint Submission:**
-    *   **Visual Evidence:** Capture and upload photos or videos directly from your camera or gallery to provide undeniable proof.
+    *   **Visual Evidence:** Capture and upload photos or videos directly from your camera or gallery.
     *   **Detailed Descriptions:** Clearly articulate your concerns with comprehensive captions.
-    *   **Smart Location Tagging:** Auto-detects your location with options for manual adjustment, ensuring precise reporting.
+    *   **Smart Location Tagging:** Auto-detects your location with options for manual adjustment.
 *   **Real-time Complaint Tracking:**
     *   Monitor the live status of your submitted complaints with an enhanced, responsive UI.
     *   Powerful filtering capabilities: Easily search by ID, description, location, status, category, and date.
 *   **Community Engagement:**
-    *   **Commenting:** Engage in discussions on existing problems to provide additional information or context, with comments now displaying author information (anonymous or departmental).
-    *   **Liking:** Show your support for a complaint and help to highlight its importance. (Note: Current implementation allows multiple likes from the same browser; "Like Once" logic needs further development.)
-*   **Adaptive & Intuitive User Interface:**
-    *   **Responsive Design:** A modern, clean interface that looks stunning and performs flawlessly on any device (desktop, tablet, mobile).
-    *   **Streamlined Navigation:** Quick access to Home, Services, Track, and Login pages, optimized for mobile.
-    *   **Engaging Hero Section:** "Raise Your Voice. Get Your Problem Resolved." - a powerful call to action.
-    *   **Comprehensive Services:** Highlights key government service categories (electricity, water, sanitation, healthcare, police, transport).
-    *   **Always-On Complaint Button:** A floating button for instant complaint submission from any page.
-    *   **Informative Footer:** Essential links and social media integration for a complete experience.
+    *   **Commenting:** Engage in discussions on existing problems to provide additional information or context.
+    *   **Liking:** Show your support for a complaint and help to highlight its importance.
 
 ### Departmental Features:
 
 *   **Secure Departmental Authentication:**
     *   Dedicated signup, email verification, and login pages for government departments.
-    
     *   JWT-based authentication for secure access.
+    *   **Trusted Device Verification:** For enhanced security, logins from new devices are verified via an OTP sent to the department's registered email.
 *   **Departmental Dashboard:**
     *   Overview of problem statistics (resolved, in progress, pending).
     *   Integration with problem list and map views for comprehensive monitoring.
-*   **Complaint Management:** Departments can now view and manage complaints relevant to them, including updating complaint statuses (e.g., Mark In Progress, Mark as Resolved) and viewing attached media (images/videos).
+*   **Complaint Management:** Departments can view and manage complaints relevant to them, including updating complaint statuses and viewing attached media.
 
 ---
 
 ## 🚀 Tech Stack
 
-Built with robust and modern technologies to ensure performance and scalability:
+| Category          | Technology                                                                      |
+| ----------------- | ------------------------------------------------------------------------------- |
+| **Frontend**      | [React.js](https://reactjs.org/)                                                |
+| **Backend**       | [Node.js](https://nodejs.org/), [Express.js](https://expressjs.com/)             |
+| **Database**      | [MongoDB](https://www.mongodb.com/) (with [Mongoose](https://mongoosejs.com/))    |
+| **Cloud Storage** | [Cloudinary](https://cloudinary.com/)                                           |
+| **Email Service** | [Nodemailer](https://nodemailer.com/)                                           |
+| **Authentication**| [JSON Web Tokens (JWT)](https://jwt.io/), [bcrypt](https://www.npmjs.com/package/bcrypt) |
 
-*   **Frontend:** React.js (a powerful JavaScript library for building user interfaces)
-*   **Backend:** Node.js & Express.js (a fast, unopinionated, minimalist web framework for Node.js)
-*   **Database:** MongoDB (a flexible NoSQL database for storing complaint data)
-*   **Cloud Storage:** Cloudinary (for secure and efficient image/video uploads and management)
-*   **Email Service:** Nodemailer (for sending email verifications)
-*   **Background Tasks:** Custom request scheduler (for keeping services active)
 
 ---
 
@@ -61,19 +55,24 @@ Built with robust and modern technologies to ensure performance and scalability:
 ### Backend Architecture:
 
 The backend is built with Node.js and Express.js, providing a RESTful API.
+
 *   **Server Setup:** `server.js` acts as the entry point, handling middleware (CORS, JSON/URL parsing, Multer for multipart data), connecting to MongoDB via Mongoose, and mounting API routes.
-*   **Problem Module:** Manages all complaint-related operations. This includes creating problems with media uploads (handled by Cloudinary), retrieving problems (all, by ID, by coordinates), deleting problems, adding comments (with author information), and liking problems. It also now supports updating problem statuses.
-*   **Department Module:** Handles the full lifecycle of departmental accounts, from secure signup (with password hashing via bcrypt and custom `departmentId` generation) and email verification (using Nodemailer and generated codes) to JWT-based login with optional IP validation.
-*   **Utilities:** Includes an email service for sending verification codes and a request scheduler to send periodic HTTP GET requests, useful for maintaining server activity on certain hosting environments.
+*   **Problem Module:** Manages all complaint-related operations. This includes creating problems with media uploads (handled by Cloudinary), retrieving problems (all, by ID, by coordinates), deleting problems, adding comments, and liking problems. It also supports updating problem statuses.
+*   **Department Module:** Handles the full lifecycle of departmental accounts, from secure signup (with password hashing via bcrypt and custom `departmentId` generation) and email verification (using Nodemailer and generated codes) to JWT-based login with an additional layer of security through trusted device verification.
+*   **Models:**
+    *   `Problem.model.js`: Defines the schema for complaints, including details like title, description, category, location, media, status, likes, and comments.
+    *   `Department.model.js`: Defines the schema for department accounts, including authentication details, department information, and verification status.
+    *   `TrustedDevice.model.js`: Stores information about devices that have been verified for a department, enabling a smoother login experience on recognized devices.
 
 ### Frontend Architecture:
 
 The frontend is a React.js single-page application, utilizing `react-router-dom` for navigation.
-*   **Routing:** `App.js` centralizes all application routes, distinguishing between user-facing and departmental sections.
+
+*   **Routing:** `App.js` centralizes all application routes, distinguishing between user-facing and departmental sections. It uses `ProtectedRoute` to secure departmental pages.
 *   **User Interface:**
-    *   **Citizen-Facing:** Provides intuitive forms for complaint submission (integrating camera/gallery and geolocation), a comprehensive tracking page with advanced filtering (by ID, description, location, status, category, date), and detailed views for individual complaints with commenting capabilities (displaying author information).
-    *   **Departmental-Facing:** Features secure login and signup flows. Includes dashboard components for an overview of problem statistics and a map view. Departments can now update complaint statuses and view attached media directly from the complaint details page.
-*   **Global Components:** A consistent header, footer, and a floating button for quick complaint submission are integrated across the application. API calls are managed using Axios, with base URLs configured via environment variables for flexible deployment.
+    *   **Citizen-Facing:** Provides intuitive forms for complaint submission (integrating camera/gallery and geolocation), a comprehensive tracking page with advanced filtering, and detailed views for individual complaints.
+    *   **Departmental-Facing:** Features secure login and signup flows. Includes dashboard components for an overview of problem statistics and a map view. Departments can update complaint statuses and view attached media directly from the complaint details page.
+*   **API Communication:** `axiosInstance.js` creates a centralized Axios instance for making API calls to the backend, with the base URL configured via environment variables.
 
 ---
 
