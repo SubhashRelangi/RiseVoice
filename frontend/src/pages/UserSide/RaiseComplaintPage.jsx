@@ -26,11 +26,14 @@ const RaiseComplaint = () => {
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
+  // ✅ Fixed: proper loader flow + correct error handling
   const handleAutoLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser.");
       return;
     }
+
+    setIsLocationLoading(true);
 
     const options = {
       enableHighAccuracy: true,
@@ -48,16 +51,19 @@ const RaiseComplaint = () => {
           lat,
           lng,
         }));
+        setIsLocationLoading(false); // stop loader on success
       },
       (err) => {
         console.error("Geolocation error:", err);
         let errorMessage =
           "Location access was denied. Please enter your address manually.";
-        if (err.code === err.TIMEOUT) {
+        if (err.code === 3) {
+          // ✅ Fixed: timeout code is always 3
           errorMessage =
             "Could not get your location within the allowed time. Please try again or enter manually.";
         }
         alert(errorMessage);
+        setIsLocationLoading(false); // stop loader on error
       },
       options
     );
@@ -111,9 +117,8 @@ const RaiseComplaint = () => {
       setFormData(initialFormData);
       setPreviewSrc(null);
 
-      // Redirect to the newly created complaint's detail page
-      const newComplaintId = response.data.problemId; // Use problemId for redirection
-      navigate(`/complaint/${newComplaintId}`); // Assuming your complaint detail route is /complaint/:id
+      const newComplaintId = response.data.problemId;
+      navigate(`/complaint/${newComplaintId}`);
     } catch (err) {
       console.error("Submission failed:", err);
       alert("Failed to submit complaint. Please try again.");
@@ -253,31 +258,24 @@ const RaiseComplaint = () => {
         />
 
         <div className={styles.locationRow}>
+          {/* ✅ You may keep type="number", but text is safer for negative coords */}
           <input
-            type="number"
+            type="text"
             name="lat"
             placeholder="Latitude"
             value={formData.lat}
             onChange={handleChange}
-            step="any"
           />
           <input
-            type="number"
+            type="text"
             name="lng"
             placeholder="Longitude"
             value={formData.lng}
             onChange={handleChange}
-            step="any"
           />
           <button
             type="button"
-            onClick={() => {
-              setIsLocationLoading(true);
-              handleAutoLocation();
-              setTimeout(() => {
-                setIsLocationLoading(false);
-              }, 2000);
-            }}
+            onClick={handleAutoLocation}
             className={
               isLocationLoading
                 ? `${styles.useLocationBtn} ${styles.loading}`
