@@ -1,5 +1,5 @@
 .navigation {
-  height: 100px;
+  height: 80px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -8,6 +8,16 @@
   padding: 0 1.5rem;
   box-sizing: border-box;
   position: relative;
+}
+
+.brandLink {
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.brandLink:active {
+  color: var(--accent-color);
 }
 
 .brand {
@@ -28,6 +38,13 @@
   transition: color 0.3s ease;
   padding-bottom: 5px; /* Add padding to make space for the border */
   border-bottom: 3px solid transparent; /* Transparent border by default */
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+}
+
+.icon {
+  margin-right: 8px;
 }
 
 .navLinkEle:hover {
@@ -37,6 +54,15 @@
 .navLinkEle.active {
   border-bottom: 3px solid var(--accent-color);
   color: var(--accent-color);
+}
+
+.logoutButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
 }
 
 .hamburger {
@@ -56,7 +82,7 @@
 @media (max-width: 768px) {
 
   .navigation{
-    height: 70px;
+    height: 60px;
     padding: 0 1rem;
     z-index: 100;
     position: relative;
@@ -79,6 +105,7 @@
     display: none;
     z-index: 99;
     box-shadow: -2px 2px 5px var(--box-shadow-light);
+    align-items: center; /* Center items horizontally */
   }
 
   .navLinksActive {
@@ -88,6 +115,13 @@
   .navLinkEle {
     font-size: 16px;
     padding: 10px 0;
+    width: 100%; /* Make links take full width */
+    justify-content: center; /* Center text and icon */
+  }
+
+  .navLinkEle.active {
+    border-bottom: 3px solid var(--accent-color);
+    width: fit-content;
   }
 
   .hamburger {
