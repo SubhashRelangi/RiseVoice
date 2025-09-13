@@ -129,9 +129,9 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
           <div className={styles.videoContainer}>
             <video ref={videoRef} autoPlay playsInline muted />
             <div className={styles.buttonGroup}>
-              <button className={styles.captureButton} onClick={handleCapture}>Capture Image</button>
+              <button className={styles.captureButton} onClick={handleCapture} disabled={!stream}>Capture Image</button>
               {!isRecording ? (
-                <button className={styles.captureButton} onClick={handleStartRecording}>Start Recording</button>
+                <button className={styles.captureButton} onClick={handleStartRecording} disabled={!stream}>Start Recording</button>
               ) : (
                 <button className={styles.captureButton} onClick={handleStopRecording}>Stop Recording</button>
               )}
