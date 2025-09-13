@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import styles from './CameraModal.module.css';
 import { FiX } from 'react-icons/fi'; // Import the close icon
 
@@ -8,35 +8,41 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
   const [stream, setStream] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [isLoadingCamera, setIsLoadingCamera] = useState(true);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
 
-  useEffect(() => {
-    const startStream = async () => {
-      if (isOpen && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        try {
-          const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: true });
-          setStream(mediaStream);
-          if (videoRef.current) {
-            videoRef.current.srcObject = mediaStream;
-          }
-        } catch (err) {
-          console.error("Error accessing camera:", err);
-          alert("Could not access the camera. Please check permissions.");
-          onClose();
+  const initializeCamera = useCallback(async () => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      setIsLoadingCamera(true);
+      try {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: true });
+        setStream(mediaStream);
+        if (videoRef.current) {
+          videoRef.current.srcObject = mediaStream;
         }
+      } catch (err) {
+        console.error("Error accessing camera:", err);
+        alert("Could not access the camera. Please check permissions.");
+        onClose();
+      } finally {
+        setIsLoadingCamera(false);
       }
-    };
+    }
+  }, [onClose, videoRef]);
 
-    startStream();
+  useEffect(() => {
+    if (isOpen) {
+      initializeCamera();
+    }
 
     return () => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
+        setStream(null); // Clear stream on unmount or modal close
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [isOpen, initializeCamera]);
 
   if (!isOpen) return null;
 
@@ -92,7 +98,15 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
 
   const handleRetake = () => {
     console.log("Retake button clicked");
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+      setStream(null);
+    }
     setCapturedImage(null);
+    if (videoRef.current) {
+      videoRef.current.srcObject = null; // Explicitly clear the video source
+    }
+    initializeCamera();
   };
 
   const handleConfirm = () => {
@@ -128,14 +142,16 @@ const CameraModal = ({ isOpen, onClose, onCapture }) => {
         ) : (
           <div className={styles.videoContainer}>
             <video ref={videoRef} autoPlay playsInline muted />
-            <div className={styles.buttonGroup}>
-              <button className={styles.captureButton} onClick={handleCapture} disabled={!stream}>Capture Image</button>
-              {!isRecording ? (
-                <button className={styles.captureButton} onClick={handleStartRecording} disabled={!stream}>Start Recording</button>
-              ) : (
-                <button className={styles.captureButton} onClick={handleStopRecording}>Stop Recording</button>
-              )}
-            </div>
+            {!isLoadingCamera && stream && (
+              <div className={styles.buttonGroup}>
+                <button className={styles.captureButton} onClick={handleCapture} disabled={!stream}>Capture Image</button>
+                {!isRecording ? (
+                  <button className={styles.captureButton} onClick={handleStartRecording} disabled={!stream}>Start Recording</button>
+                ) : (
+                  <button className={styles.captureButton} onClick={handleStopRecording}>Stop Recording</button>
+                )}
+              </div>
+            )}
           </div>
         )}
         <canvas ref={canvasRef} style={{ display: 'none' }} />

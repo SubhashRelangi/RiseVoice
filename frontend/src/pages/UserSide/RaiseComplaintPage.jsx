@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./RaiseComplaintPage.module.css";
 import CameraModal from "../../Components/RaiseComplaints/CameraModal";
 import { FaCamera, FaImage, FaMapMarkerAlt } from "react-icons/fa";
+import { FiX } from 'react-icons/fi'; // Import the close icon
 import { useNavigate } from "react-router-dom";
 
 const initialFormData = {
@@ -144,6 +145,15 @@ const RaiseComplaint = () => {
     }
   };
 
+  const handleRemovePreview = () => {
+    if (previewSrc) {
+      URL.revokeObjectURL(previewSrc);
+    }
+    setPreviewSrc(null);
+    setFormData((prev) => ({ ...prev, image: null }));
+    setErrors((prev) => ({ ...prev, image: "Image is required." })); // Optionally add an error if image is mandatory
+  };
+
   return (
     <div className={styles.complaintContainer}>
       <form onSubmit={handleSubmit} className={styles.complaintForm}>
@@ -226,6 +236,7 @@ const RaiseComplaint = () => {
                   className={styles.previewImage}
                 />
               )}
+              <button type="button" onClick={handleRemovePreview} className={styles.removePreviewBtn}><FiX /></button>
             </div>
           )}
         </div>

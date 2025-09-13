@@ -107,6 +107,7 @@ textarea {
   border-radius: 0.8rem;
   overflow: hidden;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  position: relative; /* Added for positioning the remove button */
 }
 
 .previewContainer h4 {
@@ -122,6 +123,30 @@ textarea {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+.removePreviewBtn {
+  position: absolute;
+  top: 5px; /* Adjusted */
+  right: 5px; /* Adjusted */
+  background-color: #ff4d4d; /* Red color for remove */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Make it round */
+  width: 25px; /* Smaller size */
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem; /* Smaller font size */
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  z-index: 10; /* Ensure it's above the image/video */
+}
+
+.removePreviewBtn:hover {
+  background-color: #cc0000;
 }
 
 .locationRow {
