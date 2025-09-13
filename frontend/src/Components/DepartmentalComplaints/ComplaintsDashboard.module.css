@@ -128,4 +128,61 @@
     font-size: 1.5rem;
     font-weight: bold;
   }
+
+  @media (max-width: 768px) {
+    .dashboard {
+      padding: 1rem;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+    }
+
+    .header p {
+      font-size: 0.5rem;
+    }
+
+    .location {
+      font-size: 0.7rem;
+    }
+
+    .filters {
+      padding: 1rem;
+    }
+
+    .filterHeader h2 {
+      font-size: 1rem;
+    }
+
+    .filterControls {
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: stretch;
+    }
+
+    .search {
+      width: 100%;
+    }
+
+    .filterControls select,
+    .radius {
+      width: 100%;
+    }
+
+    .summary {
+      grid-template-columns: 1fr;
+    }
+
+    .summaryCard {
+      padding: 1rem;
+    }
+
+    .cardIcon {
+      font-size: 1.5rem;
+    }
+
+    .cardContent span {
+      font-size: 1.2rem;
+    }
+  }
   
