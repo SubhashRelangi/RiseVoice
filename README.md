@@ -1,14 +1,14 @@
-# VoiceUp: Your Voice, Your Solution 🗣️
+# RiseVoice: Your Voice, Your Solution 🗣️
 
 ## Empowering Citizens, Streamlining Governance.
 
-VoiceUp is a **full-stack Complaint Management System** meticulously crafted to bridge the communication gap between citizens and government services. Our mission is to empower individuals to effortlessly raise and track public service issues, fostering a new era of transparency, accountability, and efficient interaction.
+RiseVoice is a **full-stack Complaint Management System** meticulously crafted to bridge the communication gap between citizens and government services. Our mission is to empower individuals to effortlessly raise and track public service issues, fostering a new era of transparency, accountability, and efficient interaction.
 
 ---
 
 ## ✨ Key Features
 
-VoiceUp is packed with intuitive features designed to make your voice heard and problems resolved:
+RiseVoice is packed with intuitive features designed to make your voice heard and problems resolved:
 
 ### Citizen-Facing Features:
 
@@ -78,7 +78,7 @@ The frontend is a React.js single-page application, utilizing `react-router-dom`
 
 ## 🛠️ Getting Started
 
-Follow these simple steps to get VoiceUp up and running on your local machine.
+Follow these simple steps to get RiseVoice up and running on your local machine.
 
 ### Prerequisites
 
@@ -93,8 +93,8 @@ Follow these simple steps to get VoiceUp up and running on your local machine.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/VoiceUp.git
-    cd VoiceUp
+    git clone https://github.com/your-username/RiseVoice.git
+    cd RiseVoice
     ```
 2.  **Backend Setup:**
     ```bash
@@ -126,7 +126,7 @@ Once both servers are running, open your browser and navigate to `http://localho
 
 ## 📸 Screenshots
 
-*(Help us showcase VoiceUp! Add compelling screenshots here to highlight the application's key features and responsive design.)*
+*(Help us showcase RiseVoice! Add compelling screenshots here to highlight the application's key features and responsive design.)*
 
 *   **Homepage (Desktop):** [Placeholder for image]
 *   **Complaint Submission Form:** [Placeholder for image]
@@ -138,14 +138,14 @@ Once both servers are running, open your browser and navigate to `http://localho
 
 ## 💡 Future Enhancements
 
-We're continuously working to improve VoiceUp. Here are some planned features:
+We're continuously working to improve RiseVoice. Here are some planned features:
 
 *   **Real-time Notifications:** Instant updates on complaint status changes.
 *   **User Feedback System:** Allow citizens to provide feedback on resolved issues.
 *   **Advanced Analytics:** Generate insights into complaint trends and resolution efficiency.
 *   **Robust User Authentication:** Further enhance security and user management (e.g., password reset, multi-factor authentication).
 *   **"Like Once" Enforcement:** Implement backend logic to ensure users can only like a problem once.
-*   **Unified Branding:** Standardize brand name ("VoiceUp") across all components (e.g., footer).
+*   **Unified Branding:** Standardize brand name ("RiseVoice") across all components (e.g., footer).
 *   **Improved Frontend Styling:** Refactor inline CSS into modules for better maintainability.
 *   **Enhanced Departmental Links:** Update footer and header links to point to correct departmental pages.
 
