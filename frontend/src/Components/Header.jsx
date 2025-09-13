@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import axiosInstance from '../axiosInstance';
-import { FaHome, FaSearch, FaRegListAlt, FaUser } from 'react-icons/fa';
-import { FiLogIn, FiLogOut } from 'react-icons/fi';
+import { FaHome, FaSearch, FaRegListAlt, FaUser, FaBuilding } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -56,7 +56,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
       {/* Hamburger Menu */}
       <div
         ref={hamburgerRef}
-        className={styles.hamburger}
+        className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
         onClick={() => setMenuOpen(!menuOpen)}
       >
         <span></span>
@@ -96,7 +96,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               <span>Track</span>
             </Link>
             <Link to="/department/login" onClick={handleLinkClick} className={`${styles.navLinkEle} ${isActive('/department/login') ? styles.active : ''}`}>
-              <FiLogIn className={styles.icon} />
+              <FaBuilding className={styles.icon} />
               <span>Login</span>
             </Link>
           </>
