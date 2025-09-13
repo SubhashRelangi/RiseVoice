@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import styles from "./RaiseComplaintPage.module.css";
 import CameraModal from "../../Components/RaiseComplaints/CameraModal";
@@ -23,10 +23,17 @@ const RaiseComplaint = () => {
   const [isGalleryLoading, setIsGalleryLoading] = useState(false);
   const [isLocationLoading, setIsLocationLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({}); // ✅ Added to handle field errors
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
-  // ✅ Fixed: proper loader flow + correct error handling
+  // cleanup preview URLs
+  useEffect(() => {
+    return () => {
+      if (previewSrc) URL.revokeObjectURL(previewSrc);
+    };
+  }, [previewSrc]);
+
   const handleAutoLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser.");
@@ -51,25 +58,32 @@ const RaiseComplaint = () => {
           lat,
           lng,
         }));
-        setIsLocationLoading(false); // stop loader on success
+        setIsLocationLoading(false);
       },
       (err) => {
         console.error("Geolocation error:", err);
         let errorMessage =
           "Location access was denied. Please enter your address manually.";
         if (err.code === 3) {
-          // ✅ Fixed: timeout code is always 3
           errorMessage =
             "Could not get your location within the allowed time. Please try again or enter manually.";
         }
         alert(errorMessage);
-        setIsLocationLoading(false); // stop loader on error
+        setIsLocationLoading(false);
       },
       options
     );
   };
 
   const handleCapture = (blob) => {
+    if (!blob || blob.size === 0) {
+      alert(
+        "Failed to capture image/video. Please ensure camera is active and try again."
+      ); // ✅ replaced showNotification with alert
+      setIsCameraOpen(false);
+      return;
+    }
+
     let file;
     if (blob.type.startsWith("video/")) {
       file = new File([blob], "capture.webm", { type: blob.type });
@@ -78,6 +92,8 @@ const RaiseComplaint = () => {
     }
     setFormData((prev) => ({ ...prev, image: file }));
     setPreviewSrc(URL.createObjectURL(blob));
+    setErrors((prev) => ({ ...prev, image: undefined }));
+    setIsCameraOpen(false);
   };
 
   const handleFileSelect = (e) => {
@@ -85,6 +101,7 @@ const RaiseComplaint = () => {
     if (file) {
       setFormData((prev) => ({ ...prev, image: file }));
       setPreviewSrc(URL.createObjectURL(file));
+      setErrors((prev) => ({ ...prev, image: undefined }));
     }
   };
 
@@ -105,7 +122,7 @@ const RaiseComplaint = () => {
 
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      if (value) data.append(key, value);
+      if (value !== null && value !== "") data.append(key, value);
     });
 
     try {
@@ -258,7 +275,6 @@ const RaiseComplaint = () => {
         />
 
         <div className={styles.locationRow}>
-          {/* ✅ You may keep type="number", but text is safer for negative coords */}
           <input
             type="text"
             name="lat"
