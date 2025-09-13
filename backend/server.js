@@ -16,7 +16,7 @@ app.set('trust proxy', true);
 // Middleware
 app.use(cors({
   origin: [
-    "https://voiceupindia.vercel.app",
+    "https://risevoice.vercel.app/",
     "http://localhost:3000"
   ],
   credentials: true,
