@@ -40,7 +40,7 @@ const Footer = () => {
         {/* Contact */}
         <div className={styles.footerContact}>
           <h3>Contact</h3>
-          <p>Email: pvoiceup@gmail.com</p>
+          <p>Email: risevoiceproject@gmail.com</p>
           <p>Phone: +91 98765 43210</p>
           <div className={styles.socialIcons}>
             <a href="/"><FaGlobe /></a>

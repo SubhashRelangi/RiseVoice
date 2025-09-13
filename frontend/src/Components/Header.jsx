@@ -49,7 +49,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     <div className={styles.navigation}>
       <Link to={isLoggedIn ? '/department' : '/'} className={styles.brandLink}>
         <div className={styles.brand}>
-          <h1 className={styles.title}>VoiceUp</h1>
+          <h1 className={styles.title}>RiseVoice</h1>
         </div>
       </Link>
 
