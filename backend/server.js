@@ -39,22 +39,7 @@ mongoose.connect(process.env.MONGODB_URL)
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Error:", err));
 
-// Temporary route to create an admin user (REMOVE IN PRODUCTION)
-app.post('/api/create-admin', async (req, res) => {
-  const { name, email, password } = req.body;
-  try {
-    const existingAdmin = await Admin.findOne({ email });
-    if (existingAdmin) {
-      return res.status(400).json({ message: 'Admin with this email already exists.' });
-    }
-    const newAdmin = new Admin({ name, email, password });
-    await newAdmin.save();
-    res.status(201).json({ message: 'Admin user created successfully.' });
-  } catch (error) {
-    console.error('Error creating admin:', error);
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-});
+
 
 // Routes
 app.use('/api/problems', problemRoutes);

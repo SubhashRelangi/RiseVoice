@@ -30,6 +30,11 @@ const App = () => {
   const { loadingAuth } = useAuth(); // Use loadingAuth from AuthContext
 
   useEffect(() => {
+    const nonAuthRoutes = ['/', '/track', '/department/login', '/admin/login'];
+    if (nonAuthRoutes.includes(location.pathname)) {
+      return;
+    }
+
     const checkLoginStatus = async () => {
       try {
         const response = await axiosInstance.get('/api/departments/checkAuth'); // Use the new endpoint
@@ -44,7 +49,7 @@ const App = () => {
       }
     };
     checkLoginStatus();
-  }, []); // Run once on component mount
+  }, [location.pathname]); // Run once on component mount
 
   const departmentPrefixes = ['/department', '/raise-complaint'];
   const adminPrefixes = ['/admin']; // New: Admin routes
