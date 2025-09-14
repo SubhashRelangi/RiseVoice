@@ -17,9 +17,17 @@ import DepartmentProfile from './pages/DepartmentalSide/DepartmentProfile';
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
 import axiosInstance from './axiosInstance';
 
+// Admin Imports
+import AdminLoginPage from './pages/AdminSide/AdminLoginPage';
+import AdminHomePage from './pages/AdminSide/AdminHomePage';
+import AdminProtectedRoute from './Components/Auth/AdminProtectedRoute';
+import { useAuth } from './Components/Auth/AuthContext';
+
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize to false
   const location = useLocation();
+  const { loadingAuth } = useAuth(); // Use loadingAuth from AuthContext
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -39,14 +47,23 @@ const App = () => {
   }, []); // Run once on component mount
 
   const departmentPrefixes = ['/department', '/raise-complaint'];
+  const adminPrefixes = ['/admin']; // New: Admin routes
 
   const isDepartmentalRoute = departmentPrefixes.some(prefix =>
     location.pathname.startsWith(prefix)
   );
 
+  const isAdminRoute = adminPrefixes.some(prefix => // New: Check for admin routes
+    location.pathname.startsWith(prefix)
+  );
+
+  if (loadingAuth) {
+    return <div>Loading authentication...</div>; // Or a more sophisticated loading spinner
+  }
+
   return (
     <div>
-      <Navigation isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      {!isAdminRoute && <Navigation isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} {/* Conditionally render Navigation */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/track" element={<TrackPage />} />
@@ -59,9 +76,13 @@ const App = () => {
         <Route path="/department/complaints" element={<ProtectedRoute><DepartmentalComplaints /></ProtectedRoute>} />
         <Route path="/department/complaints/:id" element={<ProtectedRoute><DepartmentalComplaintPage /></ProtectedRoute>} />
         <Route path="/department/profile" element={<ProtectedRoute><DepartmentProfile /></ProtectedRoute>} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin/dashboard" element={<AdminProtectedRoute><AdminHomePage /></AdminProtectedRoute>} />
       </Routes>
-      {!isDepartmentalRoute && <FloatingButton />}
-      <Footer />
+      {!isDepartmentalRoute && !isAdminRoute && <FloatingButton />} {/* Conditionally render FloatingButton */}
+      {!isAdminRoute && <Footer />} {/* Conditionally render Footer */}
     </div>
   );
 };

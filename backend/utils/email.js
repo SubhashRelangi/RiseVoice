@@ -111,3 +111,28 @@ export const sendPendingApprovalEmail = async (toEmail, departmentName, departme
     return false;
   }
 };
+
+export const sendAdminLoginOTP = async (toEmail, otp) => {
+  const htmlContent = `
+    <h1>RiseVoice - Admin Login Verification</h1>
+    <p>Dear Admin,</p>
+    <p>Your One-Time Password (OTP) for login is: <strong>${otp}</strong></p>
+    <p>This code will expire in 10 minutes.</p>
+    <p>Please use this code to complete your login.</p>
+  `;
+
+  const mailOptions = {
+    from: process.env.GMAIL_USER,
+    to: toEmail,
+    subject: 'RiseVoice - Admin Login OTP',
+    html: htmlContent,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return true;
+  } catch (error) {
+    console.error('Error sending admin login OTP email:', error);
+    return false;
+  }
+};
