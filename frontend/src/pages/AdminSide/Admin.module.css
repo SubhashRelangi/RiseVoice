@@ -145,3 +145,12 @@
 .rejectButton:hover {
   background-color: #c82333;
 }
+
+.logoutButton {
+  width: 120px;
+  background-color: orange; /* Grey */
+}
+
+.logoutButton:hover {
+  background-color: darkorange;
+}
