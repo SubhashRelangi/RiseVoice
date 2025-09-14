@@ -9,8 +9,6 @@ import adminRoutes from './routes/admin.route.js';
 import adminAuthRoutes from './routes/adminAuth.route.js';
 import multer from 'multer';
 import { startRequestScheduler } from './requestScheduler.js';
-import Admin from './models/Admin.model.js'; // Import Admin model
-import bcrypt from 'bcrypt'; // Import bcrypt
 
 dotenv.config();
 
