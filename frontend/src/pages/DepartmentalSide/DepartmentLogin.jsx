@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import styles from './DepartmentLogin.module.css';
 
@@ -8,32 +8,35 @@ const DepartmentLogin = ({ setIsLoggedIn }) => {
   const [password, setPassword] = useState('');
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
+  const [info, setInfo] = useState('');
   const [loading, setLoading] = useState(false);
   const [showOtpInput, setShowOtpInput] = useState(false);
   const navigate = useNavigate();
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setInfo('');
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/departments/login`, {
+      await axiosInstance.post('/api/departments/login', {
         departmentId,
         password,
-      }, { withCredentials: true }); // Ensure cookies are sent
+      });
 
       setIsLoggedIn(true);
       navigate('/department');
     } catch (err) {
       if (err.response) {
+        const message = err.response.data.message;
         if (err.response.status === 401 && err.response.data.requiresOTP) {
           setShowOtpInput(true);
-          setError(err.response.data.message);
+          setError(message);
+        } else if (message === 'Your account is pending admin approval.' || message === 'Your account has been rejected. Please contact support for more information.') {
+          setInfo(message);
         } else {
-          setError(err.response.data.message || 'An error occurred during login.');
+          setError(message || 'An error occurred during login.');
         }
       } else if (err.request) {
         setError('No response from server. Please try again later.');
@@ -51,10 +54,10 @@ const DepartmentLogin = ({ setIsLoggedIn }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/departments/verify-login-otp`, {
+      await axiosInstance.post('/api/departments/verify-login-otp', {
         departmentId,
         otp,
-      }, { withCredentials: true }); // Ensure cookies are sent
+      });
 
       setIsLoggedIn(true);
       navigate('/department');
@@ -77,6 +80,7 @@ const DepartmentLogin = ({ setIsLoggedIn }) => {
         <form onSubmit={handleSubmit} className={styles.loginForm}>
           <h2>Department Login</h2>
           {error && <p className={styles.errorMessage}>{error}</p>}
+          {info && <p className={styles.infoMessage}>{info}</p>}
           <div className={styles.formGroup}>
             <label htmlFor="departmentId">Department ID:</label>
             <input

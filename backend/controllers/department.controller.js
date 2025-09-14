@@ -1,6 +1,6 @@
 import Department from '../models/Department.model.js';
 import jwt from 'jsonwebtoken';
-import { sendVerificationEmail } from '../utils/email.js';
+import { sendVerificationEmail, sendPendingApprovalEmail } from '../utils/email.js';
 import crypto from 'crypto';
 import trustedDeviceService from '../services/trustedDeviceService.js';
 
@@ -79,30 +79,15 @@ export const verifyEmail = async (req, res) => {
     }
 
     department.isVerified = true;
-    department.status = 'active';
+    department.status = 'verified';
     department.verificationCode = undefined;
     department.verificationCodeExpires = undefined;
     await department.save();
 
-    const token = jwt.sign(
-      { id: department._id, email: department.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '12h' }
-    );
-
-    res.cookie('jwtToken', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'none',
-      maxAge: 1000 * 60 * 60 * 12 // 12 hours
-    });
+    await sendPendingApprovalEmail(department.email, department.departmentName, department.departmentId, department.location);
 
     res.status(200).json({
-        message: 'Email verified successfully',
-        departmentId: department.departmentId,
-        departmentName: department.departmentName,
-        departmentType: department.departmentType,
-        location: department.location,
+        message: 'email verification is completed not approved wait for it if approvial process is completed we send email',
     });
   } catch (error) {
     console.error('Email verification error:', error);
@@ -125,7 +110,15 @@ export const loginDepartment = async (req, res) => {
         return res.status(403).json({ message: 'Account not verified. Please verify your email.' });
     }
 
-    if (department.status !== 'active') {
+    if (department.status === 'verified') {
+      return res.status(403).json({ message: 'Your account is pending admin approval.' });
+    }
+
+    if (department.status === 'rejected') {
+      return res.status(403).json({ message: 'Your account has been rejected. Please contact support for more information.' });
+    }
+
+    if (department.status !== 'approved') {
       return res.status(403).json({ message: 'Account not active.' });
     }
 
@@ -299,7 +292,7 @@ export const getDepartmentProfile = (req, res) => {
       email: req.department.email,
       serviceType: req.department.departmentType, // Assuming departmentType maps to serviceType
       location: req.department.location,
-      isActive: req.department.status === 'active', // Assuming status field exists
+      isActive: req.department.status === 'approved', // Assuming status field exists
       isVerified: req.department.isVerified,
       lastLogin: req.department.lastLogin,
       createdAt: req.department.createdAt, // Add createdAt field

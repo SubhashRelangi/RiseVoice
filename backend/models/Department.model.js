@@ -56,12 +56,8 @@ const departmentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'active', 'locked'],
+    enum: ['pending', 'verified', 'approved', 'rejected'],
     default: 'pending',
-  },
-  isActive: {
-    type: Boolean,
-    default: true,
   },
   verificationCode: {
     type: String,

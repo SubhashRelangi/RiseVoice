@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import problemRoutes from './routes/problems.route.js';
 import departmentRoutes from './routes/department.route.js';
+import adminRoutes from './routes/admin.route.js';
 import multer from 'multer';
 import { startRequestScheduler } from './requestScheduler.js';
 
@@ -38,6 +39,7 @@ mongoose.connect(process.env.MONGODB_URL)
 // Routes
 app.use('/api/problems', problemRoutes);
 app.use('/api/departments', departmentRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
