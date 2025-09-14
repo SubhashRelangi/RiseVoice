@@ -9,6 +9,22 @@ export const signupDepartment = async (req, res) => {
   const { email, password, departmentType, departmentName, location } = req.body;
 
   try {
+
+    const governmentDomains = [
+      '.gov.in',
+      '.nic.in',
+      '.res.in',
+      '.mil.in',
+      '.edu.in', // For government educational institutions
+    ];
+
+    // Check if the email belongs to a government domain
+    const isGovernmentEmail = governmentDomains.some(domain => email.toLowerCase().endsWith(domain));
+
+    if (!isGovernmentEmail) {
+      return res.status(400).json({ message: 'Only government emails are allowed for department signup.' });
+    }
+
     const existingDepartment = await Department.findOne({ email });
     if (existingDepartment) {
       return res.status(400).json({ message: 'Department with this email already exists.' });
