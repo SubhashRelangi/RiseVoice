@@ -2,15 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import axiosInstance from '../axiosInstance';
-import { FaHome, FaSearch, FaRegListAlt, FaUser, FaBuilding } from 'react-icons/fa';
+import { FaHome, FaSearch, FaRegListAlt, FaUser, FaBuilding, FaChevronDown } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -20,13 +22,16 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setMenuOpen(false);
       }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [menuRef, hamburgerRef]);
+  }, [menuRef, hamburgerRef, dropdownRef]);
 
   const handleLogout = async () => {
     try {
@@ -95,10 +100,23 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               <FaSearch className={styles.icon} />
               <span>Track</span>
             </Link>
-            <Link to="/department/login" onClick={handleLinkClick} className={`${styles.navLinkEle} ${isActive('/department/login') ? styles.active : ''}`}>
-              <FaBuilding className={styles.icon} />
-              <span>Login</span>
-            </Link>
+            <div className={styles.dropdown} ref={dropdownRef}>
+              <div className={styles.navLinkEle} onClick={() => setDropdownOpen(!dropdownOpen)}>
+                <FaBuilding className={styles.icon} />
+                <span>Login</span>
+                <FaChevronDown className={`${styles.chevron} ${dropdownOpen ? styles.chevronOpen : ''}`} />
+              </div>
+              {dropdownOpen && (
+                <div className={styles.dropdownMenu}>
+                  <Link to="/department/login" onClick={handleLinkClick} className={styles.dropdownLink}>
+                    Department Login
+                  </Link>
+                  <Link to="/admin/login" onClick={handleLinkClick} className={styles.dropdownLink}>
+                    Admin Login
+                  </Link>
+                </div>
+              )}
+            </div>
           </>
         )}
       </div>

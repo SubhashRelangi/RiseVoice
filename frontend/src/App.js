@@ -30,8 +30,24 @@ const App = () => {
   const { loadingAuth } = useAuth(); // Use loadingAuth from AuthContext
 
   useEffect(() => {
-    const nonAuthRoutes = ['/', '/track', '/department/login', '/admin/login'];
-    if (nonAuthRoutes.includes(location.pathname)) {
+    const protectedRoutes = [
+      '/department',
+      '/department/complaints',
+      /^\/department\/complaints\/.*$/, // regex for /department/complaints/:id
+      '/department/profile',
+      '/admin/dashboard'
+    ];
+
+    const isProtectedRoute = protectedRoutes.some(route => {
+      if (typeof route === 'string') {
+        return route === location.pathname;
+      } else if (route instanceof RegExp) {
+        return route.test(location.pathname);
+      }
+      return false;
+    });
+
+    if (!isProtectedRoute) {
       return;
     }
 
@@ -61,10 +77,6 @@ const App = () => {
   const isAdminRoute = adminPrefixes.some(prefix => // New: Check for admin routes
     location.pathname.startsWith(prefix)
   );
-
-  if (loadingAuth) {
-    return <div>Loading authentication...</div>; // Or a more sophisticated loading spinner
-  }
 
   return (
     <div>
