@@ -265,13 +265,17 @@ const RaiseComplaint = () => {
           required
         >
           <option value="">Select Category</option>
-          <option value="Road">Road</option>
-          <option value="Water">Water</option>
-          <option value="Electricity">Electricity</option>
-          <option value="Waste">Waste</option>
-          <option value="Health">Health</option>
-          <option value="Education">Education</option>
-          <option value="Other">Other</option>
+          <option value="WATER">Water</option>
+          <option value="ELECTRICITY">Electricity</option>
+          <option value="ROADS_INFRASTRUCTURE">Roads & Infrastructure</option>
+          <option value="WASTE_MANAGEMENT">Waste Management</option>
+          <option value="HEALTHCARE">Healthcare</option>
+          <option value="EDUCATION">Education</option>
+          <option value="TRANSPORT">Transport</option>
+          <option value="AGRICULTURE">Agriculture</option>
+          <option value="REVENUE">Revenue</option>
+          <option value="POLICE">Police</option>
+          <option value="OTHER">Other</option>
         </select>
 
         <label htmlFor="address">Address</label>

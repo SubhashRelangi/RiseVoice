@@ -20,7 +20,7 @@ const problemSchema = new mongoose.Schema({
   description: { type: String, required: true },
   category: {
     type: String,
-    enum: ["Road", "Water", "Electricity", "Waste", "Health", "Education", "Other"],
+    enum: ['WATER', 'ELECTRICITY', 'ROADS_INFRASTRUCTURE', 'WASTE_MANAGEMENT', 'HEALTHCARE', 'EDUCATION', 'TRANSPORT', 'AGRICULTURE', 'REVENUE', 'POLICE', 'OTHER'],
     required: true,
   },
   location: {

@@ -3,18 +3,6 @@ import ComplaintsDashboard from '../../Components/DepartmentalComplaints/Complai
 import ComplaintList from '../../Components/DepartmentalComplaints/ComplaintList';
 import axiosInstance from '../../axiosInstance';
 
-const mapDepartmentTypeToCategory = (departmentType) => {
-  const mapping = {
-    WATER: 'Water',
-    ELECTRICITY: 'Electricity',
-    ROADS_INFRASTRUCTURE: 'Road',
-    WASTE_MANAGEMENT: 'Waste',
-    HEALTHCARE: 'Health',
-    EDUCATION: 'Education',
-  };
-  return mapping[departmentType] || 'Other';
-};
-
 const DepartmentalComplaints = () => {
   const [departmentLocation, setDepartmentLocation] = useState(null);
   const [departmentName, setDepartmentName] = useState('');
@@ -48,17 +36,11 @@ const DepartmentalComplaints = () => {
             radius: selectedRadius,
             departmentLat: profileData.location ? profileData.location.latitude : '',
             departmentLng: profileData.location ? profileData.location.longitude : '',
-            category: mapDepartmentTypeToCategory(profileData.serviceType),
+            category: profileData.serviceType, // Use serviceType directly
           },
         });
         
         let fetchedComplaints = problemsResponse.data;
-
-        // Filter complaints by department type (redundant if backend filters, but good for safety)
-        const departmentCategory = mapDepartmentTypeToCategory(profileData.serviceType);
-        fetchedComplaints = fetchedComplaints.filter(
-          (complaint) => complaint.category === departmentCategory
-        );
 
         setComplaints(fetchedComplaints);
 

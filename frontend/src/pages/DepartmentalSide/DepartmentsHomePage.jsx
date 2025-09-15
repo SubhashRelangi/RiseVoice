@@ -6,18 +6,6 @@ import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/D
 import ProblemSummary from '../../Components/DepartmentalHomeComponents/ProblemSummary';
 import axiosInstance from '../../axiosInstance';
 
-const mapDepartmentTypeToCategory = (departmentType) => {
-  const mapping = {
-    WATER: 'Water',
-    ELECTRICITY: 'Electricity',
-    ROADS_INFRASTRUCTURE: 'Road',
-    WASTE_MANAGEMENT: 'Waste',
-    HEALTHCARE: 'Health',
-    EDUCATION: 'Education',
-  };
-  return mapping[departmentType] || 'Other';
-};
-
 const DepartmentsHomePage = () => {
   const [problems, setProblems] = useState([]);
   const [stats, setStats] = useState({
@@ -35,15 +23,13 @@ const DepartmentsHomePage = () => {
         const { location, serviceType } = profileResponse.data;
         setDepartmentLocation(location);
 
-        const category = mapDepartmentTypeToCategory(serviceType);
-
         // Then, fetch problems within a 3km radius of the department's location
         const problemsResponse = await axiosInstance.get('/api/problems', {
           params: {
             radius: 3, // 3km radius
             departmentLat: location.latitude,
             departmentLng: location.longitude,
-            category: category,
+            category: serviceType, // Use serviceType directly as category
           },
         });
         
