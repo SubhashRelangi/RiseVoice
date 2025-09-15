@@ -74,6 +74,8 @@
   font-weight: 500;
   text-decoration: none;
   transition: color 0.2s ease;
+  padding-bottom: 5px; /* Add padding to make space for the border */
+  border-bottom: 3px solid transparent; /* Transparent border by default */
 }
 
 .navLinkEle:hover {
@@ -83,6 +85,7 @@
 .active {
   color: orange;
   font-weight: 600;
+  border-bottom: 3px solid orange;
 }
 
 .icon {
@@ -159,7 +162,25 @@
   .navLinkEle {
     padding: 0.75rem 0;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
+    position: relative;
+  }
+
+  .active {
+    color: orange;
+    font-weight: 600;
+    border-bottom: none;
+  }
+
+  .active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background-color: orange;
   }
 
   .dropdownMenu {
