@@ -80,7 +80,7 @@ const App = () => {
 
   return (
     <div>
-      {!isAdminRoute && <Navigation isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} {/* Conditionally render Navigation */}
+      <Navigation isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/track" element={<TrackPage />} />
@@ -99,7 +99,7 @@ const App = () => {
         <Route path="/admin/dashboard" element={<AdminProtectedRoute><AdminHomePage /></AdminProtectedRoute>} />
       </Routes>
       {!isDepartmentalRoute && !isAdminRoute && <FloatingButton />} {/* Conditionally render FloatingButton */}
-      {!isAdminRoute && <Footer />} {/* Conditionally render Footer */}
+      <Footer />
     </div>
   );
 };
