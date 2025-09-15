@@ -86,3 +86,18 @@
   border-radius: 4px;
   font-size: 14px;
 }
+
+.signupLink {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.signupLink a {
+  color: var(--button-primary-bg);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signupLink a:hover {
+  text-decoration: underline;
+}

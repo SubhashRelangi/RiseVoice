@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../axiosInstance';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styles from './DepartmentLogin.module.css';
 
 const DepartmentLogin = ({ setIsLoggedIn }) => {
@@ -104,6 +104,9 @@ const DepartmentLogin = ({ setIsLoggedIn }) => {
           <button type="submit" disabled={loading} className={styles.loginButton}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
+          <p className={styles.signupLink}>
+            Register new department <Link to="/department/signup">signup</Link>
+          </p>
         </form>
       ) : (
         <form onSubmit={handleOtpSubmit} className={styles.loginForm}>
