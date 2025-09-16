@@ -4,7 +4,7 @@ import styles from "./RaiseComplaintPage.module.css";
 import CameraModal from "../../Components/RaiseComplaints/CameraModal";
 import { FaCamera, FaImage, FaMapMarkerAlt } from "react-icons/fa";
 import { FiX } from 'react-icons/fi'; // Import the close icon
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const initialFormData = {
   title: "",
@@ -27,6 +27,13 @@ const RaiseComplaint = () => {
   const [errors, setErrors] = useState({}); // ✅ Added to handle field errors
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.category) {
+      setFormData((prev) => ({ ...prev, category: location.state.category }));
+    }
+  }, [location.state]);
 
   // cleanup preview URLs
   useEffect(() => {

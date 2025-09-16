@@ -57,6 +57,10 @@
   color: #222;
 }
 
+.serviceCardLink {
+  text-decoration: none;
+}
+
 @media (max-width: 1024px) {
   .servicesGrid {
     gap: 2rem;
