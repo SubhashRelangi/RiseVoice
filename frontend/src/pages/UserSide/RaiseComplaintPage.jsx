@@ -275,7 +275,6 @@ const RaiseComplaint = () => {
           <option value="AGRICULTURE">Agriculture</option>
           <option value="REVENUE">Revenue</option>
           <option value="POLICE">Police</option>
-          <option value="OTHER">Other</option>
         </select>
 
         <label htmlFor="address">Address</label>
