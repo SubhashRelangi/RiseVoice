@@ -1,107 +1,102 @@
 .page {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--background-gradient-blue);
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  padding: 2rem;
+  background: #f9f9f9;
+  min-height: 100vh;
 }
 
 .signupForm {
-  background: var(--background-color);
-  padding: 2rem;
+  background: #ffffff;
+  padding: 2rem 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 6px 18px var(--box-shadow-light);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
   width: 100%;
-  max-width: 420px;
 }
 
 .title {
   font-size: 1.8rem;
-  font-weight: bold;
-  text-align: center;
+  font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #00796b;
-}
-
-.message {
+  color: #333;
   text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.6rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
-
-.message.success {
-  background: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-}
-
-.message.error {
-  background: #ffebee;
-  color: #c62828;
-  border: 1px solid #ffcdd2;
 }
 
 .field {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .label {
-  display: block;
   font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  color: #444;
 }
 
 .input,
 .select {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--border-color-dark);
-  border-radius: 6px;
-  font-size: 0.95rem;
-  transition: border 0.2s;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
 .input:focus,
 .select:focus {
-  border-color: #00796b;
+  border-color: #ff7a00;
   outline: none;
 }
 
 .error {
-  display: block;
-  font-size: 0.8rem;
-  color: #c62828;
-  margin-top: 0.25rem;
+  color: #d93025;
+  font-size: 0.875rem;
+  margin-top: 0.3rem;
+}
+
+.success {
+  color: #0f9d58;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.message {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  background-color: #fef3e2;
+  border: 1px solid #ff7a00;
+  color: #ff7a00;
+  margin-bottom: 1rem;
 }
 
 .location {
   margin: 1rem 0;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  font-size: 0.95rem;
+  color: #555;
 }
 
 .button {
   width: 100%;
-  padding: 0.75rem;
-  background: #00796b;
-  color: var(--text-light);
+  background-color: #ff7a00;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
 }
 
-.button:hover:not(:disabled) {
-  background: #004d40;
+.button:hover {
+  background-color: #e86c00;
 }
 
 .button:disabled {
-  background: #b2dfdb;
+  background-color: #ffb380;
   cursor: not-allowed;
 }

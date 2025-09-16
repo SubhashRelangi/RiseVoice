@@ -44,9 +44,9 @@
 
 .formGroup input[type="text"]:focus,
 .formGroup input[type="password"]:focus {
-  border-color: var(--button-primary-bg);
+  border-color: var(--button-orange-bg);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.25);
 }
 
 .loginButton {
