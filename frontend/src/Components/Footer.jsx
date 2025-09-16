@@ -1,8 +1,25 @@
-import React from "react";
-import styles from "./Footer.module.css";
+import React from 'react';
+import styles from './Footer.module.css';
 import { FaGlobe, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';  
 
 const Footer = () => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleScroll = (sectionId) => {
+    if (location.pathname === '/') {
+      document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/', { state: { sectionId } });
+    }
+  };
+
+  const handleDepartmentClick = (category) => {
+    navigate('/raise-complaint', { state: { category } });
+  };
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
@@ -17,8 +34,8 @@ const Footer = () => {
         <div className={styles.footerLinks}>
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/">Services</a></li>
+            <li><a onClick={() => handleScroll('hero-section')}>Home</a></li>
+            <li><a onClick={() => handleScroll('services-section')}>Services</a></li>
             <li><a href="/track">Track</a></li>
             <li><a href="/department/login">Login</a></li>
           </ul>
@@ -28,12 +45,12 @@ const Footer = () => {
         <div className={styles.footerServices}>
           <h3>Departments</h3>
           <ul>
-            <li><a href="/">Electricity</a></li>
-            <li><a href="/">Transport</a></li>
-            <li><a href="/">Health Care</a></li>
-            <li><a href="/">Water</a></li>
-            <li><a href="/">Sanitation</a></li>
-            <li><a href="/">Police/Grievance</a></li>
+            <li><a onClick={() => handleDepartmentClick('ELECTRICITY')}>Electricity</a></li>
+            <li><a onClick={() => handleDepartmentClick('TRANSPORT')}>Transport</a></li>
+            <li><a onClick={() => handleDepartmentClick('HEALTHCARE')}>Health Care</a></li>
+            <li><a onClick={() => handleDepartmentClick('WATER')}>Water</a></li>
+            <li><a onClick={() => handleDepartmentClick('WASTE_MANAGEMENT')}>Sanitation</a></li>
+            <li><a onClick={() => handleDepartmentClick('POLICE')}>Police/Grievance</a></li>
           </ul>
         </div>
 

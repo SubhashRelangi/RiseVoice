@@ -13,7 +13,7 @@ const Services = () => {
   ];
 
   return (
-    <section className={styles.services}>
+    <section className={styles.services} id="services-section">
       <h2 className={styles.servicesTitle}>Services</h2>
       <p className={styles.servicesSubtitle}>Quick access to essential services</p>
 
