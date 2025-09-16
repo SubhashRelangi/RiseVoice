@@ -16,6 +16,7 @@ import DepartmentLogin from './pages/DepartmentalSide/DepartmentLogin';
 import DepartmentProfile from './pages/DepartmentalSide/DepartmentProfile';
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
 import axiosInstance from './axiosInstance';
+import ScrollToTop from './Components/ScrollToTop';
 
 // Admin Imports
 import AdminLoginPage from './pages/AdminSide/AdminLoginPage';
@@ -80,6 +81,7 @@ const App = () => {
 
   return (
     <div>
+      <ScrollToTop />
       <Navigation isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path="/" element={<HomePage />} />
