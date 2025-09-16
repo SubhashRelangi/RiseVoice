@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../axiosInstance';
 import { useNavigate } from 'react-router-dom';
-import styles from './Admin.module.css';
+import styles from './AdminLoginPage.module.css';
 import { useAuth } from '../../Components/Auth/AuthContext'; // Import useAuth
 
 const AdminLoginPage = () => {

@@ -1,0 +1,92 @@
+.adminContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+.adminCard {
+  background: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+  width: 100%;
+}
+
+.adminTitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.adminMessage {
+  background-color: #fef3e2;
+  border: 1px solid #ff7a00;
+  color: #ff7a00;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.adminError {
+  color: #d93025;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.adminForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.formGroup input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.formGroup input:focus {
+  border-color: #ff7a00;
+  outline: none;
+}
+
+.adminButton {
+  background-color: #ff7a00;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.adminButton:hover {
+  background-color: #e86c00;
+}
+
+.adminButton:disabled {
+  background-color: #ffb380;
+  cursor: not-allowed;
+}
