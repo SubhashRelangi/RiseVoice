@@ -50,7 +50,7 @@
 }
 
 .loginButton {
-  background-color: var(--button-primary-bg);
+  background-color: var(--button-orange-bg);
   color: var(--text-light);
   padding: 12px 20px;
   border: none;
@@ -62,7 +62,7 @@
 }
 
 .loginButton:hover {
-  background-color: var(--button-primary-hover);
+  background-color: darkorange;
 }
 
 .loginButton:disabled {
@@ -93,7 +93,7 @@
 }
 
 .signupLink a {
-  color: var(--button-primary-bg);
+  color: var(--button-orange-bg);
   text-decoration: none;
   font-weight: bold;
 }
