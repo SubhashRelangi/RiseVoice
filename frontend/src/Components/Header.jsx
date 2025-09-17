@@ -2,14 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import axiosInstance from '../axiosInstance';
-import { FaHome, FaSearch, FaRegListAlt, FaUser, FaBuilding, FaChevronDown } from 'react-icons/fa';
+import { useAuth } from './Auth/AuthContext'; // Import useAuth
+import { FaHome, FaSearch, FaRegListAlt, FaUser, FaBuilding, FaChevronDown, FaTasks } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
+import { GrAnnounce } from 'react-icons/gr';
+
 
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAdminAuthenticated, setIsAdminAuthenticated } = useAuth(); // Get admin auth state
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
   const dropdownRef = useRef(null);
@@ -33,7 +37,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     };
   }, [menuRef, hamburgerRef, dropdownRef]);
 
-  const handleLogout = async () => {
+  const handleDepartmentLogout = async () => {
     try {
       await axiosInstance.post('/api/departments/logout');
       setIsLoggedIn(false);
@@ -44,17 +48,39 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     }
   };
 
+  const handleAdminLogout = async () => {
+    try {
+      await axiosInstance.post('/api/admin/auth/logout');
+      setIsAdminAuthenticated(false);
+      setMenuOpen(false);
+      navigate('/admin/login');
+    } catch (error) {
+      console.error('Admin logout error:', error);
+    }
+  };
+
   const handleLinkClick = () => {
     setMenuOpen(false);
   };
 
   const isActive = (path) => location.pathname === path;
 
+  // Determine brand link based on authentication
+  const getBrandLink = () => {
+    if (isAdminAuthenticated) {
+      return '/admin/dashboard';
+    }
+    if (isLoggedIn) {
+      return '/department';
+    }
+    return '/';
+  };
+
   return (
     <div className={styles.navigation}>
-      <Link to={isLoggedIn ? '/department' : '/'} className={styles.brandLink}>
+      <Link to={getBrandLink()} className={styles.brandLink}>
         <div className={styles.brand}>
-          <h1 className={styles.title}>RiseVoice</h1>
+          <h1 className={styles.title}>{isAdminAuthenticated ? 'AdminDashboard' : 'RiseVoice'}</h1>
         </div>
       </Link>
 
@@ -71,7 +97,26 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
       {/* Nav Links */}
       <div ref={menuRef} className={`${styles.navLinks} ${menuOpen ? styles.navLinksActive : ''}`}>
-        {isLoggedIn ? (
+        {isAdminAuthenticated ? (
+          <>
+            <Link to="/admin/dashboard" onClick={handleLinkClick} className={`${styles.navLinkEle} ${isActive('/admin/dashboard') ? styles.active : ''}`}>
+              <FaHome className={styles.icon} />
+              <span>Home</span>
+            </Link>
+            <Link to="/admin/departments" onClick={handleLinkClick} className={`${styles.navLinkEle} ${isActive('/admin/departments') ? styles.active : ''}`}>
+              <FaBuilding className={styles.icon} />
+              <span>Departments</span>
+            </Link>
+            <Link to="/admin/requests" onClick={handleLinkClick} className={`${styles.navLinkEle} ${isActive('/admin/requests') ? styles.active : ''}`}>
+              <GrAnnounce className={styles.icon} />
+              <span>Requests</span>
+            </Link>
+            <button onClick={handleAdminLogout} className={`${styles.navLinkEle} ${styles.logoutButton}`}>
+              <FiLogOut className={styles.icon} />
+              <span>Logout</span>
+            </button>
+          </>
+        ) : isLoggedIn ? (
           <>
             <Link to="/department" onClick={handleLinkClick} className={`${styles.navLinkEle} ${isActive('/department') ? styles.active : ''}`}>
               <FaHome className={styles.icon} />
@@ -85,7 +130,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               <FaUser className={styles.icon} />
               <span>Profile</span>
             </Link>
-            <button onClick={handleLogout} className={`${styles.navLinkEle} ${styles.logoutButton}`}>
+            <button onClick={handleDepartmentLogout} className={`${styles.navLinkEle} ${styles.logoutButton}`}>
               <FiLogOut className={styles.icon} />
               <span>Logout</span>
             </button>
@@ -123,5 +168,6 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     </div>
   );
 };
+
 
 export default Header;
