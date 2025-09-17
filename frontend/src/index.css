@@ -73,5 +73,6 @@ code {
   --department-electricity-bg: #f39c12;
   --department-road-bg: #2ecc71;
   --department-health-bg: #e74c3c;
-  --department-education-bg: #9b59b6;
+    --department-education-bg: #9b59b6;
+  --color-white: #ffffff;
 }

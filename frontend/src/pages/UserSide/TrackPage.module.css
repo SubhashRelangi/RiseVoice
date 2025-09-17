@@ -1,7 +1,7 @@
 .trackContainer {
   padding: 2.5rem;
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: var(--background-gradient-blue);
+  background: var(--color-white);
   backdrop-filter: blur(6px);
   min-height: 100vh;
 }
