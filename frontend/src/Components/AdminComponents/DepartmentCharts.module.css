@@ -1,0 +1,100 @@
+.chartsContainer {
+    display: flex;
+    gap: 20px;
+    margin: 20px;
+  }
+  
+  .chartCard {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chartContent {
+    flex-grow: 1;
+  }
+  
+  .chartTitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .doughnutChart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+  
+  .doughnutCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .doughnutTotal {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .legend {
+    margin-top: 20px;
+  }
+  
+  .legendItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .legendColor {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .active {
+    background-color: #28a745;
+  }
+  
+  .pending {
+    background-color: #ffc107;
+  }
+  
+  .rejected {
+    background-color: #dc3545;
+  }
+  
+  .legendValue {
+    margin-left: auto;
+  }
+  
+  .chartHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .exportButton {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .chartFooter {
+    margin-top: 20px;
+    text-align: center;
+    color: #888;
+  }
+  

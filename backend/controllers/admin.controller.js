@@ -171,7 +171,7 @@ export const getDepartmentStats = async (req, res) => {
 /** Only pending departments */
 export const getPendingDepartments = async (req, res) => {
   try {
-    const pendingDepartments = await Department.find({ status: 'pending' });
+    const pendingDepartments = await Department.find({ status: { $in: ['pending', 'verified'] } });
     res.status(200).json(pendingDepartments);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -181,7 +181,7 @@ export const getPendingDepartments = async (req, res) => {
 /** Approve department */
 export const approveDepartment = async (req, res) => {
   try {
-    const department = await Department.findById(req.params.id);
+    const department = await Department.findOne({ departmentId: req.params.id });
     if (!department) {
       return res.status(404).json({ message: 'Department not found' });
     }
@@ -195,6 +195,7 @@ export const approveDepartment = async (req, res) => {
     await sendApprovalEmail(department.email, department.departmentName);
     res.status(200).json({ message: 'Department approved successfully' });
   } catch (error) {
+    console.error('Error in approveDepartment:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -202,7 +203,7 @@ export const approveDepartment = async (req, res) => {
 /** Reject department */
 export const rejectDepartment = async (req, res) => {
   try {
-    const department = await Department.findById(req.params.id);
+    const department = await Department.findOne({ departmentId: req.params.id });
     if (!department) {
       return res.status(404).json({ message: 'Department not found' });
     }

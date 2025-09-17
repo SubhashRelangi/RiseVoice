@@ -1,6 +1,7 @@
 import React from 'react';
 import DashboardStats from '../../Components/AdminComponents/DashboardStats';
 import DepartmentMap from '../../Components/AdminComponents/DepartmentMap';
+import DepartmentCharts from '../../Components/AdminComponents/DepartmentCharts';
 import styles from './AdminHomePage.module.css';
 
 const AdminHomePage = () => {
@@ -8,6 +9,7 @@ const AdminHomePage = () => {
     <div className={styles.homeContainer}>
       <DashboardStats />
       <DepartmentMap />
+      <DepartmentCharts />
     </div>
   );
 };

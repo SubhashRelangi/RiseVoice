@@ -110,13 +110,13 @@
 
 .listContainer {
   margin-top: 20px;
-  height: 300px;
-  overflow-y: auto;
 }
 
 .departmentList {
   list-style: none;
   padding: 0;
+  height: 281px;
+  overflow-y: auto;
 }
 
 .departmentItem {
