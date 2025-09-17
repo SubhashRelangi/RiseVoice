@@ -1,0 +1,155 @@
+.container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.titleIcon {
+  font-size: 2.5rem;
+  color: #007bff;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.header p {
+  margin: 0;
+  color: #6c757d;
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.statInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.statInfo span:first-child {
+  color: #6c757d;
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.activeNumber {
+  color: #28a745;
+}
+
+.pendingNumber {
+  color: #ffc107;
+}
+
+.rejectedNumber {
+  color: #dc3545;
+}
+
+.statIcon {
+  font-size: 2.5rem;
+}
+
+.totalIcon {
+  color: #007bff;
+}
+
+.activeIcon {
+  color: #28a745;
+}
+
+.pendingIcon {
+  color: #ffc107;
+}
+
+.rejectedIcon {
+  color: #dc3545;
+}
+
+.filtersContainer {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.filtersContainer h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.filtersBody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.searchBar {
+  flex-grow: 1;
+  position: relative;
+  min-width: 300px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+}
+
+.searchBar input {
+  width: 96%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.dropdowns {
+  display: flex;
+  gap: 1rem;
+}
+
+.dropdowns select {
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+}
+
+.resetButton {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  cursor: pointer;
+}

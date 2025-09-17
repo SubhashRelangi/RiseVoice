@@ -1,0 +1,43 @@
+.listContainer {
+  margin-top: 2rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+th {
+  background-color: #f8f9fa;
+}
+
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.approved {
+  background-color: #28a745;
+}
+
+.pending {
+  background-color: #ffc107;
+}
+
+.rejected {
+  background-color: #dc3545;
+}
