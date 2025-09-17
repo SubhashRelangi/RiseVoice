@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+  import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
-import styles from './AdminRequests.module.css'
+import styles from './AdminRequests.module.css';
+import { FaInbox } from 'react-icons/fa';
 
 const AdminRequests = () => {
   const [pendingDepartments, setPendingDepartments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
-
-  const handleLogout = async () => {
-    try {
-      await axiosInstance.post('/api/admin/auth/logout');
-      navigate('/admin/login'); // Redirect to admin login page after logout
-    } catch (err) {
-      console.error('Admin logout error:', err);
-      setError(err.response?.data?.message || 'Failed to logout.');
-    }
-  };
+  const navigate = useNavigate();
 
   const fetchPendingDepartments = async () => {
     setLoading(true);
@@ -43,7 +34,6 @@ const AdminRequests = () => {
     try {
       const response = await axiosInstance.put(`/api/admin/department/${departmentId}/${actionType}`);
       setMessage(response.data.message);
-      // Refresh the list after action
       fetchPendingDepartments();
     } catch (err) {
       setError(err.response?.data?.message || `Failed to ${actionType} department.`);
@@ -61,12 +51,13 @@ const AdminRequests = () => {
   return (
     <div className={styles.adminContainer}>
       <div className={styles.adminCard}>
-              
         {message && <p className={styles.adminMessage}>{message}</p>}
-
         <h3>Departments Pending Approval ({pendingDepartments.length})</h3>
         {pendingDepartments.length === 0 ? (
-          <p>No departments currently pending approval.</p>
+          <div className={styles.noDepartments}>
+            <FaInbox className={styles.noDepartmentsIcon} />
+            <p>No departments currently pending approval.</p>
+          </div>
         ) : (
           <ul className={styles.departmentList}>
             {pendingDepartments.map((dept) => (
