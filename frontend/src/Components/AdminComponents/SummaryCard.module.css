@@ -1,0 +1,56 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  flex-grow: 1;
+  min-width: 320px;
+  max-width: 500px;
+  border-left: 6px solid;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  color: #5a5a5a;
+  font-weight: 500;
+}
+
+.stats {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.count {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 700;
+}
+
+.percentage {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iconWrapper {
+  padding: 25px;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

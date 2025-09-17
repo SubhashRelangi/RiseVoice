@@ -1,0 +1,8 @@
+.statsContainer {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+}
