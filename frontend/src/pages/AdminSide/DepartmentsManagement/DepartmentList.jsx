@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './DepartmentList.module.css';
 import { FaMapMarkerAlt, FaEye } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const DepartmentList = ({ departments, totalDepartments }) => {
   const getInitials = (name) => {
@@ -62,10 +63,12 @@ const DepartmentList = ({ departments, totalDepartments }) => {
               </td>
               <td>{formatDate(dept.createdAt)}</td>
               <td>
-                <button className={styles.viewButton}>
-                  <FaEye />
-                  <span>View Details</span>
-                </button>
+                <Link to={`/admin/department/${dept._id}`}>
+                  <button className={styles.viewButton}>
+                    <FaEye />
+                    <span>View Details</span>
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}

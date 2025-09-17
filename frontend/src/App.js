@@ -24,6 +24,7 @@ import AdminHomePage from './pages/AdminSide/AdminHomePage';
 import AdminProtectedRoute from './Components/Auth/AdminProtectedRoute';
 import { useAuth } from './Components/Auth/AuthContext';
 import AdminDepartmentsPage from './pages/AdminSide/AdminDepartmentsPage';
+import DepartmentDetailsPage from './pages/AdminSide/DepartmentDetailsPage';
 
 
 const App = () => {
@@ -101,6 +102,7 @@ const App = () => {
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="/admin/dashboard" element={<AdminProtectedRoute><AdminHomePage /></AdminProtectedRoute>} />
         <Route path="/admin/departments" element={<AdminProtectedRoute><AdminDepartmentsPage /></AdminProtectedRoute>} />
+        <Route path="/admin/department/:id" element={<AdminProtectedRoute><DepartmentDetailsPage /></AdminProtectedRoute>} />
       </Routes>
       {!isDepartmentalRoute && !isAdminRoute && <FloatingButton />} {/* Conditionally render FloatingButton */}
       <Footer />

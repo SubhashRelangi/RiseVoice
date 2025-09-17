@@ -1,0 +1,194 @@
+.container {
+  padding: 2rem;
+  background-color: #fff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: #fff;
+  padding: 2rem;
+  border-radius: .5rem;
+  border: 1px solid #dee2e6;
+}
+
+.headerLeft {
+  display: flex;
+  gap: 1rem;
+}
+
+.headerIcons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: #007bff;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.departmentType {
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: #6c757d;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.statusBadgesContainer {
+    display: flex;
+    gap: 1rem;
+}
+
+.headerActions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.approved, .active {
+  background-color: #28a745;
+}
+
+.pending {
+  background-color: #ffc107;
+}
+
+.rejected {
+  background-color: #dc3545;
+}
+
+.verified {
+    background-color: #17a2b8;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.infoGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.infoGrid label {
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: .25rem;
+}
+
+.infoGrid p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.activeIcon {
+    color: #28a745;
+}
+
+.inactiveIcon {
+    color: #dc3545;
+}
+
+.actionButton {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .75rem 1.5rem;
+    border: none;
+    border-radius: .25rem;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.removeButton {
+    background-color: #dc3545;
+}
+
+.lockButton {
+    background-color: #ffc107;
+}
+
+.classificationBody {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.classificationIcon {
+    font-size: 2.5rem;
+    color: #007bff;
+    background: #e7f1ff;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.classificationBody h3 {
+    margin: 0;
+}
+
+.classificationBody p {
+    margin: 0;
+    color: #6c757d;
+}
+
+.unlockButton {
+    background-color: #28a745; /* Green color for unlock */
+}
+
+.headerActions{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
