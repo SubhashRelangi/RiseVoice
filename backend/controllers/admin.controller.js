@@ -1,6 +1,15 @@
 import Department from '../models/Department.model.js';
 import { sendApprovalEmail, sendRejectionEmail } from '../utils/email.js';
 
+export const getAllDepartments = async (req, res) => {
+  try {
+    const departments = await Department.find({});
+    res.status(200).json(departments);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
 export const getDepartmentStats = async (req, res) => {
   try {
     const thirtyDaysAgo = new Date();
