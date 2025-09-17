@@ -61,13 +61,7 @@ const AdminRequests = () => {
   return (
     <div className={styles.adminContainer}>
       <div className={styles.adminCard}>
-        <h2 className={styles.adminTitle}>Admin Dashboard</h2>
-        <button
-          className={`${styles.adminButton} ${styles.logoutButton}`}
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
+              
         {message && <p className={styles.adminMessage}>{message}</p>}
 
         <h3>Departments Pending Approval ({pendingDepartments.length})</h3>

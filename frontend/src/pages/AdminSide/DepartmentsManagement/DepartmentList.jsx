@@ -63,7 +63,7 @@ const DepartmentList = ({ departments, totalDepartments }) => {
               </td>
               <td>{formatDate(dept.createdAt)}</td>
               <td>
-                <Link to={`/admin/department/${dept._id}`}>
+                <Link to={`/admin/department/${dept._id}`} className={styles.viewDetailsLink}>
                   <button className={styles.viewButton}>
                     <FaEye />
                     <span>View Details</span>
