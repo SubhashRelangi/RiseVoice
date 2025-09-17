@@ -7,37 +7,113 @@
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
-table {
+.listTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th, td {
-  padding: 0.75rem;
+.table th, .table td {
+  padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
 }
 
-th {
+.table th {
   background-color: #f8f9fa;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.departmentCell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #495057;
+  text-transform: uppercase;
+}
+
+.departmentName {
+  font-weight: 600;
+}
+
+.departmentEmail {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.locationCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.locationIcon {
+  color: #6c757d;
+}
+
+.subtext {
+  color: #6c757d;
+  font-size: 0.9rem;
 }
 
 .status {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  color: #fff;
-  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
   text-transform: capitalize;
+  font-size: 0.9rem;
 }
 
-.approved {
-  background-color: #28a745;
+.approved, .active {
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .pending {
-  background-color: #ffc107;
+  background-color: #fff3cd;
+  color: #856404;
 }
 
 .rejected {
-  background-color: #dc3545;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.problemsCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkIcon {
+  color: #28a745;
+}
+
+.viewButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: 600;
 }

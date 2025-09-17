@@ -1,10 +1,40 @@
 import Department from '../models/Department.model.js';
 import { sendApprovalEmail, sendRejectionEmail } from '../utils/email.js';
+import axios from 'axios';
 
 export const getAllDepartments = async (req, res) => {
   try {
-    const departments = await Department.find({});
-    res.status(200).json(departments);
+    const departments = await Department.find({}).lean(); // Use .lean() for better performance
+
+    const departmentsWithAddress = await Promise.all(
+      departments.map(async (dept) => {
+        try {
+          const response = await axios.get(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${dept.location.latitude}&lon=${dept.location.longitude}`
+          );
+          // Nominatim API returns address object with state, county, etc.
+          // The exact structure might vary, so we check for common properties.
+          const address = response.data.address;
+          return {
+            ...dept,
+            state: address.state,
+            district: address.county || address.city_district || address.suburb,
+            city: address.city || address.town || address.village,
+          };
+        } catch (error) {
+          console.error('Reverse geocoding error:', error.message);
+          // Return department without address if geocoding fails
+          return {
+            ...dept,
+            state: 'N/A',
+            district: 'N/A',
+            city: 'N/A',
+          };
+        }
+      })
+    );
+
+    res.status(200).json(departmentsWithAddress);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }

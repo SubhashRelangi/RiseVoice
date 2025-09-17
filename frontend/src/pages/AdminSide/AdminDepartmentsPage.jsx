@@ -47,7 +47,7 @@ const AdminDepartmentsPage = () => {
 
     if (searchTerm) {
       filtered = filtered.filter(d =>
-        d.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        d.departmentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         d.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (d.address && d.address.toLowerCase().includes(searchTerm.toLowerCase()))
       );
@@ -164,7 +164,7 @@ const AdminDepartmentsPage = () => {
         </div>
       </div>
 
-      <DepartmentList departments={filteredDepartments} />
+      <DepartmentList departments={filteredDepartments} totalDepartments={departments.length} />
     </div>
   );
 };
