@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ComplaintList.module.css';
-import { FaClock, FaMapMarkerAlt, FaEye, FaCommentAlt } from 'react-icons/fa';
+import { FaClock, FaMapMarkerAlt, FaEye, FaCommentAlt, FaFire } from 'react-icons/fa';
 import axiosInstance from '../../axiosInstance';
 
 const ComplaintList = ({
@@ -15,8 +15,49 @@ const ComplaintList = ({
   const [loading, setLoading] = useState(false); // No longer fetching here
   const [error, setError] = useState(null); // No longer fetching here
   const [activeTab, setActiveTab] = useState('all'); // 'all', 'new', 'older'
+  const [localComplaints, setLocalComplaints] = useState(complaints);
 
-  // No useEffect for fetching complaints here anymore
+  useEffect(() => {
+    setLocalComplaints(complaints);
+  }, [complaints]);
+
+  const [likedProblems, setLikedProblems] = useState(() => {
+    try {
+      const storedLikes = localStorage.getItem('departmentLikedProblems');
+      return storedLikes ? new Set(JSON.parse(storedLikes)) : new Set();
+    } catch (error) {
+      console.error("Failed to parse liked problems from localStorage", error);
+      return new Set();
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('departmentLikedProblems', JSON.stringify(Array.from(likedProblems)));
+    } catch (error) {
+      console.error("Failed to save liked problems to localStorage", error);
+    }
+  }, [likedProblems]);
+
+  const handleLike = async (problemId) => {
+    if (likedProblems.has(problemId)) return;
+
+    try {
+      await axiosInstance.post(`/api/problems/${problemId}/like`);
+      
+      setLocalComplaints(prevComplaints => 
+        prevComplaints.map(p => 
+          p.problemId === problemId 
+            ? { ...p, likes: (p.likes || 0) + 1 } 
+            : p
+        )
+      );
+      
+      setLikedProblems(prevLiked => new Set(prevLiked).add(problemId));
+    } catch (error) {
+      console.error("Error liking problem:", error);
+    }
+  };
 
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
@@ -52,7 +93,7 @@ const ComplaintList = ({
   const newComplaints = complaints.filter(c => new Date(c.createdAt) > twoDaysAgo);
   const olderComplaints = complaints.filter(c => new Date(c.createdAt) <= twoDaysAgo);
 
-  const displayedComplaints = complaints.filter((c) => {
+  const displayedComplaints = localComplaints.filter((c) => {
     if (activeTab === 'new') return new Date(c.createdAt) > twoDaysAgo;
     if (activeTab === 'older') return new Date(c.createdAt) <= twoDaysAgo;
     return true;
@@ -126,6 +167,19 @@ const ComplaintList = ({
                 <div className={styles.categoryResponses}>
                   <span className={styles.category}>{complaint.category}</span>
                   <p><FaCommentAlt /> {complaint.comments ? complaint.comments.length : 0} comments</p>
+                  <span
+                    onClick={() => handleLike(complaint.problemId)}
+                    style={{
+                      cursor: likedProblems.has(complaint.problemId) ? 'default' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      marginLeft: '15px'
+                    }}
+                  >
+                    <FaFire style={{ color: likedProblems.has(complaint.problemId) ? 'red' : 'orange' }} />
+                    {complaint.likes || 0}
+                  </span>
                 </div>
                 <Link to={`/department/complaints/${complaint.problemId}`} className={styles.viewDetailsButton}>
                   <FaEye /> View Details

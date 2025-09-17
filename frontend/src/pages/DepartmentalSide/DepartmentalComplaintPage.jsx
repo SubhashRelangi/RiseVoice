@@ -7,7 +7,7 @@ import {
   FaRegComment,
   FaRegClock,
   FaCheckCircle,
-  FaHeart,
+  FaFire,
 } from 'react-icons/fa';
 import axiosInstance from '../../axiosInstance';
 
@@ -146,9 +146,6 @@ const DepartmentalComplaintPage = () => {
               {new Date(complaint.createdAt).toLocaleString()}
             </p>
           </div>
-          <div className={styles.likes}>
-            <FaHeart /> {complaint.likes} likes
-          </div>
         </div>
       </div>
 
@@ -198,9 +195,15 @@ const DepartmentalComplaintPage = () => {
 
       {/* Comments Section (always bottom) */}
       <div className={`${styles.card} ${styles.commentsSection}`}>
-        <h2 className={styles.sectionTitle}>
-          <FaRegComment /> Comments & Updates ({complaint.comments.length})
-        </h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', paddingBottom: '10px', marginBottom: '15px' }}>
+          <h2 className={styles.sectionTitle} style={{ border: 'none', margin: 0, padding: 0 }}>
+            <FaRegComment /> Comments & Updates ({complaint.comments.length})
+          </h2>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'red', fontWeight: 'bold' }}>
+            <FaFire />
+            {complaint.likes || 0}
+          </span>
+        </div>
         {complaint.comments.map((comment) => (
           <div key={comment._id} className={styles.comment}>
             <div className={styles.commentHeader}>
