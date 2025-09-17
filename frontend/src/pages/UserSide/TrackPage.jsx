@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./TrackPage.module.css";
+import { FaFire } from "react-icons/fa"; // Import the fire icon
 
 const TrackPage = () => {
   const [allComplaints, setAllComplaints] = useState([]);
@@ -11,6 +12,15 @@ const TrackPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Category");
   const [selectedLocation, setSelectedLocation] = useState("Location");
   const [startDate, setStartDate] = useState("");
+  const [likedProblems, setLikedProblems] = useState(() => {
+    try {
+      const storedLikes = localStorage.getItem('likedProblems');
+      return storedLikes ? new Set(JSON.parse(storedLikes)) : new Set();
+    } catch (error) {
+      console.error("Failed to parse liked problems from localStorage", error);
+      return new Set();
+    }
+  });
 
   const navigate = useNavigate();
 
@@ -28,6 +38,15 @@ const TrackPage = () => {
     };
     fetchComplaints();
   }, []);
+
+  // Save liked problems to local storage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('likedProblems', JSON.stringify(Array.from(likedProblems)));
+    } catch (error) {
+      console.error("Failed to save liked problems to localStorage", error);
+    }
+  }, [likedProblems]);
 
   // Apply filters
   useEffect(() => {
@@ -93,6 +112,27 @@ const TrackPage = () => {
 
   const handleViewDetails = (complaintId) => {
     navigate(`/complaint/${complaintId}`);
+  };
+
+  const handleLike = async (problemId) => {
+    if (likedProblems.has(problemId)) return;
+
+    try {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      await axios.post(`${API_BASE_URL}/api/problems/${problemId}/like`);
+
+      setAllComplaints(prevComplaints =>
+        prevComplaints.map(complaint =>
+          complaint.problemId === problemId
+            ? { ...complaint, likes: (complaint.likes || 0) + 1 }
+            : complaint
+        )
+      );
+      
+      setLikedProblems(prevLiked => new Set(prevLiked).add(problemId));
+    } catch (error) {
+      console.error("Error liking problem:", error);
+    }
   };
 
   // Extract unique categories & locations
@@ -205,8 +245,14 @@ const TrackPage = () => {
                 >
                   Comments: {c.comments.length}
                 </span>
-                <span className={styles.clickableText}>
-                  Likes: {c.likes}
+                <span
+                  onClick={() => handleLike(c.problemId)}
+                  style={{
+                    cursor: likedProblems.has(c.problemId) ? 'default' : 'pointer',
+                  }}
+                >
+                  <FaFire style={{ color: likedProblems.has(c.problemId) ? 'red' : 'grey' }} />
+                  {' '}{c.likes}
                 </span>
                 <button
                   className={styles.detailsBtn}

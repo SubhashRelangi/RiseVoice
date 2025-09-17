@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Import icons
-import { FaArrowLeft, FaPrint, FaShareAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaPrint, FaShareAlt, FaFire } from 'react-icons/fa';
 
 const ComplaintDetailsPage = () => {
   const { id } = useParams();
@@ -13,6 +13,24 @@ const ComplaintDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  const [likedProblems, setLikedProblems] = useState(() => {
+    try {
+      const storedLikes = localStorage.getItem('likedProblems');
+      return storedLikes ? new Set(JSON.parse(storedLikes)) : new Set();
+    } catch (error) {
+      console.error("Failed to parse liked problems from localStorage", error);
+      return new Set();
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('likedProblems', JSON.stringify(Array.from(likedProblems)));
+    } catch (error) {
+      console.error("Failed to save liked problems to localStorage", error);
+    }
+  }, [likedProblems]);
 
 
   useEffect(() => {
@@ -42,6 +60,23 @@ const ComplaintDetailsPage = () => {
       setNewCommentText("");
     } catch (err) {
       console.error("Error adding comment:", err);
+    }
+  };
+
+  const handleLike = async () => {
+    if (likedProblems.has(id)) return;
+
+    try {
+      await axios.post(`${API_BASE_URL}/api/problems/${id}/like`);
+      
+      setComplaint(prevComplaint => ({
+        ...prevComplaint,
+        likes: (prevComplaint.likes || 0) + 1
+      }));
+      
+      setLikedProblems(prevLiked => new Set(prevLiked).add(id));
+    } catch (error) {
+      console.error("Error liking problem:", error);
     }
   };
 
@@ -82,6 +117,7 @@ const ComplaintDetailsPage = () => {
     createdAt,
     image,
     comments,
+    likes,
   } = complaint;
 
   return (
@@ -473,7 +509,31 @@ const ComplaintDetailsPage = () => {
         </div>
 
         <div className="commentsSection">
-          <h2>Comments</h2>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            margin: '0 0 1.5rem 0',
+            fontSize: '1.25rem',
+            fontWeight: '600',
+            borderBottom: '1px solid #eee',
+            paddingBottom: '0.75rem'
+          }}>
+            <h2 style={{ margin: 0, padding: 0, border: 'none', fontSize: 'inherit', fontWeight: 'inherit' }}>Comments</h2>
+            <span
+              onClick={handleLike}
+              style={{
+                cursor: likedProblems.has(id) ? 'default' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '1rem'
+              }}
+            >
+              <FaFire style={{ color: likedProblems.has(id) ? 'red' : 'grey' }} />
+              <span>{likes || 0}</span>
+            </span>
+          </div>
           <div className="commentsList">
             {comments && comments.length > 0 ? (
               comments.map((comment) => (
