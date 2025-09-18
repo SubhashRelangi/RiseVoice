@@ -172,3 +172,89 @@
   position: absolute;
   border-radius: 50%;
 }
+
+/* ---------- RESPONSIVE BREAKPOINTS ---------- */
+
+/* Tablets and small laptops */
+@media (max-width: 992px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .searchInputContainer,
+  .selectContainer {
+    max-width: 100%;
+    width: 100%;
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .searchInput,
+  .selectInput {
+    width: 100%;
+  }
+
+  .resetButton {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .map {
+    height: 350px; /* reduce map height slightly on tablet */
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 576px) {
+  .legend {
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .map {
+    height: 300px; /* smaller height on mobile */
+  }
+
+  .departmentItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .statusBadge {
+    align-self: flex-start;
+  }
+
+  .departmentInfo {
+    gap: 10px;
+  }
+
+  .departmentName {
+    font-size: 14px;
+  }
+
+  .departmentAddress {
+    font-size: 11px;
+  }
+
+  .searchInput,
+  .selectInput {
+    font-size: 14px;
+    padding: 8px 10px 8px 35px;
+  }
+
+  .resetButton {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}

@@ -1,8 +1,22 @@
 .statsContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns by default */
   gap: 20px;
   padding: 20px;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  width: 100%;
+}
+
+/* Medium screens (tablet) */
+@media (max-width: 992px) {
+  .statsContainer {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .statsContainer {
+    grid-template-columns: 1fr; /* 1 column */
+    gap: 15px;
+    padding: 15px;
+  }
 }

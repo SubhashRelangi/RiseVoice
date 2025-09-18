@@ -1,100 +1,151 @@
 .chartsContainer {
-    display: flex;
-    gap: 20px;
-    margin: 20px;
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+  flex-wrap: wrap; /* allow wrapping on small screens */
+}
+
+.chartCard {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px; /* prevents shrinking too small */
+  box-sizing: border-box;
+}
+
+.chartContent {
+  flex-grow: 1;
+}
+
+.chartTitle {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.doughnutChart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.doughnutCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.doughnutTotal {
+  display: block;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.legend {
+  margin-top: 20px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.active {
+  background-color: #28a745;
+}
+
+.pending {
+  background-color: #ffc107;
+}
+
+.rejected {
+  background-color: #dc3545;
+}
+
+.legendValue {
+  margin-left: auto;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap; /* so export button moves down if needed */
+  gap: 10px;
+}
+
+.exportButton {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.chartFooter {
+  margin-top: 20px;
+  text-align: center;
+  color: #888;
+}
+
+/* ✅ RESPONSIVE BREAKPOINTS */
+
+/* Tablets: shrink charts and fonts slightly */
+@media (max-width: 992px) {
+  .chartTitle {
+    font-size: 16px;
   }
-  
-  .chartCard {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    flex: 1;
-    display: flex;
+  .doughnutChart {
+    width: 160px;
+    height: 160px;
+  }
+  .doughnutTotal {
+    font-size: 20px;
+  }
+}
+
+/* Mobile: stack charts vertically, full width */
+@media (max-width: 768px) {
+  .chartsContainer {
     flex-direction: column;
   }
-
-  .chartContent {
-    flex-grow: 1;
+  .chartCard {
+    width: 100%;
   }
-  
-  .chartTitle {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-  
-  .doughnutChart {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
-  }
-  
-  .doughnutCenter {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  
-  .doughnutTotal {
-    display: block;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .legend {
-    margin-top: 20px;
-  }
-  
-  .legendItem {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .legendColor {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .active {
-    background-color: #28a745;
-  }
-  
-  .pending {
-    background-color: #ffc107;
-  }
-  
-  .rejected {
-    background-color: #dc3545;
-  }
-  
-  .legendValue {
-    margin-left: auto;
-  }
-  
   .chartHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .exportButton {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .chartTitle {
+    font-size: 14px;
   }
-  
-  .chartFooter {
-    margin-top: 20px;
-    text-align: center;
-    color: #888;
+  .doughnutChart {
+    width: 130px;
+    height: 130px;
   }
-  
+  .doughnutTotal {
+    font-size: 18px;
+  }
+  .legendItem {
+    font-size: 12px;
+  }
+}
