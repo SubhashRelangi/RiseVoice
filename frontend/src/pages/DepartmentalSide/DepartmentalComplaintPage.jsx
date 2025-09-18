@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+  import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './DepartmentalComplaintPage.module.css';
 import {
@@ -10,7 +10,7 @@ import {
   FaFire,
 } from 'react-icons/fa';
 import axiosInstance from '../../axiosInstance';
-import Loader from '../../Components/Loader';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader';
 
 const DepartmentalComplaintPage = () => {
   const { id } = useParams();
@@ -75,8 +75,11 @@ const DepartmentalComplaintPage = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <Loader />
+      <div className={styles.pageContainer}>
+        <GenericSkeletonLoader type="card" count={1} height="200px" />
+        <GenericSkeletonLoader type="text-block" count={1} height="150px" />
+        <GenericSkeletonLoader type="card" count={1} height="150px" />
+        <GenericSkeletonLoader type="card" count={1} height="100px" />
       </div>
     );
   }

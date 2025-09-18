@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axiosInstance';
 import styles from './AdminRequests.module.css';
 import { FaInbox } from 'react-icons/fa';
-import Loader from '../../Components/Loader';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader';
 
 const AdminRequests = () => {
   const [pendingDepartments, setPendingDepartments] = useState([]);
@@ -41,8 +41,8 @@ const AdminRequests = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <Loader />
+      <div className={styles.adminContainer}>
+        <GenericSkeletonLoader type="list-item" count={3} height="100px" />
       </div>
     );
   }

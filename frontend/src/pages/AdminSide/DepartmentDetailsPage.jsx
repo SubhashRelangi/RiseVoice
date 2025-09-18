@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './DepartmentDetailsPage.module.css';
 import axiosInstance from '../../axiosInstance';
 import { FaBuilding, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaTimesCircle, FaClock, FaLightbulb, FaTrash, FaLock, FaShieldAlt, FaUnlock } from 'react-icons/fa';
-import Loader from '../../Components/Loader';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader';
 
 const DepartmentDetailsPage = () => {
   const { id } = useParams();
@@ -63,8 +63,10 @@ const DepartmentDetailsPage = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <Loader />
+      <div className={styles.container}>
+        <GenericSkeletonLoader type="card" count={1} height="150px" />
+        <GenericSkeletonLoader type="text-block" count={1} height="100px" />
+        <GenericSkeletonLoader type="card" count={1} height="200px" />
       </div>
     );
   }

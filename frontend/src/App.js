@@ -21,7 +21,6 @@ import ScrollToTop from './Components/ScrollToTop';
 import AdminLoginPage from './pages/AdminSide/AdminLoginPage';
 import AdminHomePage from './pages/AdminSide/AdminHomePage';
 import AdminProtectedRoute from './Components/Auth/AdminProtectedRoute';
-import { useAuth } from './Components/Auth/AuthContext';
 import AdminDepartmentsPage from './pages/AdminSide/AdminDepartmentsPage';
 import DepartmentDetailsPage from './pages/AdminSide/DepartmentDetailsPage';
 import AdminRequests from './pages/AdminSide/AdminRequests';

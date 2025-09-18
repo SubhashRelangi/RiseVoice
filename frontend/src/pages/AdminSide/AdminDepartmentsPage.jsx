@@ -4,7 +4,7 @@ import { BsBuilding, BsFiles, BsCheckCircle, BsCalendar, BsFunnel, BsSearch } fr
 import axiosInstance from '../../axiosInstance';
 import axios from 'axios';
 import DepartmentList from './DepartmentsManagement/DepartmentList';
-import Loader from '../../Components/Loader';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader';
 
 const AdminDepartmentsPage = () => {
   const [departments, setDepartments] = useState([]);
@@ -105,8 +105,14 @@ const AdminDepartmentsPage = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <Loader />
+      <div className={styles.container}>
+        <div className={styles.statsContainer}>
+          <GenericSkeletonLoader type="stat-card" count={4} height="100px" />
+        </div>
+        <div className={styles.filtersContainer}>
+          <GenericSkeletonLoader type="text-block" count={1} height="50px" />
+        </div>
+        <GenericSkeletonLoader type="list-item" count={5} height="100px" />
       </div>
     );
   }

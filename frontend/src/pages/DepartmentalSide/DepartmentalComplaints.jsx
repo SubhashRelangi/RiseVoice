@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ComplaintsDashboard from '../../Components/DepartmentalComplaints/ComplaintsDashboard';
 import ComplaintList from '../../Components/DepartmentalComplaints/ComplaintList';
 import axiosInstance from '../../axiosInstance';
-import Loader from '../../Components/Loader';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader';
+import styles from './DepartmentalComplaints.module.css';
 
 const DepartmentalComplaints = () => {
   const [departmentLocation, setDepartmentLocation] = useState(null);
@@ -68,8 +69,9 @@ const DepartmentalComplaints = () => {
 
   if (loadingDepartment) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <Loader />
+      <div className={styles.loaderWrapper}>
+        <GenericSkeletonLoader type="dashboard-stats" count={1} height="150px" />
+        <GenericSkeletonLoader type="list-item" count={5} height="100px" />
       </div>
     );
   }
