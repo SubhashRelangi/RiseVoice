@@ -17,7 +17,11 @@ const DepartmentSignup = () => {
 
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [showVerification, setShowVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
 
   const departmentTypes = [
     "WATER",
@@ -109,20 +113,102 @@ const DepartmentSignup = () => {
       return;
     }
 
-    setIsSubmitting(true);
+    setIsSigningUp(true);
     const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
     try {
       const res = await axios.post(`${API_BASE_URL}/api/departments/signup`, formData);
 
-      setMessage(res.data.message || "Signup successful!");
-      setTimeout(() => navigate(`/department/verify?email=${formData.email}`), 1500);
+      setMessage(res.data.message || "Signup successful! Please check your email for the verification code.");
+      setShowVerification(true);
     } catch (err) {
       console.error("Signup error:", err);
       setMessage(err.response?.data?.message || "Signup failed. Try again.");
     } finally {
-      setIsSubmitting(false);
+      setIsSigningUp(false);
     }
   };
+
+  const handleVerifySubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    setIsVerifying(true);
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/departments/verify-email`, {
+        email: formData.email,
+        verificationCode,
+      });
+      setMessage(res.data.message || "Verification successful! You will be redirected to login.");
+      setVerificationCode('');
+      setTimeout(() => navigate("/department/login"), 2000);
+    } catch (err) {
+      console.error("Verification error:", err);
+      setMessage(err.response?.data?.message || "Verification failed. Try again.");
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    setMessage("");
+    setIsResending(true);
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    try {
+      await axios.post(`${API_BASE_URL}/api/departments/resend-verification`, { email: formData.email });
+      setMessage("A new verification code has been sent to your email.");
+    } catch (err) {
+      console.error("Resend code error:", err);
+      setMessage(err.response?.data?.message || "Failed to resend code. Try again.");
+    } finally {
+      setIsResending(false);
+    }
+  };
+
+  if (showVerification) {
+    return (
+      <div className={styles.page}>
+        <form onSubmit={handleVerifySubmit} className={styles.signupForm}>
+          <h2 className={styles.title}>Verify Your Email</h2>
+          {message && (
+            <div
+              className={`${styles.message} ${
+                message.toLowerCase().includes("success") || message.toLowerCase().includes("sent")
+                  ? styles.success
+                  : styles.error
+              }`}
+            >
+              {message}
+            </div>
+          )}
+          <div className={styles.field}>
+            <label className={styles.label}>Verification Code</label>
+            <input
+              type="text"
+              name="verificationCode"
+              value={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={isVerifying || isResending}
+          >
+            {isVerifying ? "Verifying..." : "Verify"}
+          </button>
+          <button
+            type="button"
+            onClick={handleResendCode}
+            className={`${styles.button} ${styles.resendButton}`}
+            disabled={isVerifying || isResending}
+          >
+            {isResending ? "Sending..." : "Resend Code"}
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -230,9 +316,9 @@ const DepartmentSignup = () => {
         <button
           type="submit"
           className={styles.button}
-          disabled={isSubmitting}
+          disabled={isSigningUp}
         >
-          {isSubmitting ? "Signing Up..." : "Signup"}
+          {isSigningUp ? "Signing Up..." : "Signup"}
         </button>
       </form>
     </div>

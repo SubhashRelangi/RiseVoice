@@ -11,7 +11,6 @@ import DepartmentsHomePage from './pages/DepartmentalSide/DepartmentsHomePage';
 import DepartmentalComplaints from './pages/DepartmentalSide/DepartmentalComplaints';
 import DepartmentalComplaintPage from './pages/DepartmentalSide/DepartmentalComplaintPage';
 import DepartmentSignup from './pages/DepartmentalSide/DepartmentSignup';
-import DepartmentVerify from './pages/DepartmentalSide/DepartmentVerify';
 import DepartmentLogin from './pages/DepartmentalSide/DepartmentLogin';
 import DepartmentProfile from './pages/DepartmentalSide/DepartmentProfile';
 import ProtectedRoute from './Components/Auth/ProtectedRoute';
@@ -92,7 +91,6 @@ const App = () => {
         <Route path="/raise-complaint" element={<RaiseComplaintPage />} />
         <Route path="/complaint/:id" element={<ComplaintDetailsPage />} />
         <Route path="/department/signup" element={<DepartmentSignup />} />
-        <Route path="/department/verify" element={<DepartmentVerify setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/department/login" element={<DepartmentLogin setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/department" element={<ProtectedRoute><DepartmentsHomePage /></ProtectedRoute>} />
         <Route path="/department/complaints" element={<ProtectedRoute><DepartmentalComplaints /></ProtectedRoute>} />

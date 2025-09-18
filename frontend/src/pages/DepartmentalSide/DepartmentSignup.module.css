@@ -100,3 +100,12 @@
   background-color: #ffb380;
   cursor: not-allowed;
 }
+
+.resendButton {
+  margin-top: 1rem;
+  background-color: #ff7a00;
+}
+
+.resendButton:hover {
+    background-color: #e86c00;
+}
