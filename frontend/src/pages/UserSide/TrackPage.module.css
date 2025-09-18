@@ -188,21 +188,19 @@
   }
 
   .cardFooter {
-    margin-top: 1rem;
-    padding-top: 0.8rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    flex-direction: column; /* stack likes/comments and button vertically */
+    align-items: stretch;
   }
 
-  .cardFooter span {
-    font-size: 0.8rem;
+  .cardActionsLeft {
+    justify-content: center; /* center likes & comments */
+    width: 100%;
+    order: 1;
   }
 
   .detailsBtn {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 0.9rem;
+    width: 10%; /* full width button */
+    order: 2;
     text-align: center;
   }
 }
@@ -306,10 +304,20 @@
   border-top: 1px solid #f0f2f5;
 }
 
-.cardFooter span {
+.cardActionsLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.likeButton, .commentButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
   font-size: 0.9rem;
   color: var(--status-pending);
   font-weight: 500;
+  cursor: pointer;
 }
 
 .detailsBtn {

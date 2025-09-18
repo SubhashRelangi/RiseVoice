@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./TrackPage.module.css";
-import { FaFire } from "react-icons/fa"; // Import the fire icon
+import { FaFire, FaComment } from "react-icons/fa"; // Import icons
 
 const TrackPage = () => {
   const [allComplaints, setAllComplaints] = useState([]);
@@ -239,13 +239,7 @@ const TrackPage = () => {
               </div>
 
               <div className={styles.cardFooter}>
-                <div className={styles.cardActions}>
-                  <span
-                    className={styles.clickableText}
-                    onClick={() => handleViewDetails(c.problemId)}
-                  >
-                    Comments: {c.comments.length}
-                  </span>
+                <div className={styles.cardActionsLeft}>
                   <span
                     onClick={() => handleLike(c.problemId)}
                     className={styles.likeButton}
@@ -256,12 +250,18 @@ const TrackPage = () => {
                     <FaFire style={{ color: likedProblems.has(c.problemId) ? 'red' : 'grey' }} />
                     {' '}{c.likes}
                   </span>
+                  <span
+                    className={styles.commentButton}
+                    onClick={() => handleViewDetails(c.problemId)}
+                  >
+                    <FaComment /> {c.comments.length}
+                  </span>
                 </div>
                 <button
                   className={styles.detailsBtn}
                   onClick={() => handleViewDetails(c.problemId)}
                 >
-                  View Details
+                  View More
                 </button>
               </div>
             </div>
