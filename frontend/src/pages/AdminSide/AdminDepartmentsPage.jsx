@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './AdminDepartmentsPage.module.css';
 import { BsBuilding, BsFiles, BsCheckCircle, BsCalendar, BsFunnel, BsSearch } from 'react-icons/bs';
 import axiosInstance from '../../axiosInstance';
+import axios from 'axios';
 import DepartmentList from './DepartmentsManagement/DepartmentList';
+import Loader from '../../Components/Loader';
 
 const AdminDepartmentsPage = () => {
   const [departments, setDepartments] = useState([]);
@@ -25,11 +27,29 @@ const AdminDepartmentsPage = () => {
     const fetchDepartments = async () => {
       try {
         const response = await axiosInstance.get('/api/admin/all-departments');
-        setDepartments(response.data);
-        setFilteredDepartments(response.data);
-        setLoading(false);
+        
+        const departmentsData = response.data;
+        const departmentsWithAddress = [];
+        for (const dept of departmentsData) {
+          try {
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Rate limit
+            const geoResponse = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${dept.location.latitude}&lon=${dept.location.longitude}`, { withCredentials: false });
+            const address = geoResponse.data.display_name || 'N/A';
+            const state = geoResponse.data.address?.state || 'N/A';
+            departmentsWithAddress.push({ ...dept, address, state });
+          } catch (geoError) {
+            console.error('Error fetching address for department', dept._id, geoError);
+            departmentsWithAddress.push({ ...dept, address: 'N/A', state: 'N/A' });
+          }
+        }
+        
+        setDepartments(departmentsWithAddress);
+        setFilteredDepartments(departmentsWithAddress);
+
       } catch (err) {
-        setError(err.message);
+        setError('Failed to fetch department data.');
+        console.error(err);
+      } finally {
         setLoading(false);
       }
     };
@@ -39,7 +59,7 @@ const AdminDepartmentsPage = () => {
 
   useEffect(() => {
     if (departments.length > 0) {
-      const states = [...new Set(departments.map(d => d.state))];
+      const states = [...new Set(departments.map(d => d.state).filter(Boolean))];
       setUniqueStates(states);
     }
 
@@ -48,7 +68,7 @@ const AdminDepartmentsPage = () => {
     if (searchTerm) {
       filtered = filtered.filter(d =>
         d.departmentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        d.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (d.state && d.state.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (d.address && d.address.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
@@ -84,11 +104,15 @@ const AdminDepartmentsPage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
   }
 
   return (

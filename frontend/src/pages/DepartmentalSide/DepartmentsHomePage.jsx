@@ -5,6 +5,8 @@ import ProblemMap from '../../Components/DepartmentalHomeComponents/ProblemMap/P
 import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/DepartmentalDashboard';
 import ProblemSummary from '../../Components/DepartmentalHomeComponents/ProblemSummary';
 import axiosInstance from '../../axiosInstance';
+import Loader from '../../Components/Loader';
+import styles from './DepartmentsHomePage.module.css';
 
 const DepartmentsHomePage = () => {
   const [problems, setProblems] = useState([]);
@@ -14,6 +16,8 @@ const DepartmentsHomePage = () => {
     pending: 0,
   });
   const [departmentLocation, setDepartmentLocation] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDepartmentData = async () => {
@@ -46,11 +50,26 @@ const DepartmentsHomePage = () => {
 
       } catch (error) {
         console.error('Error fetching department data or problems:', error);
+        setError('Failed to load page data. Please try again later.');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchDepartmentData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className={styles.loaderWrapper}>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
+  }
 
   return (
     <div>
