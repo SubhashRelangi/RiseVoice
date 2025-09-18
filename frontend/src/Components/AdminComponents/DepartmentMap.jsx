@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from './DepartmentMap.module.css';
-import axiosInstance from '../../axiosInstance';
-import axios from 'axios';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { FaSearch, FaFilter, FaSync } from 'react-icons/fa'; // Import icons
+import { FaSearch, FaFilter, FaSync } from 'react-icons/fa';
 
-// Custom icon function
 const getStatusIcon = (status) => {
   const color = {
     approved: '#28a745',
     pending: '#ffc107',
     rejected: '#dc3545',
-    verified: '#ffc107', // pending
+    verified: '#ffc107',
   }[status];
 
   return L.divIcon({
@@ -23,43 +20,10 @@ const getStatusIcon = (status) => {
   });
 };
 
-const DepartmentMap = () => {
-  const [departments, setDepartments] = useState([]);
+const DepartmentMap = ({ departments = [] }) => {
   const [filteredDepartments, setFilteredDepartments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedState, setSelectedState] = useState('');
-
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      try {
-        const response = await axiosInstance.get('/api/admin/all-departments');
-        const departmentsWithAddress = [];
-        for (const dept of response.data) {
-          try {
-            // Add a delay of 1 second between requests to respect rate limits
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const geoResponse = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${dept.location.latitude}&lon=${dept.location.longitude}`, { withCredentials: false });
-            const address = geoResponse.data.display_name || 'N/A';
-            departmentsWithAddress.push({ ...dept, address, state: geoResponse.data.address.state || 'N/A' });
-          } catch (error) {
-            console.error('Error fetching address for department', dept._id, error);
-            departmentsWithAddress.push({ ...dept, address: 'N/A', state: 'N/A' });
-          }
-        }
-        setDepartments(departmentsWithAddress);
-        setFilteredDepartments(departmentsWithAddress);
-      } catch (err) {
-        setError('Failed to fetch departments');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDepartments();
-  }, []);
 
   useEffect(() => {
     let filtered = departments;
@@ -83,14 +47,6 @@ const DepartmentMap = () => {
     setSearchTerm('');
     setSelectedState('');
   };
-
-  if (loading) {
-    return <p>Loading departments and their locations...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
 
   const states = [...new Set(departments.map(dept => dept.state).filter(Boolean))];
 
