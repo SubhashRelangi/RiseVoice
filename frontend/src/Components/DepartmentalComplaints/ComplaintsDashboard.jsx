@@ -19,6 +19,17 @@ const ComplaintsDashboard = ({
   const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [inputValue, setInputValue] = useState(searchTerm);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(inputValue);
+    }, 500); // Debounce time in ms
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [inputValue, setSearchTerm]);
 
   useEffect(() => {
     const fetchAddress = async () => {
@@ -63,8 +74,8 @@ const ComplaintsDashboard = ({
             <input
               type="text"
               placeholder="Search complaints..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
           </div>
           <select

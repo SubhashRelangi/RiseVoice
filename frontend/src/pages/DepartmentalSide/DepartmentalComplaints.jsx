@@ -9,8 +9,8 @@ const DepartmentalComplaints = () => {
   const [departmentLocation, setDepartmentLocation] = useState(null);
   const [departmentName, setDepartmentName] = useState('');
   const [departmentType, setDepartmentType] = useState('');
-  const [loadingDepartment, setLoadingDepartment] = useState(true);
-  const [errorDepartment, setErrorDepartment] = useState(null);
+  const [loading, setLoading] = useState(true); // For initial skeleton loader
+  const [error, setError] = useState(null);
 
   const [complaints, setComplaints] = useState([]);
   const [stats, setStats] = useState({ total: 0, pending: 0, inProgress: 0, resolved: 0 });
@@ -21,33 +21,46 @@ const DepartmentalComplaints = () => {
   const [selectedRadius, setSelectedRadius] = useState('3');
 
   useEffect(() => {
-    const fetchDepartmentData = async () => {
-      setLoadingDepartment(true);
+    const fetchDepartmentProfile = async () => {
       try {
-        // Fetch department profile
         const profileResponse = await axiosInstance.get('/api/departments/profile');
         const profileData = profileResponse.data;
         setDepartmentLocation(profileData.location);
         setDepartmentName(profileData.name);
         setDepartmentType(profileData.serviceType);
+      } catch (err) {
+        setError('Failed to load department data.');
+        console.error(err);
+        setLoading(false); // Stop loading if profile fails
+      }
+    };
 
-        // Fetch problems based on filters
+    fetchDepartmentProfile();
+  }, []); // Fetch profile only once
+
+  useEffect(() => {
+    // Don't fetch problems until the department profile (and type) is loaded
+    if (!departmentType) {
+      return;
+    }
+
+    const fetchProblems = async () => {
+      // No skeleton for updates, but we could set an `isUpdating` state here if needed
+      try {
         const problemsResponse = await axiosInstance.get('/api/problems', {
           params: {
             search: searchTerm,
             status: selectedStatus === 'All Status' ? '' : selectedStatus,
             radius: selectedRadius,
-            departmentLat: profileData.location ? profileData.location.latitude : '',
-            departmentLng: profileData.location ? profileData.location.longitude : '',
-            category: profileData.serviceType, // Use serviceType directly
+            departmentLat: departmentLocation ? departmentLocation.latitude : '',
+            departmentLng: departmentLocation ? departmentLocation.longitude : '',
+            category: departmentType,
           },
         });
         
-        let fetchedComplaints = problemsResponse.data;
-
+        const fetchedComplaints = problemsResponse.data;
         setComplaints(fetchedComplaints);
 
-        // Calculate stats from filtered complaints
         const newStats = {
           total: fetchedComplaints.length,
           resolved: fetchedComplaints.filter(p => p.status === 'Resolved' || p.status === 'Resloved').length,
@@ -56,18 +69,21 @@ const DepartmentalComplaints = () => {
         };
         setStats(newStats);
 
-      } catch (error) {
-        setErrorDepartment('Failed to load complaint data.');
-        console.error(error);
+      } catch (err) {
+        setError('Failed to load complaint data.');
+        console.error(err);
       } finally {
-        setLoadingDepartment(false);
+        // This will be false after the first time problems are fetched
+        if (loading) {
+          setLoading(false);
+        }
       }
     };
 
-    fetchDepartmentData();
-  }, [searchTerm, selectedStatus, selectedRadius]); // Re-run when filters change
+    fetchProblems();
+  }, [searchTerm, selectedStatus, selectedRadius, departmentType, departmentLocation]); // Rerun on filter changes or when department data is loaded
 
-  if (loadingDepartment) {
+  if (loading) {
     return (
       <div className={styles.loaderWrapper}>
         <GenericSkeletonLoader type="dashboard-stats" count={1} height="150px" />
@@ -76,8 +92,8 @@ const DepartmentalComplaints = () => {
     );
   }
 
-  if (errorDepartment) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{errorDepartment}</p></div>;
+  if (error) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
   }
 
   return (
@@ -92,7 +108,7 @@ const DepartmentalComplaints = () => {
         setSelectedStatus={setSelectedStatus}
         selectedRadius={selectedRadius}
         setSelectedRadius={setSelectedRadius}
-        stats={stats} // Pass stats to dashboard
+        stats={stats}
       />
       <ComplaintList 
         departmentLocation={departmentLocation}
@@ -100,7 +116,7 @@ const DepartmentalComplaints = () => {
         selectedStatus={selectedStatus}
         selectedRadius={selectedRadius}
         departmentType={departmentType}
-        complaints={complaints} // Pass complaints to list
+        complaints={complaints}
       />
     </div>
   );
