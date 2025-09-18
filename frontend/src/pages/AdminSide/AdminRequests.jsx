@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
 import styles from './AdminRequests.module.css';
 import { FaInbox } from 'react-icons/fa';
@@ -10,7 +9,6 @@ const AdminRequests = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
 
   const fetchPendingDepartments = async () => {
     setLoading(true);

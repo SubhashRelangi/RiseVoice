@@ -30,7 +30,6 @@ import AdminRequests from './pages/AdminSide/AdminRequests';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Initialize to false
   const location = useLocation();
-  const { loadingAuth } = useAuth(); // Use loadingAuth from AuthContext
 
   useEffect(() => {
     const protectedRoutes = [

@@ -5,7 +5,7 @@ import ProblemMap from '../../Components/DepartmentalHomeComponents/ProblemMap/P
 import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/DepartmentalDashboard';
 import ProblemSummary from '../../Components/DepartmentalHomeComponents/ProblemSummary';
 import axiosInstance from '../../axiosInstance';
-import Loader from '../../Components/Loader';
+import DepartmentHomePageSkeleton from '../../Components/DepartmentalHomeComponents/Skeletons/DepartmentHomePageSkeleton';
 import styles from './DepartmentsHomePage.module.css';
 
 const DepartmentsHomePage = () => {
@@ -59,26 +59,26 @@ const DepartmentsHomePage = () => {
     fetchDepartmentData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className={styles.loaderWrapper}>
-        <Loader />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
-  }
-
   return (
     <div>
       <main>
-        <DepartmentalDashboard stats={stats} />
-        <ProblemMap problems={problems} departmentLocation={departmentLocation} />
-        <ProblemList problems={problems} />
-        <ProblemStatistics problems={problems} />
-        <ProblemSummary problems={problems} />
+        {loading ? (
+          <div className={styles.loaderWrapper}>
+            <DepartmentHomePageSkeleton />
+          </div>
+        ) : error ? (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+            <p>{error}</p>
+          </div>
+        ) : (
+          <>
+            <DepartmentalDashboard stats={stats} />
+            <ProblemMap problems={problems} departmentLocation={departmentLocation} />
+            <ProblemList problems={problems} />
+            <ProblemStatistics problems={problems} />
+            <ProblemSummary problems={problems} />
+          </>
+        )}
       </main>
     </div>
   );

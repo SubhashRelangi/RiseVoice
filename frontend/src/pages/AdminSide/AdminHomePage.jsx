@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DashboardStats from '../../Components/AdminComponents/DashboardStats';
 import DepartmentMap from '../../Components/AdminComponents/DepartmentMap';
 import DepartmentCharts from '../../Components/AdminComponents/DepartmentCharts';
-import Loader from '../../Components/Loader';
+import AdminHomePageSkeleton from '../../Components/AdminComponents/Skeletons/AdminHomePageSkeleton';
 import styles from './AdminHomePage.module.css';
 import axiosInstance from '../../axiosInstance';
 import axios from 'axios';
@@ -52,23 +52,23 @@ const AdminHomePage = () => {
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className={styles.loaderWrapper}>
-        <Loader />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
-  }
-
   return (
     <div className={styles.homeContainer}>
-      <DashboardStats stats={stats} />
-      <DepartmentMap departments={departments} />
-      <DepartmentCharts departments={departments} />
+      {loading ? (
+        <div className={styles.loaderWrapper}>
+          <AdminHomePageSkeleton />
+        </div>
+      ) : error ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+          <p>{error}</p>
+        </div>
+      ) : (
+        <>
+          <DashboardStats stats={stats} />
+          <DepartmentMap departments={departments} />
+          <DepartmentCharts departments={departments} />
+        </>
+      )}
     </div>
   );
 };
