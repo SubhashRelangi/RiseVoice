@@ -76,7 +76,7 @@ const ProblemList = ({ problems }) => {
               <th>Location</th>
               <th>Status</th>
               <th>Last Updated</th>
-              <th>Likes</th>
+              <th>Fires</th>
             </tr>
           </thead>
           <tbody>
