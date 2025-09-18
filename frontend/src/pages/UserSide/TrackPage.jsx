@@ -239,21 +239,24 @@ const TrackPage = () => {
               </div>
 
               <div className={styles.cardFooter}>
-                <span
-                  className={styles.clickableText}
-                  onClick={() => handleViewDetails(c.problemId)}
-                >
-                  Comments: {c.comments.length}
-                </span>
-                <span
-                  onClick={() => handleLike(c.problemId)}
-                  style={{
-                    cursor: likedProblems.has(c.problemId) ? 'default' : 'pointer',
-                  }}
-                >
-                  <FaFire style={{ color: likedProblems.has(c.problemId) ? 'red' : 'grey' }} />
-                  {' '}{c.likes}
-                </span>
+                <div className={styles.cardActions}>
+                  <span
+                    className={styles.clickableText}
+                    onClick={() => handleViewDetails(c.problemId)}
+                  >
+                    Comments: {c.comments.length}
+                  </span>
+                  <span
+                    onClick={() => handleLike(c.problemId)}
+                    className={styles.likeButton}
+                    style={{
+                      cursor: likedProblems.has(c.problemId) ? 'default' : 'pointer',
+                    }}
+                  >
+                    <FaFire style={{ color: likedProblems.has(c.problemId) ? 'red' : 'grey' }} />
+                    {' '}{c.likes}
+                  </span>
+                </div>
                 <button
                   className={styles.detailsBtn}
                   onClick={() => handleViewDetails(c.problemId)}

@@ -1036,3 +1036,15 @@
     padding: 0.6rem 1rem;
   }
 }
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.likeButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
