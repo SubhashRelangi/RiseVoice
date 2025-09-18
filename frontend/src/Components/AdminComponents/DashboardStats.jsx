@@ -1,40 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SummaryCard from './SummaryCard';
 import styles from './DashboardStats.module.css';
 import { FaCheck, FaHourglassHalf, FaTimes } from 'react-icons/fa';
-import axiosInstance from '../../axiosInstance';
 
-const DashboardStats = () => {
-  const [stats, setStats] = useState({
-    active: { count: 0, percentage: 0 },
-    pending: { count: 0, percentage: 0 },
-    rejected: { count: 0, percentage: 0 },
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const DashboardStats = ({ stats }) => {
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await axiosInstance.get('/api/admin/stats');
-        setStats(response.data);
-      } catch (err) {
-        setError('Failed to fetch stats');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStats();
-  }, []);
-
-  if (loading) {
-    return <p>Loading stats...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
+  if (!stats) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150px' }}>
+      <p>Loading stats...</p>
+    </div>;
   }
 
   return (

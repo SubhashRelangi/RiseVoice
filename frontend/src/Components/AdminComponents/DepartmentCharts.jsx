@@ -1,96 +1,67 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import { Doughnut, Bar } from "react-chartjs-2";
 import styles from "./DepartmentCharts.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import axiosInstance from "../../axiosInstance";
-import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
-const DepartmentCharts = () => {
-  const [departmentData, setDepartmentData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const DepartmentCharts = ({ departments = [] }) => {
 
-  useEffect(() => {
-    const fetchDepartmentData = async () => {
-      try {
-        const response = await axiosInstance.get("/api/admin/all-departments");
-        const departments = response.data;
+  const departmentData = useMemo(() => {
+    if (!departments || departments.length === 0) {
+      return null;
+    }
 
-        // Process data for doughnut chart
-        const statusCounts = departments.reduce((acc, dept) => {
-          acc[dept.status] = (acc[dept.status] || 0) + 1;
-          return acc;
-        }, {});
+    // Process data for doughnut chart
+    const statusCounts = departments.reduce((acc, dept) => {
+      acc[dept.status] = (acc[dept.status] || 0) + 1;
+      return acc;
+    }, {});
 
-        const doughnutChartData = {
-          labels: Object.keys(statusCounts),
-          datasets: [
-            {
-              label: "Departments by Status",
-              data: Object.values(statusCounts),
-              backgroundColor: ["#28a745", "#ffc107", "#dc3545"],
-              borderColor: ["#28a745", "#ffc107", "#dc3545"],
-              borderWidth: 1,
-            },
-          ],
-        };
-
-        // Process data for bar chart
-        const departmentsWithState = [];
-        for (const dept of departments) {
-          try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const geoResponse = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${dept.location.latitude}&lon=${dept.location.longitude}`, { withCredentials: false });
-            departmentsWithState.push({ ...dept, state: geoResponse.data.address.state || 'N/A' });
-          } catch (error) {
-            console.error('Error fetching address for department', dept._id, error);
-            departmentsWithState.push({ ...dept, state: 'N/A' });
-          }
-        }
-
-        const stateCounts = departmentsWithState.reduce((acc, dept) => {
-          acc[dept.state] = (acc[dept.state] || 0) + 1;
-          return acc;
-        }, {});
-
-        const barChartData = {
-          labels: Object.keys(stateCounts),
-          datasets: [
-            {
-              label: "Departments by State",
-              data: Object.values(stateCounts),
-              backgroundColor: "#007bff",
-            },
-          ],
-        };
-
-        setDepartmentData({
-          doughnut: doughnutChartData,
-          bar: barChartData,
-          total: departments.length,
-          statusCounts: statusCounts,
-          totalStates: Object.keys(stateCounts).length
-        });
-      } catch (err) {
-        setError("Failed to fetch department data");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+    const doughnutChartData = {
+      labels: Object.keys(statusCounts),
+      datasets: [
+        {
+          label: "Departments by Status",
+          data: Object.values(statusCounts),
+          backgroundColor: ["#28a745", "#ffc107", "#dc3545"],
+          borderColor: ["#28a745", "#ffc107", "#dc3545"],
+          borderWidth: 1,
+        },
+      ],
     };
 
-    fetchDepartmentData();
-  }, []);
+    // Process data for bar chart
+    const stateCounts = departments.reduce((acc, dept) => {
+      if (dept.state && dept.state !== 'N/A') {
+          acc[dept.state] = (acc[dept.state] || 0) + 1;
+      }
+      return acc;
+    }, {});
 
-  if (loading) {
-    return <p>Loading chart data...</p>;
-  }
+    const barChartData = {
+      labels: Object.keys(stateCounts),
+      datasets: [
+        {
+          label: "Departments by State",
+          data: Object.values(stateCounts),
+          backgroundColor: "#007bff",
+        },
+      ],
+    };
 
-  if (error) {
-    return <p>{error}</p>;
+    return {
+      doughnut: doughnutChartData,
+      bar: barChartData,
+      total: departments.length,
+      statusCounts: statusCounts,
+      totalStates: Object.keys(stateCounts).length
+    };
+  }, [departments]);
+
+
+  if (!departmentData) {
+    return <p>No chart data available.</p>;
   }
 
   const doughnutOptions = {
