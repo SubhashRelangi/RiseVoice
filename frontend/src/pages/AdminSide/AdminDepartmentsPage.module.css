@@ -153,3 +153,54 @@
   background-color: #fff;
   cursor: pointer;
 }
+
+@media (max-width: 992px) {
+  .filtersBody {
+    flex-direction: column; /* stack filters on tablets */
+    align-items: stretch;
+  }
+
+  .searchBar {
+    width: 100%;
+  }
+
+  .dropdowns {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdowns select,
+  .resetButton {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .filtersContainer {
+    padding: 1rem;
+  }
+
+  .filtersContainer h2 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .searchBar input {
+    width: 75%;
+    font-size: 0.9rem;
+  }
+
+  .dropdowns {
+    flex-direction: column; /* stack dropdowns & button */
+    width: 100%;
+  }
+
+  .dropdowns select,
+  .resetButton {
+    width: 100%;
+  }
+
+  .resetButton {
+    text-align: center;
+  }
+}
