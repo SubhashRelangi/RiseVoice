@@ -5,7 +5,7 @@ import ProblemMap from '../../Components/DepartmentalHomeComponents/ProblemMap/P
 import DepartmentalDashboard from '../../Components/DepartmentalHomeComponents/DepartmentalDashboard';
 import ProblemSummary from '../../Components/DepartmentalHomeComponents/ProblemSummary';
 import axiosInstance from '../../axiosInstance';
-import DepartmentHomePageSkeleton from '../../Components/DepartmentalHomeComponents/Skeletons/DepartmentHomePageSkeleton';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader'; // Use generic skeleton loader
 import styles from './DepartmentsHomePage.module.css';
 
 const DepartmentsHomePage = () => {
@@ -64,7 +64,11 @@ const DepartmentsHomePage = () => {
       <main>
         {loading ? (
           <div className={styles.loaderWrapper}>
-            <DepartmentHomePageSkeleton />
+            <GenericSkeletonLoader type="dashboard-stats" count={1} height="150px" /> {/* For DepartmentalDashboard */}
+            <GenericSkeletonLoader type="map" height="400px" /> {/* For ProblemMap */}
+            <GenericSkeletonLoader type="list-item" count={3} height="200px" /> {/* For ProblemList */}
+            <GenericSkeletonLoader type="text-block" height="100px" /> {/* For ProblemStatistics */}
+            <GenericSkeletonLoader type="text-block" height="80px" /> {/* For ProblemSummary */}
           </div>
         ) : error ? (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>

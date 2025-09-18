@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DashboardStats from '../../Components/AdminComponents/DashboardStats';
 import DepartmentMap from '../../Components/AdminComponents/DepartmentMap';
 import DepartmentCharts from '../../Components/AdminComponents/DepartmentCharts';
-import AdminHomePageSkeleton from '../../Components/AdminComponents/Skeletons/AdminHomePageSkeleton';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader'; // Use generic skeleton loader
 import styles from './AdminHomePage.module.css';
 import axiosInstance from '../../axiosInstance';
 import axios from 'axios';
@@ -56,7 +56,9 @@ const AdminHomePage = () => {
     <div className={styles.homeContainer}>
       {loading ? (
         <div className={styles.loaderWrapper}>
-          <AdminHomePageSkeleton />
+          <GenericSkeletonLoader type="dashboard-stats" count={3} height="400px" />
+          <GenericSkeletonLoader type="map" height="400px" />
+          <GenericSkeletonLoader type="charts" count={2} height="620px" />
         </div>
       ) : error ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>

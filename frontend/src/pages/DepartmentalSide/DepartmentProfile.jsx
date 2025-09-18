@@ -4,7 +4,7 @@ import DepartmentProfileCard from '../../Components/DepartmentProfile/Department
 import DepartmentDetailsCard from '../../Components/DepartmentProfile/DepartmentDetailsCard';
 import DepartmentAuditTrailCard from '../../Components/DepartmentProfile/DepartmentAuditTrailCard';
 import DepartmentClassificationCard from '../../Components/DepartmentProfile/DepartmentClassificationCard';
-import Loader from '../../Components/Loader';
+import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader'; // Use generic skeleton loader
 
 const DepartmentProfile = () => {
   const [department, setDepartment] = useState(null);
@@ -90,47 +90,41 @@ const DepartmentProfile = () => {
   }, []);
 
 
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <Loader />
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
-  }
-
-  if (!department) {
-    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>No department data found.</p></div>;
-  }
-
   return (
     <div>
-      <DepartmentProfileCard
-        departmentName={department.name}
-        serviceType={department.serviceType} // Assuming a serviceType field
-        location={department.location} // Assuming a location field with { latitude, longitude }
-        isActive={department.isActive} // Assuming an isActive field
-        isVerified={department.isVerified} // Assuming an isVerified field
-      />
-      <DepartmentDetailsCard
-        departmentId={department.id || 'N/A'}
-        email={department.email || 'N/A'}
-        locationCoords={department.location ? `${department.location.latitude}, ${department.location.longitude}` : 'N/A'}
-        lastLogin={department.lastLogin ? new Date(department.lastLogin).toLocaleString() : 'N/A'}
-        departmentStatus={department.isActive ? 'Active' : 'Inactive'}
-        verificationStatus={department.isVerified ? 'Verified' : 'Unverified'}
-      />
-      <DepartmentAuditTrailCard
-        createdDate={department.createdAt ? new Date(department.createdAt).toLocaleString() : 'N/A'}
-        lastUpdatedDate={department.updatedAt ? new Date(department.updatedAt).toLocaleString() : 'N/A'}
-      />
-      <DepartmentClassificationCard
-        departmentType={department.serviceType || 'N/A'}
-        description={getServiceDescription(department.serviceType)}
-      />
+      {loading ? (
+        <GenericSkeletonLoader type="department-profile" height="760px" />
+      ) : error ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>
+      ) : !department ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>No department data found.</p></div>
+      ) : (
+        <>
+          <DepartmentProfileCard
+            departmentName={department.name}
+            serviceType={department.serviceType} // Assuming a serviceType field
+            location={department.location} // Assuming a location field with { latitude, longitude }
+            isActive={department.isActive} // Assuming an isActive field
+            isVerified={department.isVerified} // Assuming an isVerified field
+          />
+          <DepartmentDetailsCard
+            departmentId={department.id || 'N/A'}
+            email={department.email || 'N/A'}
+            locationCoords={department.location ? `${department.location.latitude}, ${department.location.longitude}` : 'N/A'}
+            lastLogin={department.lastLogin ? new Date(department.lastLogin).toLocaleString() : 'N/A'}
+            departmentStatus={department.isActive ? 'Active' : 'Inactive'}
+            verificationStatus={department.isVerified ? 'Verified' : 'Unverified'}
+          />
+          <DepartmentAuditTrailCard
+            createdDate={department.createdAt ? new Date(department.createdAt).toLocaleString() : 'N/A'}
+            lastUpdatedDate={department.updatedAt ? new Date(department.updatedAt).toLocaleString() : 'N/A'}
+          />
+          <DepartmentClassificationCard
+            departmentType={department.serviceType || 'N/A'}
+            description={getServiceDescription(department.serviceType)}
+          />
+        </>
+      )}
     </div>
   );
 };

@@ -1,0 +1,6 @@
+.loaderWrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Add some gap between skeleton elements */
+}
