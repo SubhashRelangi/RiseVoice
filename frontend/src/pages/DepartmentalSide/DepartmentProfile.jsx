@@ -4,6 +4,7 @@ import DepartmentProfileCard from '../../Components/DepartmentProfile/Department
 import DepartmentDetailsCard from '../../Components/DepartmentProfile/DepartmentDetailsCard';
 import DepartmentAuditTrailCard from '../../Components/DepartmentProfile/DepartmentAuditTrailCard';
 import DepartmentClassificationCard from '../../Components/DepartmentProfile/DepartmentClassificationCard';
+import Loader from '../../Components/Loader';
 
 const DepartmentProfile = () => {
   const [department, setDepartment] = useState(null);
@@ -90,15 +91,19 @@ const DepartmentProfile = () => {
 
 
   if (loading) {
-    return <div>Loading department profile...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
   }
 
   if (!department) {
-    return <div>No department data found.</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>No department data found.</p></div>;
   }
 
   return (

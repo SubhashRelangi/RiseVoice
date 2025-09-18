@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ComplaintsDashboard from '../../Components/DepartmentalComplaints/ComplaintsDashboard';
 import ComplaintList from '../../Components/DepartmentalComplaints/ComplaintList';
 import axiosInstance from '../../axiosInstance';
+import Loader from '../../Components/Loader';
 
 const DepartmentalComplaints = () => {
   const [departmentLocation, setDepartmentLocation] = useState(null);
@@ -20,6 +21,7 @@ const DepartmentalComplaints = () => {
 
   useEffect(() => {
     const fetchDepartmentData = async () => {
+      setLoadingDepartment(true);
       try {
         // Fetch department profile
         const profileResponse = await axiosInstance.get('/api/departments/profile');
@@ -54,7 +56,8 @@ const DepartmentalComplaints = () => {
         setStats(newStats);
 
       } catch (error) {
-        setErrorDepartment(error.message); // Fixed: Use setErrorDepartment
+        setErrorDepartment('Failed to load complaint data.');
+        console.error(error);
       } finally {
         setLoadingDepartment(false);
       }
@@ -64,11 +67,15 @@ const DepartmentalComplaints = () => {
   }, [searchTerm, selectedStatus, selectedRadius]); // Re-run when filters change
 
   if (loadingDepartment) {
-    return <div>Loading department data...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <Loader />
+      </div>
+    );
   }
 
   if (errorDepartment) {
-    return <div>Error loading department data: {errorDepartment}</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{errorDepartment}</p></div>;
   }
 
   return (

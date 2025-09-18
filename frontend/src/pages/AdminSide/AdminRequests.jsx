@@ -1,8 +1,9 @@
-  import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
 import styles from './AdminRequests.module.css';
 import { FaInbox } from 'react-icons/fa';
+import Loader from '../../Components/Loader';
 
 const AdminRequests = () => {
   const [pendingDepartments, setPendingDepartments] = useState([]);
@@ -41,11 +42,15 @@ const AdminRequests = () => {
   };
 
   if (loading) {
-    return <div className={styles.adminContainer}><p>Loading pending departments...</p></div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
-    return <div className={styles.adminContainer}><p className={styles.adminError}>Error: {error}</p></div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
   }
 
   return (

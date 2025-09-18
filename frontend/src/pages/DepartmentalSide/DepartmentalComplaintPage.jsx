@@ -10,6 +10,7 @@ import {
   FaFire,
 } from 'react-icons/fa';
 import axiosInstance from '../../axiosInstance';
+import Loader from '../../Components/Loader';
 
 const DepartmentalComplaintPage = () => {
   const { id } = useParams();
@@ -20,28 +21,24 @@ const DepartmentalComplaintPage = () => {
   const [departmentProfile, setDepartmentProfile] = useState(null);
 
   useEffect(() => {
-    const fetchComplaint = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(`/api/problems/${id}`);
-        setComplaint(response.data);
+        setLoading(true);
+        const [complaintResponse, profileResponse] = await Promise.all([
+          axiosInstance.get(`/api/problems/${id}`),
+          axiosInstance.get('/api/departments/profile')
+        ]);
+        setComplaint(complaintResponse.data);
+        setDepartmentProfile(profileResponse.data);
       } catch (err) {
-        setError(err.message);
+        console.error('Error fetching data:', err);
+        setError('Failed to load complaint details. Please try again.');
       } finally {
         setLoading(false);
       }
     };
 
-    const fetchDepartmentProfile = async () => {
-      try {
-        const response = await axiosInstance.get('/api/departments/profile');
-        setDepartmentProfile(response.data);
-      } catch (error) {
-        console.error('Failed to fetch department profile', error);
-      }
-    };
-
-    fetchComplaint();
-    fetchDepartmentProfile();
+    fetchData();
   }, [id]);
 
   const handleAddComment = async () => {
@@ -59,6 +56,7 @@ const DepartmentalComplaintPage = () => {
       setNewComment('');
     } catch (err) {
       console.error('Error adding comment:', err);
+      alert('Failed to add comment. Please try again.');
     }
   };
 
@@ -75,9 +73,19 @@ const DepartmentalComplaintPage = () => {
   const handleMarkInProgress = () => updateStatus('In Progress');
   const handleMarkResolved = () => updateStatus('Resolved');
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!complaint) return <div>Complaint not found</div>;
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
+  }
+
+  if (!complaint) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>Complaint not found.</p></div>;
 
   const timeAgo = (date) => {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000);

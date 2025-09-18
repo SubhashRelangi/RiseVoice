@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './DepartmentDetailsPage.module.css';
 import axiosInstance from '../../axiosInstance';
-import { FaBuilding, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaTimesCircle, FaClock, FaLightbulb, FaTrash, FaLock, FaShieldAlt, FaUnlock } from 'react-icons/fa'; // Import FaUnlock
+import { FaBuilding, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaTimesCircle, FaClock, FaLightbulb, FaTrash, FaLock, FaShieldAlt, FaUnlock } from 'react-icons/fa';
+import Loader from '../../Components/Loader';
 
 const DepartmentDetailsPage = () => {
   const { id } = useParams();
@@ -16,9 +17,10 @@ const DepartmentDetailsPage = () => {
       try {
         const response = await axiosInstance.get(`/api/admin/department/${id}`);
         setDepartment(response.data);
-        setLoading(false);
       } catch (err) {
-        setError(err.message);
+        setError('Failed to fetch department details.');
+        console.error(err);
+      } finally {
         setLoading(false);
       }
     };
@@ -32,12 +34,13 @@ const DepartmentDetailsPage = () => {
         await axiosInstance.delete(`/api/admin/department/${id}`);
         navigate('/admin/departments');
       } catch (err) {
-        setError(err.message);
+        setError('Failed to remove department.');
+        console.error(err);
       }
     }
   };
 
-  const handleLockToggle = async () => { // Renamed to handleLockToggle
+  const handleLockToggle = async () => {
     try {
       let response;
       if (department.status === 'locked') {
@@ -47,7 +50,8 @@ const DepartmentDetailsPage = () => {
       }
       setDepartment(response.data.department);
     } catch (err) {
-      setError(err.message);
+      setError('Failed to toggle department lock status.');
+      console.error(err);
     }
   };
 
@@ -58,15 +62,19 @@ const DepartmentDetailsPage = () => {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>{error}</p></div>;
   }
 
   if (!department) {
-    return <div>Department not found</div>;
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}><p>Department not found.</p></div>;
   }
 
   const isLocked = department.status === 'locked';

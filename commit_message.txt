@@ -1,9 +1,0 @@
-feat(admin): Centralize homepage data fetching
-
-Refactored the Admin Homepage to consolidate data fetching for all its components (Map, Stats, Charts) into the main page component.
-
-- Moved data fetching logic from `DepartmentMap`, `DashboardStats`, and `DepartmentCharts` into `AdminHomePage`.
-- Implemented a single, coordinated loading state for the entire page, ensuring all components load their data before the page is displayed.
-- Simplified child components into presentational components that receive data via props.
-- Added a shared `Loader` component for the loading state.
-- Improved efficiency by removing redundant API calls and data processing.
