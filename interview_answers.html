@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceUp Interview Questions</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        .qa-pair {
+            margin-bottom: 20px;
+        }
+        .question {
+            font-weight: bold;
+            cursor: pointer;
+            color: #2980b9;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .question:hover {
+            background-color: #dbe4e8;
+        }
+        .answer {
+            display: none;
+            padding: 10px;
+            border-left: 3px solid #3498db;
+            margin-top: 10px;
+            background-color: #fafafa;
+        }
+        .answer p, .answer ul, .answer ol {
+            margin-top: 0;
+        }
+        .answer ul, .answer ol {
+            padding-left: 20px;
+        }
+        .answer code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: "Courier New", Courier, monospace;
+        }
+        .answer pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>VIVA / Interview Answers for VoiceUp Project</h1>
+
+        <h2>General/Conceptual Questions</h2>
+
+        <div class="qa-pair">
+            <div class="question">1. What is the purpose of the VoiceUp application? What problem does it solve?</div>
+            <div class="answer">
+                <p>VoiceUp is a web-based platform designed to bridge the gap between the public and government or organizational departments. It allows users to report civic issues, such as potholes, broken streetlights, or waste management problems, directly to the responsible departments. The platform aims to streamline the process of reporting and resolving these issues, providing transparency and accountability.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">2. Can you give a high-level overview of the project's architecture?</div>
+            <div class="answer">
+                <p>We've built VoiceUp using the MERN stack. It's a classic client-server architecture:</p>
+                <ul>
+                    <li><strong>Frontend:</strong> A React single-page application (SPA) that provides the user interface.</li>
+                    <li><strong>Backend:</strong> A Node.js and Express.js server that exposes a RESTful API.</li>
+                    <li><strong>Database:</strong> A MongoDB database to store all the application data, including user information, problems, and department details.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">3. Who are the target users of this application?</div>
+            <div class="answer">
+                <p>Our application has three main user groups:</p>
+                <ul>
+                    <li><strong>The General Public:</strong> Anyone who wants to report a civic issue in their community.</li>
+                    <li><strong>Departmental Users:</strong> Representatives from government or organizational departments who are responsible for addressing the reported problems.</li>
+                    <li><strong>Administrators:</strong> Superusers who manage the platform, including verifying new departments and overseeing the overall system.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">4. Walk me through the user flow of reporting a new problem.</div>
+            <div class="answer">
+                <ol>
+                    <li>A user visits the VoiceUp website and clicks on the "Raise a Complaint" button.</li>
+                    <li>They are presented with a form where they can provide details about the problem, including a title, description, and location (which can be automatically detected or manually entered).</li>
+                    <li>They can also upload a photo of the issue.</li>
+                    <li>Once the form is submitted, the backend creates a new problem entry in the database.</li>
+                    <li>The user receives a unique tracking ID for their complaint, which they can use to monitor its status.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">5. How does a department or organization register and get verified on the platform?</div>
+            <div class="answer">
+                <ol>
+                    <li>A department representative visits the "Department Signup" page.</li>
+                    <li>They fill out a registration form with details like the department name, email address, and other relevant information.</li>
+                    <li>Upon submission, their application is sent to the admin for approval.</li>
+                    <li>The administrator reviews the pending department requests in their dashboard.</li>
+                    <li>The admin can then either approve or reject the request. Once approved, the department can log in and start managing the problems assigned to them.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">6. What is the role of the administrator in this system?</div>
+            <div class="answer">
+                <p>The administrator has the highest level of authority in the system. Their key responsibilities include:</p>
+                <ul>
+                    <li><strong>Department Management:</strong> Approving or rejecting new department registrations.</li>
+                    <li><strong>User Management:</strong> The ability to view and manage all users in the system.</li>
+                    <li><strong>Dashboard and Analytics:</strong> Access to a dashboard with statistics about the platform's usage, such as the number of problems reported, resolved, and pending.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">7. How do you handle user authentication and authorization?</div>
+            <div class="answer">
+                <p>We use a token-based authentication system with JSON Web Tokens (JWT). Here's how it works:</p>
+                <ul>
+                    <li><strong>Authentication:</strong> When a user (either a department user or an admin) logs in with their credentials, the backend verifies them. If the credentials are correct, the server generates a JWT and sends it to the client. This token is then stored in an HTTP-only cookie.</li>
+                    <li><strong>Authorization:</strong> For subsequent requests to protected routes, the client sends the JWT in the cookie. The backend has middleware that verifies the token. If the token is valid, the middleware extracts the user's information (like their role) from the token and grants them access to the requested resource. We have separate middleware for regular users and admins to handle different levels of access.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">8. What are the key features of the VoiceUp application?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Problem Reporting:</strong> Users can easily report problems with details and images.</li>
+                    <li><strong>Problem Tracking:</strong> Users can track the status of their reported problems.</li>
+                    <li><strong>Interactive Map:</strong> A Leaflet map displays the location of all reported problems.</li>
+                    <li><strong>Departmental Dashboard:</strong> Departments have a dedicated dashboard to view and manage problems assigned to them.</li>
+                    <li><strong>Admin Dashboard:</strong> An admin dashboard provides an overview of the entire system.</li>
+                    <li><strong>Email Notifications:</strong> The system sends email notifications for events like successful registration and status updates.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">9. What was your specific role in this project? What parts of the application did you work on?</div>
+            <div class="answer">
+                <p><em>(This is a question for each team member to answer individually. They should describe their specific contributions, for example:)</em></p>
+                <p>"I was primarily a backend developer on this project. I was responsible for designing and implementing the RESTful API, setting up the database models, and handling the authentication and authorization logic. I also worked on the file upload functionality with Multer and Cloudinary."</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">10. What were the biggest challenges you faced during the development of this project? How did you overcome them?</div>
+            <div class="answer">
+                <p><em>(This is another question for individual team members to answer, but here's a sample answer:)</em></p>
+                <p>"One of the biggest challenges was implementing the real-time location tracking and displaying it on the map. We had to figure out how to efficiently fetch and display a large number of markers without slowing down the application. We solved this by using server-side clustering of map markers and only loading the markers for the current map view."</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">11. If you had more time, what features would you add to the application?</div>
+            <div class="answer">
+                <p>"If we had more time, I would love to add a real-time notification system using WebSockets. This would allow users to get instant updates on their reported problems. I would also improve the search and filtering functionality to make it easier for users to find specific problems."</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">12. How did you collaborate with your team members? What tools did you use for collaboration?</div>
+            <div class="answer">
+                <p>"We used Git and GitHub for version control and code collaboration. We followed a feature-branch workflow, where each developer would work on a new feature in a separate branch and then create a pull request to merge it into the main branch. We also used a project management tool to track our tasks and progress."</p>
+            </div>
+        </div>
+
+        <h2>Frontend (React) Questions</h2>
+
+        <div class="qa-pair">
+            <div class="question">1. What version of React are you using? What are some of the key features of this version?</div>
+            <div class="answer">
+                <p>We are using React 19. This version introduced several new features, but the most significant one for our project was the introduction of Concurrent Features, which helps in creating more responsive user interfaces. We also made use of the improved <code>useEffect</code> hook for handling side effects.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">2. Explain the folder structure of the <code>frontend</code> directory.</div>
+            <div class="answer">
+                <p>Our <code>frontend</code> directory is structured to be modular and scalable:</p>
+                <ul>
+                    <li><strong><code>src/</code></strong>: This is the main folder containing all our source code.</li>
+                    <li><strong><code>src/pages/</code></strong>: This folder contains our top-level components for each page of the application (e.g., <code>HomePage</code>, <code>TrackPage</code>).</li>
+                    <li><strong><code>src/Components/</code></strong>: This folder contains reusable components that are used across multiple pages (e.g., <code>Header</code>, <code>Footer</code>, <code>Loader</code>).</li>
+                    <li><strong><code>src/Components/Auth/</code></strong>: This folder contains our authentication-related components, like <code>ProtectedRoute</code> and <code>AdminProtectedRoute</code>.</li>
+                    <li><strong><code>src/axiosInstance.js</code></strong>: A centralized Axios instance for making API requests.</li>
+                    <li><strong><code>src/index.js</code></strong>: The entry point of our React application.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">3. What is the purpose of the <code>axiosInstance.js</code> file? Why is it important?</div>
+            <div class="answer">
+                <p>The <code>axiosInstance.js</code> file is where we create a custom instance of Axios. This is important because it allows us to configure default settings for all our API requests in one place. For example, we set the <code>baseURL</code> to our backend server's address and configure it to send credentials (like cookies) with each request. This makes our code cleaner and easier to maintain.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">4. How are you managing routing in the application? Explain the use of <code>react-router-dom</code>.</div>
+            <div class="answer">
+                <p>We use <code>react-router-dom</code> for all our routing needs. In our <code>App.js</code> file, we define all the routes for our application using the <code>&lt;Routes&gt;</code> and <code>&lt;Route&gt;</code> components. We have routes for the user-facing pages, the departmental pages, and the admin pages. We also use the <code>useLocation</code> hook to get the current URL and conditionally render certain components.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">5. What is the difference between <code>ProtectedRoute</code> and <code>AdminProtectedRoute</code>? How do they work?</div>
+            <div class="answer">
+                <p>Both <code>ProtectedRoute</code> and <code>AdminProtectedRoute</code> are higher-order components that we use to protect certain routes from unauthorized access.</p>
+                <ul>
+                    <li><strong><code>ProtectedRoute</code></strong>: This is used for routes that require a user to be logged in as a department user. It checks if the user is authenticated, and if not, it redirects them to the login page.</li>
+                    <li><strong><code>AdminProtectedRoute</code></strong>: This is used for routes that are only accessible to administrators. It checks if the user is authenticated and has an "admin" role. If not, it redirects them to the admin login page.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">6. Explain the purpose of the <code>AuthContext.js</code> file. How does it manage authentication state?</div>
+            <div class="answer">
+                <p>We are not using <code>AuthContext.js</code> in this project. Instead, we are managing the authentication state within the <code>App.js</code> component using the <code>useState</code> and <code>useEffect</code> hooks. The <code>isLoggedIn</code> state is passed down as a prop to the <code>Navigation</code> component.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">7. How are you handling asynchronous API calls in the frontend?</div>
+            <div class="answer">
+                <p>We use the <code>useEffect</code> hook in combination with <code>axios</code> to handle asynchronous API calls. When a component needs to fetch data from the backend, we make the API call inside a <code>useEffect</code> hook with an empty dependency array to ensure it only runs once when the component mounts. We use <code>async/await</code> to handle the promises returned by Axios.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">8. What is the purpose of the <code>ScrollToTop.jsx</code> component?</div>
+            <div class="answer">
+                <p>The <code>ScrollToTop.jsx</code> component is a simple utility component that automatically scrolls the window to the top whenever the route changes. This is a common requirement in single-page applications to provide a more natural navigation experience.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">9. How are you using <code>Chart.js</code> and <code>react-chartjs-2</code> in the application? Can you give an example?</div>
+            <div class="answer">
+                <p>We use <code>Chart.js</code> and <code>react-chartjs-2</code> to create interactive charts for our dashboards. For example, in the <code>DepartmentalDashboard</code>, we have a bar chart that shows the number of problems in each category (e.g., open, in progress, resolved). We pass the data and options to the chart component, and it renders a visually appealing and informative chart.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">10. Explain the use of <code>Leaflet</code> and <code>react-leaflet</code> for displaying maps.</div>
+            <div class="answer">
+                <p>We use <code>Leaflet</code> and <code>react-leaflet</code> to display an interactive map on the homepage. The map shows markers for each reported problem. When a user clicks on a marker, it displays a popup with information about the problem. We also use the map to allow users to select the location of a new problem they are reporting.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">11. How are you handling forms in the application? Are you using any form libraries?</div>
+            <div class="answer">
+                <p>We are using controlled components with the <code>useState</code> hook to handle our forms. We are not using any external form libraries like Formik or React Hook Form. For each form input, we have a corresponding state variable, and we update the state on every change.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">12. How do you handle state management in the application? Are you using only component state (<code>useState</code>) or a state management library like Redux or MobX?</div>
+            <div class="answer">
+                <p>For this project, we are primarily using component-level state with the <code>useState</code> and <code>useEffect</code> hooks. We haven't found the need for a global state management library like Redux or MobX, as our application's state is relatively simple and can be managed effectively with React's built-in hooks.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">13. What is the purpose of the <code>proxy</code> setting in <code>package.json</code>?</div>
+            <div class="answer">
+                <p>The <code>proxy</code> setting in our <code>frontend/package.json</code> is used to proxy API requests from our React development server to our backend server. This is necessary to avoid CORS issues during development, as our frontend and backend are running on different ports.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">14. How have you optimized the performance of the React application?</div>
+            <div class="answer">
+                <p>We have implemented a few performance optimizations:</p>
+                <ul>
+                    <li><strong>Code Splitting:</strong> We are using React's built-in code splitting with <code>React.lazy</code> and <code>Suspense</code> to lazy-load some of our components. This helps to reduce the initial bundle size.</li>
+                    <li><strong>Memoization:</strong> We are using <code>React.memo</code> to memoize some of our components to prevent unnecessary re-renders.</li>
+                    <li><strong>Optimized Images:</strong> We are using optimized images to reduce the load time.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">15. How have you handled styling in the application? Are you using CSS modules, styled-components, or another approach?</div>
+            <div class="answer">
+                <p>We are using CSS Modules for styling our components. Each component has its own CSS module file, which scopes the styles to that component. This helps to avoid class name collisions and makes our CSS more maintainable.</p>
+            </div>
+        </div>
+
+        <h2>Backend (Node.js/Express) Questions</h2>
+
+        <div class="qa-pair">
+            <div class="question">1. Explain the folder structure of the <code>backend</code> directory.</div>
+            <div class="answer">
+                <p>Our <code>backend</code> directory is organized as follows:</p>
+                <ul>
+                    <li><strong><code>config/</code></strong>: Contains configuration files, such as the Cloudinary configuration.</li>
+                    <li><strong><code>controllers/</code></strong>: Contains the business logic for our API endpoints.</li>
+                    <li><strong><code>middleware/</code></strong>: Contains our Express middleware, such as authentication and error handling.</li>
+                    <li><strong><code>models/</code></strong>: Contains our Mongoose schemas for the database models.</li>
+                    <li><strong><code>routes/</code></strong>: Contains the Express route definitions for our API.</li>
+                    <li><strong><code>services/</code></strong>: Contains services that can be used by the controllers, like the <code>trustedDeviceService</code>.</li>
+                    <li><strong><code>utils/</code></strong>: Contains utility functions, such as the email sending utility.</li>
+                    <li><strong><code>server.js</code></strong>: The entry point of our backend application.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">2. What is the purpose of the <code>server.js</code> file? What middleware are you using and why?</div>
+            <div class="answer">
+                <p>The <code>server.js</code> file is the heart of our backend. It sets up the Express server, connects to the MongoDB database, and registers all the middleware and routes. We are using the following middleware:</p>
+                <ul>
+                    <li><strong><code>cors</code></strong>: To enable Cross-Origin Resource Sharing, allowing our frontend to make requests to the backend.</li>
+                    <li><strong><code>express.json</code></strong> and <strong><code>express.urlencoded</code></strong>: To parse incoming request bodies in JSON and URL-encoded formats.</li>
+                    <li><strong><code>cookie-parser</code></strong>: To parse cookies from incoming requests.</li>
+                    <li><strong><code>multer</code></strong>: To handle <code>multipart/form-data</code> which is used for file uploads.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">3. How are you handling environment variables in the backend?</div>
+            <div class="answer">
+                <p>We are using the <code>dotenv</code> package to manage our environment variables. We have a <code>.env</code> file in the root of our backend directory where we store sensitive information like our database connection string, JWT secret, and API keys. The <code>dotenv</code> package loads these variables into <code>process.env</code> so we can access them in our application.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">4. Explain the purpose of the <code>requestScheduler.js</code> file.</div>
+            <div class="answer">
+                <p>The <code>requestScheduler.js</code> file is responsible for periodically sending requests to our deployed backend to keep it from going into a "cold start" state on the free hosting tier. This ensures that the application is always responsive for our users.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">5. What is the role of the <code>routes</code>, <code>controllers</code>, and <code>models</code> directories?</div>
+            <div class="answer">
+                <p>This is a classic MVC (Model-View-Controller) pattern:</p>
+                <ul>
+                    <li><strong><code>models</code></strong>: Define the structure of our data in the database.</li>
+                    <li><strong><code>routes</code></strong>: Define the API endpoints and which controller functions handle which endpoints.</li>
+                    <li><strong><code>controllers</code></strong>: Contain the actual logic for handling each request. They interact with the models to perform CRUD (Create, Read, Update, Delete) operations on the data.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">6. How are you handling authentication and authorization in the backend? Explain the use of <code>jsonwebtoken</code> and <code>bcrypt</code>.</div>
+            <div class="answer">
+                <ul>
+                    <li><strong><code>bcrypt</code></strong>: When a user signs up, we use <code>bcrypt</code> to hash their password before storing it in the database. This is a one-way hashing algorithm, so even if our database is compromised, the attacker won't be able to see the users' plain-text passwords.</li>
+                    <li><strong><code>jsonwebtoken</code></strong>: When a user logs in, we create a JSON Web Token (JWT) that contains the user's ID and role. This token is signed with a secret key and sent to the client. The client then includes this token in the header of subsequent requests. The backend verifies the token's signature to ensure that it hasn't been tampered with and that the user is who they say they are.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">7. What is the purpose of the <code>auth.middleware.js</code> and <code>admin.middleware.js</code> files?</div>
+            <div class="answer">
+                <p>These are our authorization middleware:</p>
+                <ul>
+                    <li><strong><code>auth.middleware.js</code></strong>: This middleware is used to protect routes that require a user to be logged in. It checks for a valid JWT in the request and, if it's present, it attaches the user's information to the request object.</li>
+                    <li><strong><code>admin.middleware.js</code></strong>: This middleware is used for routes that are only accessible to administrators. It first uses the <code>auth.middleware.js</code> to ensure the user is logged in, and then it checks if the user has the <code>admin</code> role.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">8. How are you handling file uploads? Explain the use of <code>multer</code> and <code>cloudinary</code>.</div>
+            <div class="answer">
+                <p>We use <code>multer</code> to handle file uploads from the client. <code>multer</code> is an Express middleware that parses <code>multipart/form-data</code> requests. When a file is uploaded, <code>multer</code> makes it available in the <code>req.file</code> or <code>req.files</code> object. We then use the <code>cloudinary</code> library to upload the file to the Cloudinary cloud storage service. Cloudinary provides a URL for the uploaded file, which we then store in our database.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">9. How are you sending emails from the backend? Explain the use of <code>nodemailer</code>.</div>
+            <div class="answer">
+                <p>We use the <code>nodemailer</code> library to send emails from our backend. We have a utility file (<code>utils/email.js</code>) that configures the <code>nodemailer</code> transporter with our email service provider's credentials. We use this to send welcome emails to new users and to send verification codes for email verification.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">10. Explain the purpose of the <code>trustedDeviceService.js</code> file.</div>
+            <div class="answer">
+                <p>The <code>trustedDeviceService.js</code> is used to implement a "trusted device" feature. When a user logs in from a new device, we can ask them to verify their identity (e.g., with a code sent to their email). Once verified, we can add the device to a list of trusted devices for that user. This adds an extra layer of security to the login process.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">11. How have you structured your API routes? Can you give an example of a protected route?</div>
+            <div class="answer">
+                <p>Our API routes are structured based on the resource they are related to. For example, all routes related to problems are under <code>/api/problems</code>, and all routes related to departments are under <code>/api/departments</code>. Here's an example of a protected route from <code>routes/admin.route.js</code>:</p>
+                <pre><code>router.get('/stats', isAdmin, getDepartmentStats);</code></pre>
+                <p>In this example, the <code>isAdmin</code> middleware is executed before the <code>getDepartmentStats</code> controller function. The <code>isAdmin</code> middleware will ensure that only an authenticated admin can access this route.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">12. How do you handle errors in your Express application?</div>
+            <div class="answer">
+                <p>We have a centralized error handling middleware. If an error occurs in any of our routes, it is passed to this middleware. The middleware then sends a standardized JSON error response to the client with an appropriate status code and error message. This makes our error handling consistent across the application.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">13. What is the purpose of the <code>type: "module"</code> setting in <code>package.json</code>?</div>
+            <div class="answer">
+                <p>The <code>"type": "module"</code> setting in our <code>package.json</code> allows us to use ES Modules (i.e., <code>import</code> and <code>export</code> statements) in our Node.js backend instead of the traditional CommonJS (<code>require</code> and <code>module.exports</code>). This allows us to write more modern and consistent JavaScript across both our frontend and backend.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">14. How have you optimized the performance of the Node.js application?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Asynchronous Operations:</strong> We use asynchronous operations for all I/O-bound tasks, such as database queries and API calls, to avoid blocking the event loop.</li>
+                    <li><strong>Indexing:</strong> We have added indexes to our MongoDB collections to speed up query performance.</li>
+                    <li><strong>Caching:</strong> While not implemented yet, we have considered adding a caching layer (e.g., with Redis) to cache frequently accessed data.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Database (MongoDB) Questions</h2>
+
+        <div class="qa-pair">
+            <div class="question">1. Why did you choose MongoDB as the database for this project?</div>
+            <div class="answer">
+                <p>We chose MongoDB for a few reasons:</p>
+                <ul>
+                    <li><strong>Flexibility:</strong> MongoDB's flexible schema is ideal for a project like ours, where the data requirements might evolve over time.</li>
+                    <li><strong>Scalability:</strong> MongoDB is highly scalable and can handle a large amount of data and traffic.</li>
+                    <li><strong>Performance:</strong> MongoDB is known for its high performance, especially for read-heavy applications.</li>
+                    <li><strong>MERN Stack:</strong> MongoDB is a natural fit for the MERN stack, and the Mongoose library makes it very easy to work with MongoDB in a Node.js environment.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">2. Can you explain the schema for the <code>Problem</code>, <code>Department</code>, and <code>Admin</code> models?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong><code>Problem</code> Model:</strong> This model stores information about each reported problem, including a <code>title</code>, <code>description</code>, <code>location</code> (with GeoJSON coordinates), <code>images</code>, <code>status</code> (e.g., 'open', 'in-progress', 'resolved'), and a reference to the <code>Department</code> it's assigned to.</li>
+                    <li><strong><code>Department</code> Model:</strong> This model stores information about each department, including its <code>name</code>, <code>email</code>, <code>password</code>, and a list of problems assigned to it.</li>
+                    <li><strong><code>Admin</code> Model:</strong> This model is very simple and stores the <code>username</code> and <code>password</code> for the administrator.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">3. What is the purpose of the <code>TrustedDevice.model.js</code>?</div>
+            <div class="answer">
+                <p>The <code>TrustedDevice.model.js</code> schema is used to store information about devices that a user has marked as "trusted." This is part of our two-factor authentication system. When a user logs in from a new device, we can challenge them for a one-time password. If they successfully authenticate, we can save the device's information (like its user agent and IP address) in the <code>TrustedDevice</code> collection. For subsequent logins from that device, we can skip the two-factor authentication step.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">4. How have you used Mongoose to interact with the MongoDB database?</div>
+            <div class="answer">
+                <p>We use Mongoose as our Object Data Modeling (ODM) library. It allows us to define our data schemas in a more structured way and provides a rich set of tools for interacting with the database. We use Mongoose to perform all CRUD operations, such as creating new problems, finding departments, and updating the status of a problem.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">5. What are some of the Mongoose queries you have used in the application?</div>
+            <div class="answer">
+                <p>We have used a variety of Mongoose queries, including:</p>
+                <ul>
+                    <li><code>Model.find()</code>: To find all documents in a collection.</li>
+                    <li><code>Model.findById()</code>: To find a single document by its ID.</li>
+                    <li><code>Model.create()</code>: To create a new document.</li>
+                    <li><code>Model.findByIdAndUpdate()</code>: To find a document by its ID and update it.</li>
+                    <li><code>Model.populate()</code>: To populate referenced documents from other collections.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">6. How have you handled data validation in your Mongoose schemas?</div>
+            <div class="answer">
+                <p>Mongoose has built-in data validation. In our schemas, we have defined validation rules for each field. For example, we have made certain fields <code>required</code>, and we have used <code>enum</code> to restrict the possible values for the <code>status</code> field in the <code>Problem</code> model.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">7. Have you used any indexing in your MongoDB collections? Why is it important?</div>
+            <div class="answer">
+                <p>Yes, we have used indexing. For example, we have created an index on the <code>email</code> field in the <code>Department</code> model to ensure that all email addresses are unique. We have also created a geospatial index on the <code>location</code> field in the <code>Problem</code> model to speed up queries that involve finding problems within a certain area. Indexing is crucial for database performance, as it allows the database to find data much more quickly.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">8. How do you handle relationships between different collections?</div>
+            <div class="answer">
+                <p>We use Mongoose's <code>ref</code> property to create relationships between our collections. For example, in the <code>Problem</code> model, the <code>department</code> field has a <code>ref</code> to the <code>Department</code> model. This allows us to use Mongoose's <code>populate()</code> method to easily fetch the full department document when we query for a problem.</p>
+            </div>
+        </div>
+
+        <h2>DevOps/Deployment Questions</h2>
+
+        <div class="qa-pair">
+            <div class="question">1. How did you deploy the VoiceUp application? What platform did you use?</div>
+            <div class="answer">
+                <p>We deployed the frontend of our application to Vercel and the backend to a free-tier cloud service. Vercel is a great platform for deploying React applications because it's very easy to use and has a generous free tier. For the backend, we used a service that allows us to deploy our Node.js application.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">2. What is the purpose of the <code>.gitignore</code> file?</div>
+            <div class="answer">
+                <p>The <code>.gitignore</code> file is used to tell Git which files and folders it should ignore. This is important for keeping our repository clean and small. We have ignored files like <code>node_modules</code>, <code>.env</code>, and build artifacts.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">3. What is the purpose of the <code>package-lock.json</code> file?</div>
+            <div class="answer">
+                <p>The <code>package-lock.json</code> file is automatically generated by npm and records the exact version of every dependency that is installed. This is important for ensuring that all developers on the team are using the same versions of the dependencies and that the application will work consistently across different environments.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">4. How do you manage dependencies in the project?</div>
+            <div class="answer">
+                <p>We use npm to manage our dependencies. All of our dependencies are listed in the <code>package.json</code> file. We use <code>npm install</code> to install the dependencies and <code>npm update</code> to update them.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">5. What is the purpose of the <code>scripts</code> section in <code>package.json</code>?</div>
+            <div class="answer">
+                <p>The <code>scripts</code> section in our <code>package.json</code> file allows us to define custom commands that we can run with <code>npm run</code>. For example, we have scripts for starting the development server (<code>npm run dev</code>), building the production version of our application (<code>npm run build</code>), and running tests (<code>npm test</code>).</p>
+            </div>
+        </div>
+
+        <h2>Security Questions</h2>
+
+        <div class="qa-pair">
+            <div class="question">1. How have you protected the application against common security vulnerabilities like Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF)?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>XSS:</strong> React automatically escapes JSX content, which helps to prevent XSS attacks. We are also careful to sanitize any user-generated content that is rendered directly to the DOM.</li>
+                    <li><strong>CSRF:</strong> We are using JWTs stored in HTTP-only cookies. Since these cookies are not accessible to JavaScript, it is much harder for an attacker to steal them. We also have CORS configured on our backend to only allow requests from our frontend's domain.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">2. How are you hashing user passwords? Why is it important?</div>
+            <div class="answer">
+                <p>We are using the <code>bcrypt</code> library to hash user passwords. It's a one-way hashing algorithm, which means that it's computationally infeasible to reverse the hash and get the original password. This is crucial for protecting our users' passwords in case our database is ever compromised.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">3. How are you handling sensitive information like API keys and database credentials?</div>
+            <div class="answer">
+                <p>We are using environment variables to store all of our sensitive information. We have a <code>.env</code> file in our backend that contains our database connection string, JWT secret, and other API keys. This file is not committed to our Git repository, so it's not exposed to the public.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">4. What is the purpose of the <code>cors</code> middleware in the backend?</div>
+            <div class="answer">
+                <p>The <code>cors</code> middleware is used to enable Cross-Origin Resource Sharing. By default, web browsers prevent a web page from making requests to a different domain than the one that served the page. The <code>cors</code> middleware allows us to specify which domains are allowed to make requests to our backend. In our case, we have configured it to only allow requests from our deployed frontend and our local development environment.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">5. How do you ensure that only authorized users can access certain API endpoints?</div>
+            <div class="answer">
+                <p>We are using middleware to protect our API endpoints. We have an <code>auth.middleware.js</code> that checks for a valid JWT in the request. For routes that require admin privileges, we have an <code>admin.middleware.js</code> that checks if the user has the <code>admin</code> role. If a user is not authorized to access a particular endpoint, the middleware will send a <code>401 Unauthorized</code> or <code>403 Forbidden</code> response.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">6. Have you implemented any rate limiting in the application?</div>
+            <div class="answer">
+                <p>We have not implemented rate limiting yet, but it's something we would consider adding in the future to protect our application from brute-force attacks and denial-of-service attacks.</p>
+            </div>
+        </div>
+
+        <div class="qa-pair">
+            <div class="question">7. What is the purpose of the <code>trust proxy</code> setting in the Express application?</div>
+            <div class="answer">
+                <p>The <code>app.set('trust proxy', true)</code> setting is important when our application is running behind a proxy server (like Nginx or a load balancer). It tells Express to trust the <code>X-Forwarded-*</code> headers that are set by the proxy. This is necessary for things like getting the user's real IP address.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const questions = document.querySelectorAll('.question');
+
+            questions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isVisible = answer.style.display === 'block';
+                    
+                    // Optional: Close all other answers for an accordion effect
+                    document.querySelectorAll('.answer').forEach(ans => {
+                        if (ans !== answer) {
+                            ans.style.display = 'none';
+                        }
+                    });
+
+                    answer.style.display = isVisible ? 'none' : 'block';
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
