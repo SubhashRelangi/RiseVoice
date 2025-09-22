@@ -32,7 +32,14 @@ RiseVoice is packed with intuitive features designed to make your voice heard an
 *   **Departmental Dashboard:**
     *   Overview of problem statistics (resolved, in progress, pending).
     *   Integration with problem list and map views for comprehensive monitoring.
-*   **Complaint Management:** Departments can view and manage complaints relevant to them, including updating complaint statuses and viewing attached media.
+*   **Complaint Management:** Departments can view and manage complaints relevant to them, including updating complaint statuses, viewing attached media, and deleting complaints with a confirmation step.
+
+### Admin Features:
+
+*   **Secure Admin Authentication:** Dedicated login page for administrators.
+*   **Admin Dashboard:** Provides an overview of the system, including department and complaint statistics.
+*   **Department Management:** Admins can view and manage departmental accounts.
+*   **Request Management:** Admins can review and approve/reject new department registration requests.
 
 ---
 
@@ -59,19 +66,22 @@ The backend is built with Node.js and Express.js, providing a RESTful API.
 *   **Server Setup:** `server.js` acts as the entry point, handling middleware (CORS, JSON/URL parsing, Multer for multipart data), connecting to MongoDB via Mongoose, and mounting API routes.
 *   **Problem Module:** Manages all complaint-related operations. This includes creating problems with media uploads (handled by Cloudinary), retrieving problems (all, by ID, by coordinates), deleting problems, adding comments, and liking problems. It also supports updating problem statuses.
 *   **Department Module:** Handles the full lifecycle of departmental accounts, from secure signup (with password hashing via bcrypt and custom `departmentId` generation) and email verification (using Nodemailer and generated codes) to JWT-based login with an additional layer of security through trusted device verification.
+*   **Admin Module:** Handles administrator authentication and provides endpoints for managing departments and viewing system-wide information.
 *   **Models:**
     *   `Problem.model.js`: Defines the schema for complaints, including details like title, description, category, location, media, status, likes, and comments.
     *   `Department.model.js`: Defines the schema for department accounts, including authentication details, department information, and verification status.
     *   `TrustedDevice.model.js`: Stores information about devices that have been verified for a department, enabling a smoother login experience on recognized devices.
+    *   `Admin.model.js`: Defines the schema for administrator accounts.
 
 ### Frontend Architecture:
 
 The frontend is a React.js single-page application, utilizing `react-router-dom` for navigation.
 
-*   **Routing:** `App.js` centralizes all application routes, distinguishing between user-facing and departmental sections. It uses `ProtectedRoute` to secure departmental pages.
+*   **Routing:** `App.js` centralizes all application routes, distinguishing between user-facing, departmental, and admin sections. It uses `ProtectedRoute` and `AdminProtectedRoute` to secure departmental and admin pages respectively.
 *   **User Interface:**
     *   **Citizen-Facing:** Provides intuitive forms for complaint submission (integrating camera/gallery and geolocation), a comprehensive tracking page with advanced filtering, and detailed views for individual complaints.
     *   **Departmental-Facing:** Features secure login and signup flows. Includes dashboard components for an overview of problem statistics and a map view. Departments can update complaint statuses and view attached media directly from the complaint details page.
+    *   **Admin-Facing:** Provides a secure login and a dashboard for managing departments and registration requests.
 *   **API Communication:** `axiosInstance.js` creates a centralized Axios instance for making API calls to the backend, with the base URL configured via environment variables.
 
 ---
@@ -133,6 +143,7 @@ Once both servers are running, open your browser and navigate to `http://localho
 *   **Complaint Tracking Page:** [Placeholder for image]
 *   **Department Login Page:** [Placeholder for image]
 *   **Department Dashboard:** [Placeholder for image]
+*   **Admin Dashboard:** [Placeholder for image]
 
 ---
 
