@@ -231,3 +231,12 @@
         max-height: 200px;
     }
 }
+
+.deleteButton {
+    background-color: var(--button-danger-bg);
+    color: var(--text-light);
+}
+
+.deleteButton:hover {
+    background-color: var(--button-danger-hover);
+}

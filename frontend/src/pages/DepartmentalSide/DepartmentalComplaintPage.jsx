@@ -1,5 +1,5 @@
   import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './DepartmentalComplaintPage.module.css';
 import {
   FaRegCalendarAlt,
@@ -8,12 +8,14 @@ import {
   FaRegClock,
   FaCheckCircle,
   FaFire,
+  FaTrash,
 } from 'react-icons/fa';
 import axiosInstance from '../../axiosInstance';
 import GenericSkeletonLoader from '../../Components/GenericSkeletonLoader';
 
 const DepartmentalComplaintPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [complaint, setComplaint] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -72,6 +74,19 @@ const DepartmentalComplaintPage = () => {
 
   const handleMarkInProgress = () => updateStatus('In Progress');
   const handleMarkResolved = () => updateStatus('Resolved');
+
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this complaint? This action cannot be undone.')) {
+      try {
+        await axiosInstance.delete(`/api/problems/${id}`);
+        alert('Complaint deleted successfully.');
+        navigate('/department/complaints');
+      } catch (err) {
+        console.error('Error deleting complaint:', err);
+        alert('Failed to delete complaint. Please try again.');
+      }
+    }
+  };
 
   if (loading) {
     return (
@@ -200,6 +215,12 @@ const DepartmentalComplaintPage = () => {
             disabled={complaint.status === 'Resolved' || complaint.status === 'Rejected'}
           >
             <FaCheckCircle /> Mark as Resolved
+          </button>
+          <button
+            className={`${styles.actionButton} ${styles.deleteButton}`}
+            onClick={handleDelete}
+          >
+            <FaTrash /> Delete Complaint
           </button>
         </div>
       </div>
