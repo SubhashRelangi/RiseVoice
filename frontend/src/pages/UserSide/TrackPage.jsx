@@ -12,6 +12,9 @@ const TrackPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Category");
   const [selectedLocation, setSelectedLocation] = useState("Location");
   const [startDate, setStartDate] = useState("");
+  const [selectedRadius, setSelectedRadius] = useState("");
+  const [userLocation, setUserLocation] = useState(null);
+  const [isLocationLoading, setIsLocationLoading] = useState(false);
   const [likedProblems, setLikedProblems] = useState(() => {
     try {
       const storedLikes = localStorage.getItem('likedProblems');
@@ -50,57 +53,112 @@ const TrackPage = () => {
 
   // Apply filters
   useEffect(() => {
-    let updatedComplaints = [...allComplaints];
+    const applyFilters = async () => {
+      let complaintsToFilter;
 
-    // Search filter
-    if (searchTerm) {
-      updatedComplaints = updatedComplaints.filter(
-        (complaint) =>
-          complaint.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          complaint.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (complaint.location &&
+      if (selectedRadius && userLocation) {
+        setIsLocationLoading(true);
+        try {
+          const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+          const response = await axios.get(`${API_BASE_URL}/api/problems`, {
+            params: {
+              radius: selectedRadius,
+              departmentLat: userLocation.latitude,
+              departmentLng: userLocation.longitude,
+            }
+          });
+          complaintsToFilter = response.data;
+        } catch (error) {
+          console.error("Error fetching complaints by radius:", error);
+          complaintsToFilter = [];
+        } finally {
+          setIsLocationLoading(false);
+        }
+      } else {
+        complaintsToFilter = [...allComplaints];
+      }
+
+      let updatedComplaints = complaintsToFilter;
+
+      if (searchTerm) {
+        updatedComplaints = updatedComplaints.filter(
+          (complaint) =>
+            complaint.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            complaint.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (complaint.location &&
+              complaint.location.address &&
+              complaint.location.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            complaint.problemId.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      if (selectedStatus && selectedStatus !== "Status") {
+        updatedComplaints = updatedComplaints.filter(
+          (complaint) => complaint.status === selectedStatus
+        );
+      }
+
+      if (selectedCategory && selectedCategory !== "Category") {
+        updatedComplaints = updatedComplaints.filter(
+          (complaint) => complaint.category === selectedCategory
+        );
+      }
+
+      if (selectedLocation && selectedLocation !== "Location") {
+        updatedComplaints = updatedComplaints.filter(
+          (complaint) =>
+            complaint.location &&
             complaint.location.address &&
-            complaint.location.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          complaint.problemId.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+            complaint.location.address.toLowerCase().includes(selectedLocation.toLowerCase())
+        );
+      }
 
-    // Status filter
-    if (selectedStatus && selectedStatus !== "Status") {
-      updatedComplaints = updatedComplaints.filter(
-        (complaint) => complaint.status === selectedStatus
-      );
-    }
+      if (startDate) {
+        updatedComplaints = updatedComplaints.filter((complaint) => {
+          const complaintDate = new Date(complaint.createdAt)
+            .toISOString()
+            .split("T")[0];
+          return complaintDate === startDate;
+        });
+      }
 
-    // Category filter
-    if (selectedCategory && selectedCategory !== "Category") {
-      updatedComplaints = updatedComplaints.filter(
-        (complaint) => complaint.category === selectedCategory
-      );
-    }
+      setFilteredComplaints(updatedComplaints);
+    };
+    
+    applyFilters();
 
-    // Location filter
-    if (selectedLocation && selectedLocation !== "Location") {
-      updatedComplaints = updatedComplaints.filter(
-        (complaint) =>
-          complaint.location &&
-          complaint.location.address &&
-          complaint.location.address.toLowerCase().includes(selectedLocation.toLowerCase())
-      );
-    }
+  }, [searchTerm, selectedStatus, selectedCategory, selectedLocation, startDate, allComplaints, selectedRadius, userLocation]);
 
-    // ✅ Date filter (EXACT date only)
-    if (startDate) {
-      updatedComplaints = updatedComplaints.filter((complaint) => {
-        const complaintDate = new Date(complaint.createdAt)
-          .toISOString()
-          .split("T")[0];
-        return complaintDate === startDate;
-      });
-    }
+  const handleRadiusChange = (e) => {
+    const radius = e.target.value;
+    setSelectedRadius(radius);
 
-    setFilteredComplaints(updatedComplaints);
-  }, [searchTerm, selectedStatus, selectedCategory, selectedLocation, startDate, allComplaints]);
+    if (radius) {
+      if (navigator.geolocation) {
+        setIsLocationLoading(true);
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+            // The useEffect will handle the loading state once data is fetched
+          },
+          (error) => {
+            console.error("Error getting user location:", error);
+            alert("Could not get your location. Please enable location services.");
+            setSelectedRadius(''); // Reset radius filter
+            setIsLocationLoading(false);
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by this browser.");
+        setSelectedRadius(''); // Reset radius filter
+      }
+    } else {
+      setUserLocation(null);
+    }
+  };
 
   const handleResetFilters = () => {
     setSearchTerm("");
@@ -108,6 +166,9 @@ const TrackPage = () => {
     setSelectedCategory("Category");
     setSelectedLocation("Location");
     setStartDate("");
+    setSelectedRadius("");
+    setUserLocation(null);
+    setFilteredComplaints(allComplaints);
   };
 
   const handleViewDetails = (complaintId) => {
@@ -183,6 +244,13 @@ const TrackPage = () => {
               ))}
             </select>
 
+            <select value={selectedRadius} onChange={handleRadiusChange}>
+              <option value="">Radius</option>
+              <option value="1">1 km</option>
+              <option value="2">2 km</option>
+              <option value="3">3 km</option>
+            </select>
+
             {/* Single date filter */}
             <div className={styles.dateFilter}>
               <input
@@ -201,75 +269,79 @@ const TrackPage = () => {
       </div>
 
       {/* Complaints List */}
-      <div className={styles.complaintsList}>
-        {filteredComplaints.length > 0 ? (
-          filteredComplaints.map((c) => (
-            <div className={styles.complaintCard} key={c.problemId}>
-              <div className={styles.cardContent}>
-                <div className={styles.cardHeader}>
-                  <h4>{c.problemId}</h4>
-                  <span
-                    className={`${styles.status} ${styles[
-                      c.status
-                        .toLowerCase()
-                        .replace(/ /g, "")
-                        .replace(/-/g, "")
-                        .replace("resloved", "resolved")
-                    ]}`}
-                  >
-                    {c.status}
-                  </span>
+      {isLocationLoading ? (
+        <p>Loading complaints...</p>
+      ) : (
+        <div className={styles.complaintsList}>
+          {filteredComplaints.length > 0 ? (
+            filteredComplaints.map((c) => (
+              <div className={styles.complaintCard} key={c.problemId}>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardHeader}>
+                    <h4>{c.problemId}</h4>
+                    <span
+                      className={`${styles.status} ${styles[
+                        c.status
+                          .toLowerCase()
+                          .replace(/ /g, "")
+                          .replace(/-/g, "")
+                          .replace("resloved", "resolved")
+                      ]}`}
+                    >
+                      {c.status}
+                    </span>
+                  </div>
+                  <p>{c.title}</p>
+                  <p className={styles.description}><strong>Description: </strong>{c.description}</p>
+                  <p>
+                    <strong>Category:</strong> {c.category} &nbsp;
+                  </p>
+                  <p>
+                    <strong>Location:</strong> {c.location ? c.location.address : "N/A"}
+                  </p>
+                  <p>
+                    <strong>Raised Date:</strong>{" "}
+                    {new Date(c.createdAt).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Last Updated:</strong>{" "}
+                    {new Date(c.updatedAt).toLocaleDateString()}
+                  </p>
                 </div>
-                <p>{c.title}</p>
-                <p className={styles.description}><strong>Description: </strong>{c.description}</p>
-                <p>
-                  <strong>Category:</strong> {c.category} &nbsp;
-                </p>
-                <p>
-                  <strong>Location:</strong> {c.location ? c.location.address : "N/A"}
-                </p>
-                <p>
-                  <strong>Raised Date:</strong>{" "}
-                  {new Date(c.createdAt).toLocaleDateString()}
-                </p>
-                <p>
-                  <strong>Last Updated:</strong>{" "}
-                  {new Date(c.updatedAt).toLocaleDateString()}
-                </p>
-              </div>
 
-              <div className={styles.cardFooter}>
-                <div className={styles.cardActionsLeft}>
-                  <span
-                    onClick={() => handleLike(c.problemId)}
-                    className={styles.likeButton}
-                    style={{
-                      cursor: likedProblems.has(c.problemId) ? 'default' : 'pointer',
-                    }}
-                  >
-                    <FaFire style={{ color: likedProblems.has(c.problemId) ? 'red' : 'grey' }} />
-                    {' '}{c.likes}
-                  </span>
-                  <span
-                    className={styles.commentButton}
+                <div className={styles.cardFooter}>
+                  <div className={styles.cardActionsLeft}>
+                    <span
+                      onClick={() => handleLike(c.problemId)}
+                      className={styles.likeButton}
+                      style={{
+                        cursor: likedProblems.has(c.problemId) ? 'default' : 'pointer',
+                      }}
+                    >
+                      <FaFire style={{ color: likedProblems.has(c.problemId) ? 'red' : 'grey' }} />
+                      {' '}{c.likes}
+                    </span>
+                    <span
+                      className={styles.commentButton}
+                      onClick={() => handleViewDetails(c.problemId)}
+                    >
+                      <FaComment /> {c.comments.length}
+                    </span>
+                  </div>
+                  <button
+                    className={styles.detailsBtn}
                     onClick={() => handleViewDetails(c.problemId)}
                   >
-                    <FaComment /> {c.comments.length}
-                  </span>
+                    View More
+                  </button>
                 </div>
-                <button
-                  className={styles.detailsBtn}
-                  onClick={() => handleViewDetails(c.problemId)}
-                >
-                  View More
-                </button>
               </div>
-            </div>
-          ))
-        ) : (
-          <p>No complaints found.</p>
-        )}
-      </div>
+            ))
+          ) : (
+            <p>No complaints found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
