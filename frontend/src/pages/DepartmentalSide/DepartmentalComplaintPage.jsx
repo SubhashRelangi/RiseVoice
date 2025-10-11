@@ -1,4 +1,4 @@
-  import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './DepartmentalComplaintPage.module.css';
 import {
@@ -231,7 +231,7 @@ const DepartmentalComplaintPage = () => {
           <h2 className={styles.sectionTitle} style={{ border: 'none', margin: 0, padding: 0 }}>
             <FaRegComment /> Comments & Updates ({complaint.comments.length})
           </h2>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'red', fontWeight: 'bold' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'red', fontWeight: 'bold', cursor: 'default' }}>
             <FaFire />
             {complaint.likes || 0}
           </span>
