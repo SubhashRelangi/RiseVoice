@@ -31,28 +31,38 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div className={styles.footerLinks}>
+        <div className={`${styles.footerLinks} ${location.pathname.startsWith('/department') ? styles.centered : ''}`}>
           <h3>Quick Links</h3>
-          <ul>
-            <li><a onClick={() => handleScroll('hero-section')}>Home</a></li>
-            <li><a onClick={() => handleScroll('services-section')}>Services</a></li>
-            <li><a href="/track">Track</a></li>
-            <li><a href="/department/login">Login</a></li>
-          </ul>
+          {location.pathname.startsWith('/department') ? (
+            <ul>
+              <li><a href="/department">Home</a></li>
+              <li><a href="/department/complaints">Complaints</a></li>
+              <li><a href="/department/profile">Profile</a></li>
+            </ul>
+          ) : (
+            <ul>
+              <li><a onClick={() => handleScroll('hero-section')}>Home</a></li>
+              <li><a onClick={() => handleScroll('services-section')}>Services</a></li>
+              <li><a href="/track">Track</a></li>
+              <li><a href="/department/login">Login</a></li>
+            </ul>
+          )}
         </div>
 
         {/* Services Shortcuts */}
-        <div className={styles.footerServices}>
-          <h3>Departments</h3>
-          <ul>
-            <li><a onClick={() => handleDepartmentClick('ELECTRICITY')}>Electricity</a></li>
-            <li><a onClick={() => handleDepartmentClick('TRANSPORT')}>Transport</a></li>
-            <li><a onClick={() => handleDepartmentClick('HEALTHCARE')}>Health Care</a></li>
-            <li><a onClick={() => handleDepartmentClick('WATER')}>Water</a></li>
-            <li><a onClick={() => handleDepartmentClick('WASTE_MANAGEMENT')}>Sanitation</a></li>
-            <li><a onClick={() => handleDepartmentClick('POLICE')}>Police/Grievance</a></li>
-          </ul>
-        </div>
+        {!location.pathname.startsWith('/department') && (
+          <div className={styles.footerServices}>
+            <h3>Departments</h3>
+            <ul>
+              <li><a onClick={() => handleDepartmentClick('ELECTRICITY')}>Electricity</a></li>
+              <li><a onClick={() => handleDepartmentClick('TRANSPORT')}>Transport</a></li>
+              <li><a onClick={() => handleDepartmentClick('HEALTHCARE')}>Health Care</a></li>
+              <li><a onClick={() => handleDepartmentClick('WATER')}>Water</a></li>
+              <li><a onClick={() => handleDepartmentClick('WASTE_MANAGEMENT')}>Sanitation</a></li>
+              <li><a onClick={() => handleDepartmentClick('POLICE')}>Police/Grievance</a></li>
+            </ul>
+          </div>
+        )}
 
         {/* Contact */}
         <div className={styles.footerContact}>

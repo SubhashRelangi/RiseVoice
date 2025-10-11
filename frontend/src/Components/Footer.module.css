@@ -80,3 +80,7 @@
   font-size: 0.9rem;
   color: var(--background-color2);
 }
+
+.centered {
+  text-align: center;
+}
