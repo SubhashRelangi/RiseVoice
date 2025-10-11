@@ -20,6 +20,13 @@ const Footer = () => {
     navigate('/raise-complaint', { state: { category } });
   };
 
+  const isDepartmentPage =
+    location.pathname.startsWith('/department') &&
+    location.pathname !== '/department/login' &&
+    location.pathname !== '/department/signup';
+
+  const isAdminPage = location.pathname.startsWith('/admin') && location.pathname !== '/admin/login';
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
@@ -31,9 +38,15 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div className={`${styles.footerLinks} ${location.pathname.startsWith('/department') ? styles.centered : ''}`}>
+        <div className={`${styles.footerLinks} ${isDepartmentPage || isAdminPage ? styles.centered : ''}`}>
           <h3>Quick Links</h3>
-          {location.pathname.startsWith('/department') ? (
+          {isAdminPage ? (
+            <ul>
+              <li><a href="/admin/dashboard">Home</a></li>
+              <li><a href="/admin/departments">Departments</a></li>
+              <li><a href="/admin/requests">Requests</a></li>
+            </ul>
+          ) : isDepartmentPage ? (
             <ul>
               <li><a href="/department">Home</a></li>
               <li><a href="/department/complaints">Complaints</a></li>
@@ -50,7 +63,7 @@ const Footer = () => {
         </div>
 
         {/* Services Shortcuts */}
-        {!location.pathname.startsWith('/department') && (
+        {!isDepartmentPage && !isAdminPage && (
           <div className={styles.footerServices}>
             <h3>Departments</h3>
             <ul>
