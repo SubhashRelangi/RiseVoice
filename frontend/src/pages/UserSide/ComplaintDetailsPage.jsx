@@ -120,6 +120,28 @@ const ComplaintDetailsPage = () => {
     likes,
   } = complaint;
 
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `Complaint: ${title}`,
+          text: `Check out this complaint: ${description}`,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // Fallback for browsers that don't support the Web Share API
+      alert('Sharing is not supported on this browser. You can manually copy the URL.');
+    }
+  };
+
   return (
     <>
       <style>
@@ -429,6 +451,21 @@ const ComplaintDetailsPage = () => {
             padding: 0.3rem 0.6rem;
           }
         }
+
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          .mainContent, .mainContent * {
+            visibility: visible;
+          }
+          .mainContent {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+          }
+        }
       `}
       </style>
       <div className="pageContainer">
@@ -451,8 +488,8 @@ const ComplaintDetailsPage = () => {
             </div>
             <div className="actionButtons">
               <button onClick={() => navigate(-1)}><FaArrowLeft /> Back</button>
-              <button><FaPrint /> Print</button>
-              <button><FaShareAlt /> Share</button>
+              <button onClick={handlePrint}><FaPrint /> Print</button>
+              <button onClick={handleShare}><FaShareAlt /> Share</button>
             </div>
           </div>
         </div>
