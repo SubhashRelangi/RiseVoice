@@ -27,9 +27,10 @@ export const sendVerificationEmail = async (toEmail, code, departmentId, departm
 
   try {
     await transporter.sendMail(mailOptions);
+    console.log('Verification email sent successfully.');
     return true;
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending verification email:', error);
     return false;
   }
 };
